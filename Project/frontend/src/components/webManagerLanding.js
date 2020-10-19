@@ -19,19 +19,19 @@ class webManagerLanding extends Component{
                 <table>
                     <tr>
                         <th>Restaurant</th>
+                        <th></th> 
+                    </tr>
+                    <tr>
+                        <th>{restaurants[0]}</th>
                         <th><button type="button" id="delete_button" onclick="deleteRestaurants('0')">Delete</button></th> 
                     </tr>
                     <tr>
-                        <th>restaurants[0]</th>
+                        <th>{restaurants[1]}</th>
                         <th><button type="button" id="delete_button" onclick="deleteRestaurants('1')">Delete</button></th> 
                     </tr>
                     <tr>
-                        <th>restaurants[1]</th>
+                        <th>{restaurants[2]}</th>
                         <th><button type="button" id="delete_button" onclick="deleteRestaurants('2')">Delete</button></th> 
-                    </tr>
-                    <tr>
-                        <th>restaurants[2]</th>
-                        <th><button type="button" id="delete_button" onclick="deleteRestaurants('3')">Delete</button></th> 
                     </tr>
                 </table>
             </div>
