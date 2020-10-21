@@ -16,14 +16,11 @@ class Landing extends Component {
                         </p>
                      <Container fluid>
                         <Row>
-                        <Col>                     <LoginCard accountType={"Customer"}/>
-                    </Col>
+                        <Col><LoginCard accountType={"Customer"}/></Col>
                         <Col> <LoginCard accountType={"Restaurant Employee"}/></Col>
                         </Row>
                         <Row>
-                        <Col>
-                     <LoginCard accountType={"Delivery"}/>
-                     </Col>
+                        <Col><LoginCard accountType={"Delivery"}/></Col>
                         <Col><LoginCard accountType={"Web Manager"}/></Col>
                         </Row>
                         </Container>
