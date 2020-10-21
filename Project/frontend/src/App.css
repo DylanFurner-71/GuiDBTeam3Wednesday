@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.welcome {
+  color: rgba(0, 0, 0, 0);
+  font-size: 2em;
+}
+
+.user-info-form {
+  margin-bottom: 10%;
+  margin-top: 5%;
+  
+}
+
+input[type="text"] {
+  border: 1% solid rgba(0,0,0,0);
+}
