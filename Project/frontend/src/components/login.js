@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {loginUser} from "../actions/authActions";
+import {userTypes} from "../types/userTypes";
 class Login extends Component {
     constructor() {
         super();
@@ -37,13 +38,26 @@ class Login extends Component {
     };
     onSubmit = e => {
         e.preventDefault();
+        const type1 = this.determineAccountType();
         const userData = {
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            accountType: type1
         };
+        console.log("aa;lkdsfjal;dksfj;ldskfj", userData.accountType);
         this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
     };
-
+    determineAccountType = () => {
+        if (window.location.pathname === `/login/${userTypes.Customer}`){
+            return userTypes.Customer;
+        } else if (window.location.pathname === `/login/${userTypes.Delivery}`){
+            return userTypes.Delivery;
+        } else if (window.location.pathname === `/login/${userTypes.RestaurantEmployee}`){
+            return userTypes.RestaurantEmployee;
+        } else if (window.location.pathname === `/login/${userTypes.WebManager}`){
+            return userTypes.WebManager;
+        }
+    };
     render() {
         const error = this.state.error;
         return (
@@ -114,11 +128,11 @@ class Login extends Component {
 
 Login.propTypes = {
     loginUser: PropTypes.func.isRequired,
-    accountType: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
     auth: state.auth,
-    error: state.error
+    error: state.error,
+    accountType: state.accountType
 
 });
 export default connect(

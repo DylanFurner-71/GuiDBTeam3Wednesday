@@ -40,7 +40,11 @@ function App() {
 	                <Route exact path="/" component={Landing}/>
                     <Route exact path="/home" component={Landing}/>
 	                <Route path={`/login/${userTypes.Customer}` || `/login/${userTypes.Delivery}` || `/login/${userTypes.WebManager}` || `/login/${userTypes.RestaurantEmployee}` } component={Login}/>
-	                <Route exact path="/register" component={Register}/>
+	                {/* <Route exact path={`/register/${userTypes.Customer}`} component={RegisterCustomer}/>
+                    <Route exact path={`/register/${userTypes.Delivery}`} component={RegisterDelivery}/>
+	                <Route exact path={`/register/${userTypes.WebManager}`} component={RegisterWebManager}/>
+	                <Route exact path={`/register/${userTypes.RestaurantEmployee}`} component={RegisterRestaurantEmployee}/> */}
+
 	                <Switch>
 	                    {/* {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)} */}
 	                </Switch>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import login from "./login";
+
 export const LoginCard = (props) => {
     return (
         <>
