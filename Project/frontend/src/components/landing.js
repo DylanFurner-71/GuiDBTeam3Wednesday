@@ -8,7 +8,7 @@ class Landing extends Component {
     render() {
         return (
             <div style={{ height: "75vh" }} className="justify-content-center container valign-wrapper">
-                <div clas   sName="row">
+                <div className="row">
                     <div className="col center-align">
                                                 <h1>
                             <b>Welcome</b> to Newber Eats

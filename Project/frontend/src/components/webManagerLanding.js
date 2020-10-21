@@ -1,15 +1,19 @@
-class webManagerLanding extends Component{
+import React, {Component} from "react";
+
+import {userTypes} from "../types/userTypes";
+
+class WebManagerLanding extends Component{
     constructor(userFirstName, userLastName) { //sets the users full name and restaurants array
         super();
         this.state = {
             userFullName: userFirstName + " " + userLastName,
-            restaurants: new Array("Restaurant 1", "Restaurant 2", "Restaurant 3")
+            // restaurants: new Array("Restaurant 1", "Restaurant 2", "Restaurant 3") //so this will someday be an array of objectsbut for now its this
         };
     }
 
-    deleteRestaurants(element){
-       restaurants.splice(element, 1);
-    }
+    // deleteRestaurants(element){
+    //    restaurants.splice(element, 1);
+    // }
 
     render() {
         const {userFullName, restaurants} = this.state;
@@ -22,15 +26,16 @@ class webManagerLanding extends Component{
                         <th></th> 
                     </tr>
                     <tr>
-                        <th>{restaurants[0]}</th>
+                        {/* <th>{restaurants[0]}</th> */}
+                        <th>{"restaurants[0]"}</th>
                         <th><button type="button" id="delete_button" onclick="deleteRestaurants('0')">Delete</button></th> 
                     </tr>
                     <tr>
-                        <th>{restaurants[1]}</th>
+                        <th>{"restaurants[1]"}</th>
                         <th><button type="button" id="delete_button" onclick="deleteRestaurants('1')">Delete</button></th> 
                     </tr>
                     <tr>
-                        <th>{restaurants[2]}</th>
+                        <th>{"restaurants[2]"}</th>
                         <th><button type="button" id="delete_button" onclick="deleteRestaurants('2')">Delete</button></th> 
                     </tr>
                 </table>
@@ -38,4 +43,4 @@ class webManagerLanding extends Component{
         ) 
     }
 }
-export default webManagerLanding;
+export default WebManagerLanding;

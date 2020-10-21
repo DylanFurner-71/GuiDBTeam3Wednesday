@@ -6,12 +6,12 @@ import login from "./login";
 export const LoginCard = (props) => {
     return (
         <>
-            <div class="p-3 mb-2 bg-primary text-white">
-                <div class="d-flex flex-column">
-                    <div class="p-2">{props.accountType}</div>
-                    <div class="p-2">
-                        <div class="d-flex flex-row bg-success text-white">
-                            <div class="p-2 mb-2 bg-secondary pb-10% pt-10%">
+            <div className="p-3 mb-2 bg-primary text-white">
+                <div className="d-flex flex-column">
+                    <div className="p-2">{props.accountType}</div>
+                    <div className="p-2">
+                        <div className="d-flex flex-row bg-success text-white">
+                            <div className="p-2 mb-2 bg-secondary pb-10% pt-10%">
                                 <Link
                                     to={`/login/${props.accountType}`}
                                     style={{
@@ -23,7 +23,7 @@ export const LoginCard = (props) => {
                                     className="btn btn-large btn-flat waves-effect blue black-text"
                                 >Log In</Link>
                             </div>
-                            <div class="p-2 mb-2 bg-secondary">
+                            <div className="p-2 mb-2 bg-secondary">
                                 <Link
                                     to={`/register/${props.accountType}`}
                                     style={{
