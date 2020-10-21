@@ -15,7 +15,7 @@ class webManagerLanding extends Component{
         const {userFullName, restaurants} = this.state;
         return(
             <div id = "restaurants_list">
-                <h1>{userFullName}</h1>
+                <h1 class="welcome">Welcome, {userFullName}</h1>
                 <table>
                     <tr>
                         <th>Restaurant</th>
