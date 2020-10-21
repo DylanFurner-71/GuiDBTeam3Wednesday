@@ -7,9 +7,7 @@ class Landing extends Component {
             <div style={{ height: "75vh" }} className="justify-content-center container valign-wrapper">
                 <div className="row">
                     <div className="col center-align">
-                        <img style={{ width: "100px", height: "100px"}} src="https://via.placeholder.com/150
-
-C/O https://placeholder.com/" alt="Logo" />
+                        <img id="logo" style={{ width: "100px", height: "100px"}} src="../logo.png" alt="Logo" />
                         <h1>
                             <b>Welcome</b> to Newber Eats
                         </h1>
