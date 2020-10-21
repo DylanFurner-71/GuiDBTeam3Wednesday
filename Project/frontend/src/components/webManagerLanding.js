@@ -1,8 +1,8 @@
 class webManagerLanding extends Component{
-    constructor(username) { //sets the username and restaurants array
+    constructor(userFirstName, userLastName) { //sets the users full name and restaurants array
         super();
         this.state = {
-            username: username,
+            userFullName: userFirstName + " " + userLastName,
             restaurants: new Array("Restaurant 1", "Restaurant 2", "Restaurant 3")
         };
     }
@@ -12,10 +12,10 @@ class webManagerLanding extends Component{
     }
 
     render() {
-        const {username, restaurants} = this.state;
+        const {userFullName, restaurants} = this.state;
         return(
             <div id = "restaurants_list">
-                <h1>{username}</h1>
+                <h1>{userFullName}</h1>
                 <table>
                     <tr>
                         <th>Restaurant</th>
