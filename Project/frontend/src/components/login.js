@@ -3,14 +3,14 @@ import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {loginUser} from "../actions/authActions";
-
 class Login extends Component {
     constructor() {
         super();
         this.state = {
             email: "",
             password: "",
-            error: {}
+            error: {},
+            accountType: ""
         };
     }
 
@@ -114,11 +114,12 @@ class Login extends Component {
 
 Login.propTypes = {
     loginUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
+    accountType: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
     auth: state.auth,
     error: state.error
+
 });
 export default connect(
     mapStateToProps,

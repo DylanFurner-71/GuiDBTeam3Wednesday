@@ -11,7 +11,7 @@ import Login from './components/login'
 import Register from './components/register'
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
-
+import {userTypes} from "./types/userTypes";
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
     // Set auth token header auth
@@ -39,7 +39,7 @@ function App() {
 	            <Router>
 	                <Route exact path="/" component={Landing}/>
                     <Route exact path="/home" component={Landing}/>
-	                <Route exact path="/login" component={Login}/>
+	                <Route path={`/login/${userTypes.Customer}` || `/login/${userTypes.Delivery}` || `/login/${userTypes.WebManager}` || `/login/${userTypes.RestaurantEmployee}` } component={Login}/>
 	                <Route exact path="/register" component={Register}/>
 	                <Switch>
 	                    {/* {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)} */}

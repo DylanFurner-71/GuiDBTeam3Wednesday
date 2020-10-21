@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import login from "./login";
 export const LoginCard = (props) => {
     return (
         <>
@@ -11,7 +12,7 @@ export const LoginCard = (props) => {
                         <div class="d-flex flex-row bg-success text-white">
                             <div class="p-2 mb-2 bg-secondary pb-10% pt-10%">
                                 <Link
-                                    to="/login"
+                                    to={`/login/${props.accountType}`}
                                     style={{
                                         width: "140px",
                                         borderRadius: "3px",
@@ -23,7 +24,7 @@ export const LoginCard = (props) => {
                             </div>
                             <div class="p-2 mb-2 bg-secondary">
                                 <Link
-                                    to={`/registers/${props.accountType}`}
+                                    to={`/register/${props.accountType}`}
                                     style={{
                                         width: "140px",
                                         borderRadius: "3px",

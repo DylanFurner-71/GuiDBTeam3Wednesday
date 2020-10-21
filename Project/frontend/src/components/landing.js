@@ -1,7 +1,9 @@
 import React, {Component} from "react";
 import {Row, Col, Container} from "react-bootstrap"
 import {Link} from "react-router-dom";
-import {LoginCard} from "./LoginCard"
+import {LoginCard} from "./LoginCard";
+import {userTypes} from "../types/userTypes";
+
 class Landing extends Component {
     render() {
         return (
@@ -16,12 +18,12 @@ class Landing extends Component {
                         </p>
                      <Container fluid>
                         <Row>
-                        <Col><LoginCard accountType={"Customer"}/></Col>
-                        <Col> <LoginCard accountType={"Restaurant Employee"}/></Col>
+                        <Col><LoginCard accountType={userTypes.Customer}/></Col>
+                        <Col> <LoginCard accountType={userTypes.RestaurantEmployee}/></Col>
                         </Row>
                         <Row>
-                        <Col><LoginCard accountType={"Delivery"}/></Col>
-                        <Col><LoginCard accountType={"Web Manager"}/></Col>
+                        <Col><LoginCard accountType={userTypes.Delivery}/></Col>
+                        <Col><LoginCard accountType={userTypes.WebManager}/></Col>
                         </Row>
                         </Container>
                 </div>
