@@ -1,44 +1,61 @@
-import '../components/App.css';
+import React, {Component} from "react";
+import '../App.css';
 
-class customerLanding extends Component{
+class customerLanding extends Component {
     constructor(userFirstName, userLastName, userEmail) {
         super();
         this.state = {
-            firstName: userFirstName,
-            lastName: userLastName,
-            email: userEmail
+            // firstName: userFirstName,
+            firstName: "John",
+            // lastName: userLastName,
+            lastName: "Smith",
+            // email: userEmail
+            email: "johnsmith@gmail.com",
+            address1: "",
+            address2: "",
+            city: "",
+            zip: "",
         };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSave = this.handleSave.bind(this);
     }
 
-    saveUpdates() {
-        var editCustomer = document.getElementById("editCustomer");
-        var userUpdates = editCustomer.innerHTML;
-        // Temporary session storage for now
-        sessionStorage.userEdits = userUpdates;
+    handleChange(event) {
+        this.setState({
+            address1: event.target.address1,
+            address2: event.target.address2,
+            city: event.target.city,
+            zip: event.target.zip
+        });
+    }
+
+    handleSave(event) {
         alert("Information saved.");
+        event.preventDefault();
     }
 
     render() {
         const {firstName, lastName, email} = this.state;
         return(
             <div id="customerLanding">
-                <h1 class="welcome">Welcome, {firstName} {lastName}</h1>
-                <form name="customerInfo" class="user-info-form">
-                    <label for="firstName">Fist Name:</label>
-                    <input type="text" name="firstName" value={firstName}></input>
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" name="lastName" value={lastName}></input>
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" value={email}></input>
-                    <label for="address1">Address Line 1:</label>
-                    <input type="text" name="address1" value="Hello"></input>
-                    <label for="address2">Address Line 2:</label>
+                <h1 className="welcome">Welcome, {firstName} {lastName}</h1>
+                <form name="customerInfo" className="user-info-form">
+                    <label htmlFor="firstName">First Name:</label>
+                    <input type="text" name="firstName" value={firstName} readOnly></input>
+                    <label htmlFor="lastName">Last Name:</label>
+                    <input type="text" name="lastName" value={lastName} readOnly></input>
+                    <label htmlFor="email">Email:</label>
+                    <input type="email" name="email" value={email} readOnly></input>
+                    <label htmlFor="address1" value={this.state.address1} onChange={this.handleChange}>Address Line 1:</label>
+                    <input type="text" name="address1"></input>
+                    <label htmlFor="address2" value={this.state.address2} onChange={this.handleChange}>Address Line 2:</label>
                     <input type="text" name="address2"></input>
-                    <label for="city">City:</label>
+                    <label htmlFor="city" value={this.state.city} onChange={this.handleChange}>City:</label>
                     <input type="text" name="city"></input>
-                    <label for="zip">Zip Code:</label>
+                    <label htmlFor="zip" value={this.state.zip} onChange={this.handleChange}>Zip Code:</label>
                     <input type="number" name="zip"></input>
-                    <input type="button" value="Update" onclick="saveUpdates()"></input>
+                    <input type="button" value="Update" onClick={this.handleSave}></input>
                 </form>
             </div>
         ) 
