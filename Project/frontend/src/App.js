@@ -5,8 +5,7 @@ import {Provider} from "react-redux";
 import {setCurrentUser, logoutUser} from "./actions/authActions";
 import jwt_decode from "jwt-decode";
 // import PrivateRoute from "./components/PrivateRoute"
-import Navigation from "./components/navigation"
-import Landing from './components/landing'
+import Landing from './components/landing.jsx'
 import Login from './components/login'
 import Register from './components/register'
 import setAuthToken from "./utils/setAuthToken";
@@ -38,7 +37,6 @@ function App() {
     return (
         <Provider store={store}>
 	        <div className="App">
-	            <Navigation/>
 	            <Router>
 	                <Route exact path="/" component={Landing}/>
                     <Route exact path="/home" component={Landing}/>
