@@ -12,7 +12,8 @@ import Register from './components/register'
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
 import {userTypes} from "./types/userTypes";
-import WebManagerLanding from "./components/WebManagerLanding";
+import WebManagerLanding from "./components/webManagerLanding";
+
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
     // Set auth token header auth
