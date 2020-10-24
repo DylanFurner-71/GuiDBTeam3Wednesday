@@ -49,7 +49,7 @@ export const changePassword = (userData, history) => dispatch => {
 // Login - get user token
 export const loginUser = userData => dispatch => {
     axios
-        .post(`/users/login`, userData)
+        .post(`/login/${userData.accountType}`, userData)
         .then(res => {
             // Save to localStorage
 // Set token to localStorage
