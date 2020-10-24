@@ -11,6 +11,9 @@ import Login from './components/login'
 import Register from './components/register'
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
+import {userTypes} from "./types/userTypes";
+import WebManagerLanding from "./components/webManagerLanding";
+import CustomerLanding from "./components/customerLanding";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -39,8 +42,13 @@ function App() {
 	            <Router>
 	                <Route exact path="/" component={Landing}/>
                     <Route exact path="/home" component={Landing}/>
-	                <Route exact path="/login" component={Login}/>
-	                <Route exact path="/register" component={Register}/>
+	                <Route path={[`/login/${userTypes.Customer}`, `/login/${userTypes.Delivery}`, `/login/${userTypes.WebManager}`,`/login/${userTypes.RestaurantEmployee}`] } component={Login}/>
+	                {/* <Route exact path={`/register/${userTypes.Customer}`} component={RegisterCustomer}/>
+                    <Route exact path={`/register/${userTypes.Delivery}`} component={RegisterDelivery}/>
+	                <Route exact path={`/register/${userTypes.WebManager}`} component={RegisterWebManager}/>
+	                <Route exact path={`/register/${userTypes.RestaurantEmployee}`} component={RegisterRestaurantEmployee}/> */}
+                    <Route exact path={`/home/${userTypes.Customer}`} component = {CustomerLanding}/>
+                    <Route exact path={`/home/${userTypes.WebManager}`} component = {WebManagerLanding}/>
 	                <Switch>
 	                    {/* {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)} */}
 	                </Switch>
