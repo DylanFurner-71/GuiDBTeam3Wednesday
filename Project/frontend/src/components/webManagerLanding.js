@@ -15,6 +15,10 @@ class WebManagerLanding extends Component{
     //    restaurants.splice(element, 1);
     // }
 
+    // addRestaurant(id, name, address) {
+    //     new_restaurant = new Restaurant(id, name, address);
+    // }
+
     render() {
         const {userFullName, restaurants} = this.state;
         return(
@@ -39,6 +43,20 @@ class WebManagerLanding extends Component{
                         <th><button type="button" id="delete_button" onclick="deleteRestaurants('2')">Delete</button></th> 
                     </tr>
                 </table>
+
+                <h2>Add Restaurant</h2>
+                <form>
+                    <label for="ID">Restaurant ID:</label> 
+                    <input type="text" id="ID" value="12345"></input>
+
+                    <label for="name">Restaurant Name:</label>
+                    <input type="text" id="name" value="Chick fil a"></input>
+
+                    <label for="address">Restaurant Address:</label>
+                    <input type="text" id="address" value="1234 Bay Street"></input>
+                    <br></br>
+                </form>
+                <button type="button" id="add_button" onclick="addRestaurant(document.getElementById('ID').value, document.getElementById('name').value, document.getElementById('address').value)">Add Restaurant</button> 
             </div>
         ) 
     }
