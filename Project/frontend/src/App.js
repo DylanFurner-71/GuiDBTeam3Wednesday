@@ -7,7 +7,10 @@ import jwt_decode from "jwt-decode";
 // import PrivateRoute from "./components/PrivateRoute"
 import Landing from './components/landing.jsx'
 import Login from './components/login'
-import Register from './components/register'
+import RegisterUser from "./components/RegisterUser";
+import RegisterDriver from "./components/RegisterDriver";
+import RegisterWebManager from "./components/RegisterWebManager";
+import RegisterEmployee from "./components/RegisterEmployee";
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
 import {userTypes} from "./types/userTypes";
@@ -41,10 +44,10 @@ function App() {
 	                <Route exact path="/" component={Landing}/>
                     <Route exact path="/home" component={Landing}/>
 	                <Route path={[`/login/${userTypes.Customer}`, `/login/${userTypes.Delivery}`, `/login/${userTypes.WebManager}`,`/login/${userTypes.RestaurantEmployee}`] } component={Login}/>
-	                {/* <Route exact path={`/register/${userTypes.Customer}`} component={RegisterCustomer}/>
-                    <Route exact path={`/register/${userTypes.Delivery}`} component={RegisterDelivery}/>
+	                <Route exact path={`/register/${userTypes.Customer}`} component={RegisterUser}/>
+                    <Route exact path={`/register/${userTypes.Delivery}`} component={RegisterDriver}/>
 	                <Route exact path={`/register/${userTypes.WebManager}`} component={RegisterWebManager}/>
-	                <Route exact path={`/register/${userTypes.RestaurantEmployee}`} component={RegisterRestaurantEmployee}/> */}
+	                <Route exact path={`/register/${userTypes.RestaurantEmployee}`} component={RegisterEmployee}/>
                     <Route exact path={`/home/${userTypes.Customer}`} component = {CustomerLanding}/>
                     <Route exact path={`/home/${userTypes.WebManager}`} component = {WebManagerLanding}/>
 	                <Switch>

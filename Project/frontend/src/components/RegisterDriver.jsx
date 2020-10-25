@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { registerUser } from "../actions/authActions";
-class Register extends Component {
+import { register } from "../actions/authActions";
+class RegisterDriver extends Component {
     constructor() {
         super();
         this.state = {
@@ -12,6 +12,7 @@ class Register extends Component {
             email: "",
             password: "",
             password2: "",
+            address: "",
             error: ""
         };
     }
@@ -35,7 +36,8 @@ class Register extends Component {
             lastName: this.state.lastName,
             email: this.state.email,
             password: this.state.password,
-            password2: this.state.password2
+            password2: this.state.password2,
+            address: this.state.address,
         };
         this.props.registerUser(newUser, this.props.history);
     };
@@ -47,7 +49,7 @@ class Register extends Component {
                     <div className="col s8 offset-s2">
                         <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                             <h4>
-                                <b>Register</b> a user below
+                                <b>Register</b> a driver below
                             </h4>
                         </div>
                         <form noValidate onSubmit={this.onSubmit}>
@@ -58,8 +60,9 @@ class Register extends Component {
                                     error={error.firstName}
                                     id="firstName"
                                     type="text"
+                                    placeholder="First Name"
                                 />
-                                <label htmlFor="firstName"> First Name</label>
+                                <label htmlFor="firstName"></label>
                                 <span className="red-text">{error.firstName}</span>
                             </div>
                             <div className="input-field col s12">
@@ -69,8 +72,9 @@ class Register extends Component {
                                     error={error.lastName}
                                     id="lastName"
                                     type="text"
+                                    placeholder="Last Name"
                                 />
-                                <label htmlFor="lastName"> Last Name</label>
+                                <label htmlFor="lastName"></label>
                                 <span className="red-text">{error.lastName}</span>
                             </div>
                             <div className="input-field col s12">
@@ -80,11 +84,21 @@ class Register extends Component {
                                     error={error.email}
                                     id="email"
                                     type="email"
+                                    placeholder="Email"
 
                                 />
-                                <label htmlFor="email">Email</label>
                                 <span className="red-text">{error.email}</span>
                             </div>
+                            <div className="input-field col s12">
+                                <label htmlFor="email"></label>
+                <input type="text"
+                    id="email"
+                    name="email"
+                    value={this.state.address}
+                    placeholder="Address"
+                    onChange={ e => this.setState({ address: e.target.value })}
+                    />
+                    </div>
                             <div className="input-field col s12">
                                 <input
                                     onChange={this.onChange}
@@ -92,9 +106,10 @@ class Register extends Component {
                                     error={error.password}
                                     id="password"
                                     type="password"
+                                    placeholder="Password"
 
                                 />
-                                <label htmlFor="password">Password</label>
+                                <label htmlFor="password"></label>
                                 <span className="red-text">{error.password}</span>
                             </div>
                             <div className="input-field col s12">
@@ -104,9 +119,10 @@ class Register extends Component {
                                     error={error.password2}
                                     id="password2"
                                     type="password"
+                                    placeholder="Confirm Password"
 
                                 />
-                                <label htmlFor="password2">Confirm Password</label>
+                                <label htmlFor="password2"></label>
                                 <span className="red-text">{error.password2}</span>
                             </div>
                             <div className="col s12" style={{ paddingLeft: "11.250px" }}>
@@ -124,18 +140,6 @@ class Register extends Component {
                                     Sign up
                                 </button>
                             </div>
-                            <div>
-                            <Link
-                                to="/stylists/register"
-                                style={{
-                                    width: "100%",
-                                    borderRadius: "3px",
-                                    letterSpacing: "1.5px",
-                                    padding: "12px"
-                                }}
-                                className="btn btn-large btn-flat waves-effect blue black-text"
-                            >If you are a stylist and creating an account, please click here!</Link>
-                            </div>
                         </form>
                     </div>
                 </div>
@@ -143,8 +147,8 @@ class Register extends Component {
         );
     }
 }
-Register.propTypes = {
-    registerUser: PropTypes.func.isRequired,
+RegisterDriver.propTypes = {
+    register: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     error: PropTypes.object.isRequired
 };
@@ -154,5 +158,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
     mapStateToProps,
-    { registerUser }
-)(withRouter(Register));
+    { register }
+)(withRouter(RegisterDriver));
