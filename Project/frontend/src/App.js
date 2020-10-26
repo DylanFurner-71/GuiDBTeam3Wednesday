@@ -1,77 +1,62 @@
 import React from 'react';
 import './App.css';
-import axios from 'axios';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {Provider} from "react-redux";
+import {setCurrentUser, logoutUser} from "./actions/authActions";
+import jwt_decode from "jwt-decode";
+// import PrivateRoute from "./components/PrivateRoute"
+import Landing from './components/landing.jsx'
+import Login from './components/login'
+import RegisterUser from "./components/RegisterUser";
+import RegisterDriver from "./components/RegisterDriver";
+import RegisterWebManager from "./components/RegisterWebManager";
+import RegisterEmployee from "./components/RegisterEmployee";
+import setAuthToken from "./utils/setAuthToken";
+import store from "./store";
+import {userTypes} from "./types/userTypes";
+import WebManagerLanding from "./components/webManagerLanding";
+import CustomerLanding from "./components/customerLanding";
 
-class App extends React.Component {
+// Check for token to keep user logged in
+if (localStorage.jwtToken) {
+    // Set auth token header auth
+    const token = localStorage.jwtToken;
+    setAuthToken(token);
+    // Decode token and get user info and exp
+    const decoded = jwt_decode(token);
+    // Set user and isAuthenticated
+    store.dispatch(setCurrentUser(decoded));
+    // Check for expired token
+    const currentTime = Date.now() / 1000; // to get in milliseconds
+    if (decoded.exp < currentTime) {
+        // Logout user
+        store.dispatch(logoutUser());
+        // Redirect to login
+        window.location.href = "/login";
+    }
+}
 
-  constructor(props){
-    super(props);
-    this.state = {
-      number: "",
-      values: []
-    };
-    // this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  // handle input field state change
-  handleChange = (e) => {
-    this.setState({number: e.target.value})
-  }
-
-  // handle input form submission to backend via POST request
-  handleSubmit = (e) => {
-    e.preventDefault();
-    let prod = this.state.number * this.state.number;
-    axios.post('http://localhost:8000/multplynumber', {product: prod}).then(res => {
-      console.log(res);
-      this.fetchVals();
-    });
-    this.setState({number: ""});
-  }
-
-  // handle intialization and setup of database table, can reinitialize to wipe db
-  reset = () => {
-    axios.post('http://localhost:8000/reset').then(res => {
-      console.log(res);
-      this.fetchVals();
-    });
-  }
-
-  // tell app to fetch values from db on first load (if initialized)
-  componentDidMount(){
-    this.fetchVals();
-  }
-
-  // fetches vals of db via GET request
-  fetchVals = () => {
-    axios.get('http://localhost:8000/values').then(
-      res => {
-        const values = res.data;
-        console.log(values.data);
-        this.setState({ values: values.data });
-    });
-  }
-
-
-  render(){
+function App() {
     return (
-      <div className="App">
-        <header className="App-header">
-        <button onClick={this.reset}> Reset DB </button>
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" value={this.state.number} onChange={this.handleChange}/>
-            <br/>
-            <input type="submit" value="Submit" />
-          </form>
-          <ul>
-            { this.state.values.map((value, i) => <li key={i}>{value.value}</li>) }
-          </ul>
-        </header>
-      </div>
+        <Provider store={store}>
+	        <div className="App">
+	            <Router>
+	                <Route exact path="/" component={Landing}/>
+                    <Route exact path="/home" component={Landing}/>
+	                <Route path={[`/login/${userTypes.Customer}`, `/login/${userTypes.Delivery}`, `/login/${userTypes.WebManager}`,`/login/${userTypes.RestaurantEmployee}`] } component={Login}/>
+	                <Route exact path={`/register/${userTypes.Customer}`} component={RegisterUser}/>
+                    <Route exact path={`/register/${userTypes.Delivery}`} component={RegisterDriver}/>
+	                <Route exact path={`/register/${userTypes.WebManager}`} component={RegisterWebManager}/>
+	                <Route exact path={`/register/${userTypes.RestaurantEmployee}`} component={RegisterEmployee}/>
+                    <Route exact path={`/home/${userTypes.Customer}`} component = {CustomerLanding}/>
+                    <Route exact path={`/home/${userTypes.WebManager}`} component = {WebManagerLanding}/>
+	                <Switch>
+	                    {/* {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)} */}
+	                </Switch>
+	            </Router>
+	    	</div>
+    	</Provider>
     );
-  }
-
 }
 
 export default App;
