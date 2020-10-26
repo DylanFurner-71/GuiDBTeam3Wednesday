@@ -8,7 +8,7 @@ import logo from "../logo.png";
 class Landing extends Component {
     render() {
         return (
-            <div style={{ height: "75vh" }} className="justify-content-center container valign-wrapper">
+            <div  className="justify-content-center container valign-wrapper">
                 <div className="row">
                     <div className="col center-align">
                         <img id="landingLogo" src={logo} alt="Logo" />
