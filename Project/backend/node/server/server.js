@@ -1,7 +1,8 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
 const mysql = require('mysql');
+const apiRouter = require('./routes');
+
+const cors = require('cors');
 const { log, ExpressAPILogMiddleware } = require('@rama41222/node-logger');
 
 //set up some configs for express.
@@ -40,19 +41,7 @@ connection.connect(function (err) {
   logger.info("Connected to the DB!");
 });
 
-
-//GET /
-app.get('/', (req, res) => {
-  res.status(200).send('Go to 0.0.0.0:3000.');
-});
-
-app.get('/login/:id', (req, res) => {
-  if (req.params.id == 'root@email.com')
-    res.send('pass')
-});
-
-
-
+app.use('/', apiRouter)
 
 //connecting the express object to listen on a particular port as defined in the config object.
 app.listen(config.port, config.host, (e) => {
