@@ -39,7 +39,7 @@ if (localStorage.jwtToken) {
 function App() {
     return (
         <Provider store={store}>
-	        <div className="App">
+	        <div id="app">
 	            <Router>
 	                <Route exact path="/" component={Landing}/>
                     <Route exact path="/home" component={Landing}/>

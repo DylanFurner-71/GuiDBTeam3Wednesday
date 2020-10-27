@@ -4,7 +4,7 @@ import React from 'react';
 export const RestaurantsTable = props => {
 return (
 <>
-<h3 className="list-group-item bg-secondary text-white">Restaurants </h3>
+<h3 className="list-group-item bg-secondary text-white list-name">All Restaurants </h3>
     <ul className="list-group">
         {
             props.restaurants.map((x, i) =>
