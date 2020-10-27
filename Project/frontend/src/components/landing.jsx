@@ -12,8 +12,8 @@ class Landing extends Component {
                 <div className="row">
                     <div className="col center-align">
                         <img id="landingLogo" src={logo} alt="Logo" />
-                        <h1 class="welcome">Welcome to Newber Eats</h1>
-                        <p className="flow-text grey-text text-darken-1">
+                        <h1 className="welcome">Welcome to Newber Eats</h1>
+                        <p className="message">
                              Your newest undifferentiated food delivery app!
                         </p>
                      <Container fluid>

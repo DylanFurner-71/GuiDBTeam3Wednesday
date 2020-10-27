@@ -37,11 +37,11 @@ class WebManagerLanding extends Component{
         const {userFullName, restaurants} = this.state;
         return(
             <div id = "restaurants_list">
-                <h1 >Welcome, {userFullName}</h1>
+                <h1 className="welcome">Welcome, {userFullName}</h1>
                 <RestaurantsTable restaurants={this.state.restaurants}/>
                 <RestaurantsForm onRestaurantAdded={element => this.addRestaurant(element)} />
                 <DeleteRestaurantForm onRestaurantDeleted={element => this.deleteRestaurants(element)} numRestaurants={this.state.restaurants.length}/>
-                </div>
+            </div>
                
     ) 
     }

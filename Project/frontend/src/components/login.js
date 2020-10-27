@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {loginUser} from "../actions/authActions";
 import {userTypes} from "../types/userTypes";
 import "react-bootstrap";
+
 class Login extends Component {
     constructor() {
         super();
@@ -45,7 +46,7 @@ class Login extends Component {
             password: this.state.password,
             accountType: type1
         };
-        console.log("aa;lkdsfjal;dksfj;ldskfj", userData.accountType);
+        console.log("Account Type:", userData.accountType);
         this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
     };
     determineAccountType = () => {
@@ -65,17 +66,14 @@ class Login extends Component {
             <div className="container justify-content-center">
                 <div style={{marginTop: "4rem"}} className="row">
                     <div className="col offset-s2">
-                        <Link to="/" className="btn-flat waves-effect">
-                            <i className="material-icons left"></i> Back to
+                        <Link to="/" id="return-home" className="btn-flat waves-effect">
+                            <i className="material-icons left"></i> Return to
                             home
                         </Link>
                         <div className="col s12" style={{paddingLeft: "11.250px"}}>
-                            <h4>
+                            <h4 className="welcome">
                                 <b>Login</b> below
                             </h4>
-                            <p className="grey-text text-darken-1">
-                                Don't have an account yet? Please get an account from the administrator!
-                            </p>
                         </div>
                         <form onSubmit={this.onSubmit}>
                             <div className="input-field col s12">

@@ -22,7 +22,7 @@ export class RestaurantsForm extends React.Component {
     render() {
             return <>
             <form className="container">
-            <h1>Add Restaurant</h1>
+            <h2 class="action">Add Restaurant</h2>
             <div className="form-group">
                 <label htmlFor="name">Restaurant Name</label>
                 <input type="text"
