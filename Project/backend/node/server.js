@@ -43,12 +43,8 @@ app.listen(config.port, config.host, (e) => {
 });
 
 app.get('/', function (req, res) {
-  connection.query('SELECT * FROM test_table', function (error, results, fields) {
-    if (error) throw error;
-    res.end(JSON.stringify(results));
-  });
+  res.send('home')
 });
-
 
 
 
@@ -59,31 +55,36 @@ app.get('/', function (req, res) {
 //POST: Register Account
 app.post('/register/:type', function (req, res) {
   //TODO - DB query
-  //TODO - RES
+  console.log(`created ${req.params.type}`)
+  res.send({ 'request': 'valid', 'type': req.params.type })
 });
 
 //POST: Login Account
 app.post('/login', function (req, res) {
   //TODO - DB query
-  //TODO - RES
+  console.log()
+  res.send({ 'account_id': '00001' })
 });
 
 //PUT: Change Account Password
 app.put('/changepassword', function (req, res) {
   //TODO - DB query
-  //TODO - RES
+  console.log('password changed')
+  res.send({ 'request': 'valid' });
 });
 
 //PUT: Change Account Address
 app.put('/changeaddress', function (req, res) {
   //TODO - DB query
-  //TODO - RES
+  console.log('address changed')
+  res.send({ 'request': 'valid' });
 });
 
 //PUT: Change Account Contact
 app.put('/changecontact', function (req, res) {
   //TODO - DB query
-  //TODO - RES
+  console.log('contact changed')
+  res.send({ 'request': 'valid' });
 });
 
 
