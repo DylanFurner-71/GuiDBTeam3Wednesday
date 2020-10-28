@@ -53,10 +53,10 @@ app.get('/', function (req, res) {
 
 //*Epic 3*
 //POST: Register Account
-app.post('/register/:type', function (req, res) {
+app.post('/register/:account_type', function (req, res) {
   //TODO - DB query
-  console.log(`created ${req.params.type}`)
-  res.send({ 'request': 'valid', 'type': req.params.type })
+  console.log(`created ${req.params.account_type}`)
+  res.send({ 'request': 'valid', 'account_type': req.params.account_type })
 });
 
 //POST: Login Account
@@ -94,31 +94,31 @@ app.put('/changecontact', function (req, res) {
 
 //*EPIC 5*
 //GET: Get Restaurant Menu
-app.get('/:id/menu', function (req, res) {
+app.get('/:restaurant/menu', function (req, res) {
   //TODO - DB query
   //TODO - RES
 });
 
 //POST: Add Menu Item
-app.put('/:id/menu/additem', function (req, res) {
+app.put('/:restaurant/menu/additem', function (req, res) {
   //TODO - DB query
   //TODO - RES
 });
 
 //DELETE: Delete Menu Item
-app.delete('/:id/menu/rmitem', function (req, res) {
+app.delete('/:restaurant/menu/rmitem', function (req, res) {
   //TODO - DB query
   //TODO - RES
 });
 
 //PUT: Update Menu Item
-app.put('/:id/menu/updateitem', function (req, res) {
+app.put('/:restaurant/menu/updateitem', function (req, res) {
   //TODO - DB query
   //TODO - RES
 });
 
 //GET: Search Menu
-app.get('/:id/menu/search', function (req, res) {
+app.get('/:restaurant/menu/search', function (req, res) {
   //TODO - DB query
   //TODO - RES
 });
@@ -149,7 +149,7 @@ app.delete('/rmreview', function (req, res) {
 });
 
 //GET: See Restaurant Rating
-app.get('/:id/restaurant', function (req, res) {
+app.get('/:restaurant/rating', function (req, res) {
   //TODO - DB query
   //TODO - RES
 });
