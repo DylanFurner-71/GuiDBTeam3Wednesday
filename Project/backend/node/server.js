@@ -35,6 +35,13 @@ connection.connect(function (err) {
   logger.info("Connected to the DB!");
 });
 
+app.listen(config.port, config.host, (e) => {
+  if (e) {
+    throw new Error('Internal Server Error');
+  }
+  logger.info(`${config.name} running on ${config.host}:${config.port}`);
+});
+
 app.get('/', function (req, res) {
   connection.query('SELECT * FROM test_table', function (error, results, fields) {
     if (error) throw error;
@@ -42,9 +49,110 @@ app.get('/', function (req, res) {
   });
 });
 
-app.listen(config.port, config.host, (e) => {
-  if (e) {
-    throw new Error('Internal Server Error');
-  }
-  logger.info(`${config.name} running on ${config.host}:${config.port}`);
+
+
+
+
+//*SPRINT 1 REQUESTS*
+
+//*Epic 3*
+//POST: Register Account
+app.post('/register/:type', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
 });
+
+//POST: Login Account
+app.post('/login', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//PUT: Change Account Password
+app.put('/changepassword', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//PUT: Change Account Address
+app.put('/changeaddress', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//PUT: Change Account Contact
+app.put('/changecontact', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+
+
+
+//SPRINT 2 REQUESTS
+
+//*EPIC 5*
+//GET: Get Restaurant Menu
+app.get('/:id/menu', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//POST: Add Menu Item
+app.put('/:id/menu/additem', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//DELETE: Delete Menu Item
+app.delete('/:id/menu/rmitem', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//PUT: Update Menu Item
+app.put('/:id/menu/updateitem', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//GET: Search Menu
+app.get('/:id/menu/search', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//*EPIC 9*
+//POST: Add Restaurant
+app.post('/addrestaurant', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//DELETE: Remove Restaurant
+app.post('/rmrestaurant', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//DELETE: Remove Account
+app.delete('/rmaccount', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//DELETE: Remove Review
+app.delete('/rmreview', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//GET: See Restaurant Rating
+app.get('/:id/restaurant', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+
+
+
