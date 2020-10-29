@@ -24,7 +24,7 @@ export const LoginCard = (props) => {
                             </div>
                             <div className="p-2 mb-2 ">
                                 <Link
-                                    to={`/register/${props.accountType}`}
+                                    to={`/${props.accountType}/register`}
                                     style={{
                                         width: "140px",
                                         borderRadius: "3px",

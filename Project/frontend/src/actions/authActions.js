@@ -13,7 +13,7 @@ const api = "http://localhost:8000";
 axios.defaults.baseURL = api;
 export const register = (userData, history) => dispatch => {
     axios
-        .post(`/register/${userData.accountType}`, userData)
+        .post(`/${userData.accountType}`, userData)
         .then(() => history.push(`/login/${userData.accountType}`)) // re-direct to login on successful register
         .catch(err =>
             dispatch({
@@ -37,8 +37,9 @@ export const changePassword = (userData, history) => dispatch => {
 
 // Login - get user token
 export const loginUser = userData => dispatch => {
+    const userID = "1"; //this will someday be a call to the api to find the user we are about to log in
     axios
-        .post(`/login/${userData.accountType}`, userData)
+        .post(`/login/${userData.accountType}/${userID}`, userData)
         .then(res => {
             // Save to localStorage
 // Set token to localStorage
