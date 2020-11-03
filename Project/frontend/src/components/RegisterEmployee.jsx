@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { register } from "../actions/authActions";
+import { register } from "../respository/accountRepository";
 class RegisterEmployee extends Component {
     constructor() {
         super();

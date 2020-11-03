@@ -13,7 +13,7 @@ const api = "http://localhost:8000";
 axios.defaults.baseURL = api;
 export const register = (userData, history) => dispatch => {
     axios
-        .post(`/${userData.accountType}`, userData)
+        .post(`/register/${userData.accountType}`, userData)
         .then(() => history.push(`/login/${userData.accountType}`)) // re-direct to login on successful register
         .catch(err =>
             dispatch({
@@ -37,9 +37,8 @@ export const changePassword = (userData, history) => dispatch => {
 
 // Login - get user token
 export const loginUser = userData => dispatch => {
-    const userID = "1"; //this will someday be a call to the api to find the user we are about to log in
     axios
-        .post(`/login/${userData.accountType}/${userID}`, userData)
+        .post(`/login`, userData) //{userData.accountType}/${userID}
         .then(res => {
             // Save to localStorage
 // Set token to localStorage
@@ -82,3 +81,36 @@ export const logoutUser = () => dispatch => {
     // Set current user to empty object {} which will set isAuthenticated to false
     dispatch(setCurrentUser({}));
 };
+
+
+/*
+export class AccountsRepository {
+
+    url = 'https://api.johnlawrimore.com/directory/accounts';
+
+    config = {
+        headers: {
+            Authorization: 'jlawrimore'
+        }
+    };
+
+    getAccount(id) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/${id}`, this.config)
+            .then(x => resolve(x.data))
+            .catch(e => {
+                alert(e);
+                reject();
+            });
+        });
+    }
+}
+
+
+componentDidMount() {
+    const accountId = 6;
+    this.accountsRepository.getAccount(accountId)
+        .then(account => this.setState(account));
+}
+
+*/

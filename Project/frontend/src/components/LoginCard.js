@@ -13,7 +13,7 @@ export const LoginCard = (props) => {
                         <div className="d-flex flex-row text-white">
                             <div className="p-2 mb-2  pb-10% pt-10%">
                                 <Link
-                                    to={`/login/${props.accountType}`}
+                                    to={`/login`}
                                     style={{
                                         width: "140px",
                                         borderRadius: "3px",

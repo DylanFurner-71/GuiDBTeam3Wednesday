@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {Provider} from "react-redux";
-import {setCurrentUser, logoutUser} from "./actions/authActions";
+import {setCurrentUser, logoutUser} from "./respository/accountRepository";
 import jwt_decode from "jwt-decode";
 // import PrivateRoute from "./components/PrivateRoute"
 import Landing from './components/landing.jsx'
@@ -43,7 +43,7 @@ function App() {
 	            <Router>
 	                <Route exact path="/" component={Landing}/>
                     <Route exact path="/home" component={Landing}/>
-	                <Route path={[`/login/${userTypes.Customer}`, `/login/${userTypes.Delivery}`, `/login/${userTypes.WebManager}`,`/login/${userTypes.RestaurantEmployee}`] } component={Login}/>
+	                <Route path={[`/login`]}/>
 	                <Route exact path={`/${userTypes.Customer}/register`} component={RegisterUser}/>
                     <Route exact path={`/${userTypes.Delivery}/register`} component={RegisterDriver}/>
 	                <Route exact path={`/${userTypes.WebManager}/register`} component={RegisterWebManager}/>
