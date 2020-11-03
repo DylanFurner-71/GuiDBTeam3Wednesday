@@ -1,8 +1,23 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const app = express();
 const cors = require('cors');
 const mysql = require('mysql');
 const { log, ExpressAPILogMiddleware } = require('@rama41222/node-logger');
+
+//express configs
+const config = {
+  name: 'sample-express-app',
+  port: 8000,
+  host: '0.0.0.0',
+};
+
+const logger = log({ console: true, file: false, label: config.name });
+app.use(bodyParser.json());
+app.use(cors({
+  origin: '*'
+}));
+app.use(ExpressAPILogMiddleware(logger, { request: true }));
 
 //mysql connection
 var connection = mysql.createConnection({
@@ -13,25 +28,6 @@ var connection = mysql.createConnection({
   database: 'db'
 });
 
-//set up some configs for express.
-const config = {
-  name: 'sample-express-app',
-  port: 8000,
-  host: '0.0.0.0',
-};
-
-//create the express.js object
-const app = express();
-
-//create a logger object.  Using logger is preferable to simply writing to the console.
-const logger = log({ console: true, file: false, label: config.name });
-
-app.use(bodyParser.json());
-app.use(cors({
-  origin: '*'
-}));
-app.use(ExpressAPILogMiddleware(logger, { request: true }));
-
 //Attempting to connect to the database.
 connection.connect(function (err) {
   if (err)
@@ -39,61 +35,125 @@ connection.connect(function (err) {
   logger.info("Connected to the DB!");
 });
 
-//GET /
-app.get('/', (req, res) => {
-  res.status(200).send('Go to 0.0.0.0:3000.');
-});
-
-
-//POST /reset
-app.post('/reset', (req, res) => {
-  connection.query('drop table if exists test_table', function (err, rows, fields) {
-    if (err)
-      logger.error("Can't drop table");
-  });
-  connection.query('CREATE TABLE `db`.`test_table` (`id` INT NOT NULL AUTO_INCREMENT, `value` VARCHAR(45), PRIMARY KEY (`id`), UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);', function (err, rows, fields) {
-    if (err)
-      logger.error("Problem creating the table test_table");
-  });
-  res.status(200).send('created the table');
-});
-
-//POST /multplynumber
-app.post('/multplynumber', (req, res) => {
-  console.log(req.body.product);
-
-  connection.query('INSERT INTO `db`.`test_table` (`value`) VALUES(\'' + req.body.product + '\')', function (err, rows, fields) {
-    if (err){
-      logger.error("Problem inserting into test table");
-    }
-    else {
-      res.status(200).send(`added ${req.body.product} to the table!`);
-    }
-  });
-});
-
-//GET /checkdb
-app.get('/values', (req, res) => {
-  connection.query('SELECT value FROM `db`.`test_table`', function (err, rows, fields) {
-    if (err) {
-      logger.error("Error while executing Query: \n", err);
-      res.status(400).json({
-        "data": [],
-        "error": "MySQL error"
-      })
-    }
-    else{
-      res.status(200).json({
-        "data": rows
-      });
-    }
-  });
-});
-
-//connecting the express object to listen on a particular port as defined in the config object.
 app.listen(config.port, config.host, (e) => {
   if (e) {
     throw new Error('Internal Server Error');
   }
   logger.info(`${config.name} running on ${config.host}:${config.port}`);
 });
+
+app.get('/', function (req, res) {
+  res.send('home')
+});
+
+
+
+
+//*SPRINT 1 REQUESTS*
+
+//*Epic 3*
+//POST: Register Account
+app.post('/register/:account_type', function (req, res) {
+  //TODO - DB query
+  console.log(`created ${req.params.account_type}`)
+  res.send({ 'request': 'valid', 'account_type': req.params.account_type })
+});
+
+//POST: Login Account
+app.post('/login', function (req, res) {
+  //TODO - DB query
+  console.log()
+  res.send({ 'account_id': '00001' })
+});
+
+//PUT: Change Account Password
+app.put('/changepassword', function (req, res) {
+  //TODO - DB query
+  console.log('password changed')
+  res.send({ 'request': 'valid' });
+});
+
+//PUT: Change Account Address
+app.put('/changeaddress', function (req, res) {
+  //TODO - DB query
+  console.log('address changed')
+  res.send({ 'request': 'valid' });
+});
+
+//PUT: Change Account Contact
+app.put('/changecontact', function (req, res) {
+  //TODO - DB query
+  console.log('contact changed')
+  res.send({ 'request': 'valid' });
+});
+
+
+
+
+//SPRINT 2 REQUESTS
+
+//*EPIC 5*
+//GET: Get Restaurant Menu
+app.get('/:restaurant/menu', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//POST: Add Menu Item
+app.put('/:restaurant/menu/additem', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//DELETE: Delete Menu Item
+app.delete('/:restaurant/menu/rmitem', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//PUT: Update Menu Item
+app.put('/:restaurant/menu/updateitem', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//GET: Search Menu
+app.get('/:restaurant/menu/search', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//*EPIC 9*
+//POST: Add Restaurant
+app.post('/addrestaurant', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//DELETE: Remove Restaurant
+app.post('/rmrestaurant', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//DELETE: Remove Account
+app.delete('/rmaccount', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//DELETE: Remove Review
+app.delete('/rmreview', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+//GET: See Restaurant Rating
+app.get('/:restaurant/rating', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+});
+
+
+
+
