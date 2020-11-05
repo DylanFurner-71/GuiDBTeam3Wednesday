@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {Provider} from "react-redux";
-import {setCurrentUser, logoutUser} from "./actions/authActions";
+import {setCurrentUser, logoutUser} from "./respository/accountRepository";
 import jwt_decode from "jwt-decode";
 // import PrivateRoute from "./components/PrivateRoute"
 import Landing from './components/landing.jsx'
@@ -16,7 +16,7 @@ import store from "./store";
 import {userTypes} from "./types/userTypes";
 import WebManagerLanding from "./components/webManagerLanding";
 import CustomerLanding from "./components/customerLanding";
-
+import RestaurantEmployeeLanding from "./components/RestaurantEmployeeLanding";
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
     // Set auth token header auth
@@ -43,13 +43,14 @@ function App() {
 	            <Router>
 	                <Route exact path="/" component={Landing}/>
                     <Route exact path="/home" component={Landing}/>
-	                <Route path={[`/login/${userTypes.Customer}`, `/login/${userTypes.Delivery}`, `/login/${userTypes.WebManager}`,`/login/${userTypes.RestaurantEmployee}`] } component={Login}/>
-	                <Route exact path={`/register/${userTypes.Customer}`} component={RegisterUser}/>
-                    <Route exact path={`/register/${userTypes.Delivery}`} component={RegisterDriver}/>
-	                <Route exact path={`/register/${userTypes.WebManager}`} component={RegisterWebManager}/>
-	                <Route exact path={`/register/${userTypes.RestaurantEmployee}`} component={RegisterEmployee}/>
-                    <Route exact path={`/home/${userTypes.Customer}`} component = {CustomerLanding}/>
-                    <Route exact path={`/home/${userTypes.WebManager}`} component = {WebManagerLanding}/>
+	                <Route path="/login" component={Login}/>
+	                <Route exact path={`/${userTypes.Customer}/register`} component={RegisterUser}/>
+                    <Route exact path={`/${userTypes.Delivery}/register`} component={RegisterDriver}/>
+	                <Route exact path={`/${userTypes.WebManager}/register`} component={RegisterWebManager}/>
+	                <Route exact path={`/${userTypes.RestaurantEmployee}/register`} component={RegisterEmployee}/>
+                    <Route exact path={`/${userTypes.Customer}/home`} component = {CustomerLanding}/>
+                    <Route exact path={`/${userTypes.WebManager}/home`} component = {WebManagerLanding}/>
+                    <Route exact path={`/${userTypes.RestaurantEmployee}/home`} component = {RestaurantEmployeeLanding}/>
 	                <Switch>
 	                    {/* {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)} */}
 	                </Switch>

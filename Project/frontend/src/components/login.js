@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {loginUser} from "../actions/authActions";
+import {loginUser} from "../respository/accountRepository";
 import {userTypes} from "../types/userTypes";
 import "react-bootstrap";
 
@@ -13,10 +13,9 @@ class Login extends Component {
             email: "",
             password: "",
             error: {},
-            accountType: ""
         };
     }
-
+//i think we will get a prop from the api response that allows us to determine account type
     componentDidMount() {
         // If logged in and user navigates to Login page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
@@ -40,25 +39,11 @@ class Login extends Component {
     };
     onSubmit = e => {
         e.preventDefault();
-        const type1 = this.determineAccountType();
         const userData = {
             email: this.state.email,
             password: this.state.password,
-            accountType: type1
         };
-        console.log("Account Type:", userData.accountType);
         this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
-    };
-    determineAccountType = () => {
-        if (window.location.pathname === `/login/${userTypes.Customer}`){
-            return userTypes.Customer;
-        } else if (window.location.pathname === `/login/${userTypes.Delivery}`){
-            return userTypes.Delivery;
-        } else if (window.location.pathname === `/login/${userTypes.RestaurantEmployee}`){
-            return userTypes.RestaurantEmployee;
-        } else if (window.location.pathname === `/login/${userTypes.WebManager}`){
-            return userTypes.WebManager;
-        }
     };
     render() {
         const error = this.state.error;
@@ -131,7 +116,6 @@ Login.propTypes = {
 const mapStateToProps = state => ({
     auth: state.auth,
     error: state.error,
-    accountType: state.accountType
 
 });
 export default connect(

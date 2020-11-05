@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { register } from "../actions/authActions";
+import { register } from "../respository/accountRepository";
 class RegisterUser extends Component {
     constructor() {
         super();
@@ -90,10 +90,10 @@ class RegisterUser extends Component {
                                 <span className="red-text">{error.email}</span>
                             </div>
                             <div className="input-field col s12">
-                                <label htmlFor="email"></label>
+                                <label htmlFor="address"></label>
                 <input type="text"
-                    id="email"
-                    name="email"
+                    id="address"
+                    name="address"
                     value={this.state.address}
                     placeholder="Address"
                     onChange={ e => this.setState({ address: e.target.value })}

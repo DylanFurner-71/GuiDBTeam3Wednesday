@@ -38,7 +38,7 @@ export const changePassword = (userData, history) => dispatch => {
 // Login - get user token
 export const loginUser = userData => dispatch => {
     axios
-        .post(`/login/${userData.accountType}`, userData)
+        .post(`/login`, userData) //{userData.accountType}/${userID}
         .then(res => {
             // Save to localStorage
 // Set token to localStorage
@@ -81,3 +81,36 @@ export const logoutUser = () => dispatch => {
     // Set current user to empty object {} which will set isAuthenticated to false
     dispatch(setCurrentUser({}));
 };
+
+
+/*
+export class AccountsRepository {
+
+    url = 'https://api.johnlawrimore.com/directory/accounts';
+
+    config = {
+        headers: {
+            Authorization: 'jlawrimore'
+        }
+    };
+
+    getAccount(id) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/${id}`, this.config)
+            .then(x => resolve(x.data))
+            .catch(e => {
+                alert(e);
+                reject();
+            });
+        });
+    }
+}
+
+
+componentDidMount() {
+    const accountId = 6;
+    this.accountsRepository.getAccount(accountId)
+        .then(account => this.setState(account));
+}
+
+*/

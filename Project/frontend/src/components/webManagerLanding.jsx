@@ -15,7 +15,6 @@ class WebManagerLanding extends Component{
         this.state = {
             // userFullName: userFirstName + " " + userLastName,
             //the line below is nonesense right now. It would someday pull up the list of existing restaurants from the api
-            //  restaurants: [{new Restaurant("Restaurant 1"), "Restaurant 2", "Restaurant 3") //so this will someday be an array of objectsbut for now its this
         restaurants: this.restaurant
         };
     }
@@ -34,7 +33,7 @@ class WebManagerLanding extends Component{
         }
 
     render() {
-        const {userFullName, restaurants} = this.state;
+        const {userFullName} = this.state;
         return(
             <div id = "restaurants_list">
                 <h1 className="welcome">Welcome, {userFullName}</h1>
