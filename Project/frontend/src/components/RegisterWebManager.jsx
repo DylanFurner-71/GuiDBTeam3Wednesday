@@ -48,10 +48,10 @@ class RegisterWebManager extends Component {
         return (
             <div className="container mt-5">
                 <div className="row">
-                    <div className="col s8 offset-s2">
+                    <div className="col s8">
                         <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-                            <h4>
-                                <b>Register</b> a Web Manager below
+                            <h4 className="text-white">
+                                Register a Web Manager below
                             </h4>
                         </div>
                         <form noValidate onSubmit={this.onSubmit}>
@@ -136,7 +136,7 @@ class RegisterWebManager extends Component {
                                         marginTop: "1rem"
                                     }}
                                     type="submit"
-                                    className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                                    className="btn btn-large waves-effect waves-light hoverable bg-green text-white accent-3"
                                     onClick = {this.onSubmit}
                                 >
                                     Sign up

@@ -49,15 +49,15 @@ class Login extends Component {
         const error = this.state.error;
         return (
             <div className="container justify-content-center">
-                <div style={{marginTop: "4rem"}} className="row">
-                    <div className="col offset-s2">
+                <div className="row mt-5">
+                    <div className="col">
                         <Link to="/" id="return-home" className="btn-flat waves-effect">
                             <i className="material-icons left"></i> Return to
                             home
                         </Link>
                         <div className="col s12" style={{paddingLeft: "11.250px"}}>
                             <h4 className="welcome">
-                                <b>Login</b> below
+                                Login
                             </h4>
                         </div>
                         <form onSubmit={this.onSubmit}>
@@ -97,7 +97,7 @@ class Login extends Component {
                                         marginTop: "1rem"
                                     }}
                                     type="submit"
-                                    className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                                    className="btn btn-large waves-effect waves-light hoverable bg-green text-white accent-3"
                                 >
                                     Login
                                 </button>
