@@ -36,10 +36,10 @@ return items;
             <h2 class="action">Delete Restaurant</h2>
             <div className="form-group">
                 <label htmlFor="departmentId">Select Restaurant by index of the list above</label>
-                <div className="d-flex flex-row">
+                <div className="row">
                 <select id="departmentId"
                     type="number"
-                    className="form-control"
+                    className="form-control col-12 ml-2 mr-2"
                     value={this.state.selected}
                     style={{width: "40%"}}
                     onChange={ event => this.setState({ selected: event.target.value }) }>
@@ -48,7 +48,7 @@ return items;
                 </select>
                         </div>
             </div>
-            <input className="bg-primary" type="button" value="Submit"
+            <input className="bg-green" type="button" value="Submit"
             onClick={ () => this.onAddClick()}                                    />
       </form>
    </>

@@ -4,7 +4,7 @@
 }
 
 body {
-  background-color: #282c34;
+  background-color: #282c34!important;
 }
 
 #app {
@@ -12,8 +12,8 @@ body {
 }
 
 #landingLogo {
-  height: 25%;
-  width: 25%;
+  height: 25em;
+  width: 25em;
   pointer-events: none;
   margin-top: 5em;
 }
@@ -32,6 +32,7 @@ body {
 .welcome {
   color: #FFFFFF;
   font-size: 3em;
+  margin: 1em;
 }
 
 .message {
@@ -44,7 +45,7 @@ hr {
   color: white;
 }
 
-.bg-primary {
+.bg-green {
   background-color: #3AA76D!important;
   border-radius: 1em;
 }
