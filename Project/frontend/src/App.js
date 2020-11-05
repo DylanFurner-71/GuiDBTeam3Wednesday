@@ -43,7 +43,7 @@ function App() {
 	            <Router>
 	                <Route exact path="/" component={Landing}/>
                     <Route exact path="/home" component={Landing}/>
-	                <Route path={[`/login`]}/>
+	                <Route path="/login" component={Login}/>
 	                <Route exact path={`/${userTypes.Customer}/register`} component={RegisterUser}/>
                     <Route exact path={`/${userTypes.Delivery}/register`} component={RegisterDriver}/>
 	                <Route exact path={`/${userTypes.WebManager}/register`} component={RegisterWebManager}/>

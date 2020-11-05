@@ -1,64 +1,52 @@
 import React, {Component} from "react";
 import '../App.css';
-
+import {Restaurant} from "../temporaryObjects/restaurantModel";
+import {MenuItemsForm} from "./menuItemsForm";
+import {MenuView} from "./MenuView";
 class RestaurantEmployeeLanding extends Component {
-    constructor(userFirstName, userLastName, userEmail) {
-        super();
-        this.state = {
-            // firstName: userFirstName,
-            firstName: "John",
-            // lastName: userLastName,
-            lastName: "Smith",
-            // email: userEmail
-            email: "johnsmith@gmail.com",
-            RestaurantAddress: "",
-            RestaurantName: ""
-      
-        };
+    restaurant = [new Restaurant("McDonalds", "5647 Ellsworth Ave, Dallas, TX 75205"), 
+    new Restaurant("Raising Cane's", "2916 Dyer Street, University Park, TX, 75206"),
+    new Restaurant("Barley House", "5612 SMU Boulevard, Dallas, TX, 75206")];
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSave = this.handleSave.bind(this);
-    }
+constructor(userFirstName, userLastName) { //sets the users full name and restaurants array
+super();
+this.state = {
+    userFirstName: "Dylan",
+    userLastName: "Furner",
+    RestaurantName: "Sushi King",
+    RestaurantAddress: "9 S Newhaven Ct, Rogers, AR 72758",
+    RestaurantID: 1,
+    MenuID: 1,
+// userFullName: userFirstName + " " + userLastName,
+//the line below is nonesense right now. It would someday pull up the list of existing restaurants from the api
+    menu: [],
+};
+}
 
-    handleChange(event) {
-        this.setState({
-            address1: event.target.address1,
-            address2: event.target.address2,
-            city: event.target.city,
-            zip: event.target.zip
-        });
-    }
+deleteItems(element){
+this.state.restaurants.splice(element, 1);
+this.setState({restaurants: this.state.restaurants});
+}
 
-    handleSave(event) {
-        alert("Information saved.");
-        event.preventDefault();
-    }
+addItem(element) {
+console.log(this.state.menu);
+console.log("ELEMENT", element);
+this.state.menu.push(element);
+console.log(this.state.menu);
+this.setState({restaurants: this.state.menu });
+}
 
-    render() {
-        const {firstName, lastName, email} = this.state;
-        return(
-            <div id="customerLanding">
-                <h1 className="welcome">Welcome, {firstName} {lastName}</h1>
-                <form name="customerInfo" className="user-info-form">
-                    <label htmlFor="firstName">First Name:</label>
-                    <input type="text" name="firstName" value={firstName} readOnly></input>
-                    <label htmlFor="lastName">Last Name:</label>
-                    <input type="text" name="lastName" value={lastName} readOnly></input>
-                    <label htmlFor="email">Email:</label>
-                    <input type="email" name="email" value={email} readOnly></input>
-                    <label htmlFor="address1" value={this.state.address1} onChange={this.handleChange}>Address Line 1:</label>
-                    <input type="text" name="address1"></input>
-                    <label htmlFor="address2" value={this.state.address2} onChange={this.handleChange}>Address Line 2:</label>
-                    <input type="text" name="address2"></input>
-                    <label htmlFor="city" value={this.state.city} onChange={this.handleChange}>City:</label>
-                    <input type="text" name="city"></input>
-                    <label htmlFor="zip" value={this.state.zip} onChange={this.handleChange}>Zip Code:</label>
-                    <input type="number" name="zip"></input>
-                    <input type="button" value="Update" onClick={this.handleSave}></input>
-                </form>
-            </div>
-        ) 
-    }
+render() {
+const {userFullName} = this.state;
+return(
+<div id = "restaurants_list">
+<h1 className="welcome">Welcome, {this.state.userFirstName}</h1>
+Someday you will see current orders displayed nicely below with a small navigation component to find the menu and edit it
+<MenuItemsForm onItemAdded={element => this.addItem(element) }restaurantID= {this.state.restaurantID} menuID = {this.state.menuID} />
+<MenuView menu={this.state.menu}/>
+</div>
+) 
+}
 }
 export default RestaurantEmployeeLanding;
 
