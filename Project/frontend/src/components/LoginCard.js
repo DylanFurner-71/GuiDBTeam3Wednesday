@@ -13,7 +13,7 @@ export const LoginCard = (props) => {
                     <div className="row">
                         <div className="font-weight-bold mb-2 col-12">
                             <Link
-                                to={`/login/${props.accountType}`}
+                                to={`/login`}
                                 style={{
                                     borderRadius: "0.5em",
                                 }}
@@ -24,7 +24,7 @@ export const LoginCard = (props) => {
                     <div className="row">
                         <div className="font-weight-bold mb-2 col-12">
                             <Link
-                                to={`/register/${props.accountType}`}
+                                to={`/${props.accountType}/register`}
                                 style={{
                                     borderRadius: "0.5em",
                                 }}
