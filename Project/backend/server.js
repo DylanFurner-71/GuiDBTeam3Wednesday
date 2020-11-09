@@ -1,3 +1,4 @@
+require(`dotenv`).config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -5,13 +6,14 @@ const cors = require('cors');
 const mysql = require('mysql');
 const { log, ExpressAPILogMiddleware } = require('@rama41222/node-logger');
 
-//express configs
+// express configs
 const config = {
-  name: 'sample-express-app',
+  name: 'newber',
   port: 8000,
   host: '0.0.0.0',
 };
 
+// logger
 const logger = log({ console: true, file: false, label: config.name });
 app.use(bodyParser.json());
 app.use(cors({
@@ -21,11 +23,11 @@ app.use(ExpressAPILogMiddleware(logger, { request: true }));
 
 //mysql connection
 var connection = mysql.createConnection({
-  host: 'backend-db',
-  port: '3306',
-  user: 'manager',
-  password: 'Password',
-  database: 'db'
+  host: process.env.MYSQL_CLOUD_HOST,
+  user: process.env.MYSQL_CLOUD_USER,
+  password: process.env.MYSQL_CLOUD_PASS,
+  port: process.env.MYSQL_PORT,
+  database: process.env.MYSQL_DB
 });
 
 //Attempting to connect to the database.
@@ -43,7 +45,7 @@ app.listen(config.port, config.host, (e) => {
 });
 
 app.get('/', function (req, res) {
-  res.send('home')
+  res.status(200).send('home')
 });
 
 
