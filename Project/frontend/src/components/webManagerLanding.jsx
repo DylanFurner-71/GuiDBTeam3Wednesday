@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
 import {userTypes} from "../types/userTypes";
-import {Restaurant} from "../temporaryObjects/restaurantModel";
+import {Restaurant} from "../models/Restaurant";
 import {RestaurantsTable} from "./restaurantsTable";
 import {RestaurantsForm} from "./RestaurantsForm";
 import {DeleteRestaurantForm} from "./DeleteRestaurantForm";

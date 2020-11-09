@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, useParams } from "react-router-dom";
 import {Provider} from "react-redux";
 import {setCurrentUser, logoutUser} from "./respository/accountRepository";
 import jwt_decode from "jwt-decode";
@@ -15,8 +15,11 @@ import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
 import {userTypes} from "./types/userTypes";
 import WebManagerLanding from "./components/webManagerLanding";
-import CustomerLanding from "./components/customerLanding";
+import CustomerLanding from "./components/CustomerLanding";
+import CustomerProfile from "./components/CustomerProfile";
+import RestaurantView from "./components/RestaurantView";
 import RestaurantEmployeeLanding from "./components/RestaurantEmployeeLanding";
+import { MenuView } from './components/MenuView';
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
     // Set auth token header auth
@@ -49,8 +52,15 @@ function App() {
 	                <Route exact path={`/${userTypes.WebManager}/register`} component={RegisterWebManager}/>
 	                <Route exact path={`/${userTypes.RestaurantEmployee}/register`} component={RegisterEmployee}/>
                     <Route exact path={`/${userTypes.Customer}/home`} component = {CustomerLanding}/>
+                    <Route exact path={`/${userTypes.Customer}/profile`} component = {CustomerProfile}/>
                     <Route exact path={`/${userTypes.WebManager}/home`} component = {WebManagerLanding}/>
                     <Route exact path={`/${userTypes.RestaurantEmployee}/home`} component = {RestaurantEmployeeLanding}/>
+                    <Route exact path={`/restaurant/`} component = {RestaurantEmployeeLanding}/>
+                    <Switch>
+                        <Route path={`/restaurant/:restName`}>
+                            <GetRestaurant />
+                        </Route>
+                    </Switch>
 	                <Switch>
 	                    {/* {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)} */}
 	                </Switch>
@@ -58,6 +68,12 @@ function App() {
 	    	</div>
     	</Provider>
     );
+}
+
+function GetRestaurant() {
+    let { restName } = useParams();
+    // Get restaurant based on restName, replace restName below with restaurant
+    return <RestaurantView restaurant = {restName} />
 }
 
 export default App;

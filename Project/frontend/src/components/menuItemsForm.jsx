@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuItem } from '../temporaryObjects/restaurantModel';
+import { MenuItem } from '../models/MenuItem';
 export class MenuItemsForm extends React.Component {
   constructor() {
     super();
@@ -9,7 +9,6 @@ export class MenuItemsForm extends React.Component {
         price: 0.0,
         description: '',
         itemName: '',
-        imgUrl: '',
         restaurantID: 1,
         menuID: 1
 
@@ -17,7 +16,7 @@ export class MenuItemsForm extends React.Component {
 
   }
     onAddClick() {
-        const t = new MenuItem(this.state.itemName, this.state.description, this.state.price, this.state.imgUrl, this.props.restaurantID, this.props.menuID);
+        const t = new MenuItem(this.state.itemName, this.state.description, this.state.price, this.props.restaurantID, this.props.menuID);
         this.props.onItemAdded(t);
 
         this.setState({
@@ -28,7 +27,6 @@ export class MenuItemsForm extends React.Component {
            price: 0.0,
            description: '',
            itemName: '',
-           imgUrl: '',
            restaurantID: 1,
            menuID: 1
         });
@@ -58,16 +56,7 @@ export class MenuItemsForm extends React.Component {
                     onChange={ event => this.setState({ description: event.target.value }) } />
             </div>
             <div className="form-group">
-                <label htmlFor="imgURL">Item IMG URL this will change some day to an image upload**</label>
-                <input type="text"
-                    id="imgURl"
-                    name="imgURL"
-                    className="form-control"
-                    value={this.state.imgUrl}
-                    onChange={ event => this.setState({ imgURl: event.target.value }) } />
-            </div>
-            <div className="form-group">
-                <label htmlFor="imgURL">Price</label>
+                <label htmlFor="ItemPrice">Price</label>
                 <input type="number"
                     id="ItemPrice"
                     name="ItemPrice"
