@@ -36,7 +36,7 @@ export class MenuItemsForm extends React.Component {
 
     render() {
             return <>
-            <form className="container">
+            <form className="container bg-green text-success" style={{width: "50%", height: "50%"}}>
             <h3 class="action">Add Menu Item</h3>
             <div className="form-group">
                 <label htmlFor="name">Item Name</label>
@@ -64,10 +64,10 @@ export class MenuItemsForm extends React.Component {
                     name="imgURL"
                     className="form-control"
                     value={this.state.imgUrl}
-                    onChange={ event => this.setState({ imgURl: event.target.value }) } />
+                    onChange={ event => this.setState({ imgUrl: event.target.value }) } />
             </div>
             <div className="form-group">
-                <label htmlFor="imgURL">Price</label>
+                <label htmlFor="ItemPrice">Price</label>
                 <input type="number"
                     id="ItemPrice"
                     name="ItemPrice"

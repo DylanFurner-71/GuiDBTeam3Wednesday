@@ -40,8 +40,8 @@ render() {
 const {userFullName} = this.state;
 return(
 <div id = "restaurants_list">
-<h1 className="welcome">Welcome, {this.state.userFirstName}</h1>
-Someday you will see current orders displayed nicely below with a small navigation component to find the menu and edit it
+<h1 className="text-white">Welcome, {this.state.userFirstName}</h1>
+<p className="text-white">Someday you will see current orders displayed nicely below with a small navigation component to find the menu and edit it</p>
 <MenuItemsForm onItemAdded={element => this.addItem(element) }restaurantID= {this.state.restaurantID} menuID = {this.state.menuID} />
 <MenuView menu={this.state.menu}/>
 </div>
