@@ -27,6 +27,7 @@ class CustomerLanding extends Component {
             0
         );
 
+    // Placeholder data
     restaurants = [new Restaurant("McDonalds", "5647 Ellsworth Ave, Dallas, TX 75205", 1), 
         new Restaurant("Raising Cane's", "2916 Dyer Street, University Park, TX, 75206", 2),
         new Restaurant("Barley House", "5612 SMU Boulevard, Dallas, TX, 75206", 3)];

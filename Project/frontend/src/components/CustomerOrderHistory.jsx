@@ -1,21 +1,29 @@
 import React from 'react';
+import CustomerNav from "./CustomerNav";
 
-export class RestaurantList extends React.Component {
+export class CustomerOrderHistory extends React.Component {
+    state = {
+        
+    }
+
+    orders = []
+
     render() {
         return (
             <>
-                <h1 className="welcome">Select a restaurant:</h1>
-                {this.props.restaurants.length === 0 && (
-                <p className="p-3 bg-light">No restaurants available</p>
+                <CustomerNav />
+                <h1 className="welcome">Past Orders</h1>
+                {this.orders.length === 0 && (
+                <p className="p-3 bg-light">No previous orders</p>
                 )}
-                {this.props.restaurants.length > 0 && (
+                {this.orders.length > 0 && (
                 <ul className="list-group">
                     {
-                        this.props.restaurants.map((x, i) =>
+                        this.orders.map((x, i) =>
                             <li key={i}>
                                 <div className="container">
                                     <div className="card bg-white">
-                                        <a className="card-block stretched-link text-decoration-none" href={"/menu/" + x.name}>
+                                        <a className="card-block text-decoration-none">
                                             <div className="card-body">
                                                 <p className="font-weight-bold">{x.name}</p>
                                                 <p className="text-secondary">{x.address}</p>
@@ -31,4 +39,4 @@ export class RestaurantList extends React.Component {
     )}
 }
 
-export default RestaurantList;
+export default CustomerOrderHistory;

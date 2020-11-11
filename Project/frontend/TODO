@@ -1,0 +1,8 @@
+Endpoints needed:
+    - A Customer's past orders
+    - All restaurants
+
+Components:
+    - View Cart
+    - View Menu
+    - Past Orders

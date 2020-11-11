@@ -15,10 +15,10 @@ class CustomerNav extends Component {
                 <Nav.Link href="/customer/past-orders" className="inactive">Past Orders</Nav.Link>
                 {this.props.onClearCart != null && (
                     <NavDropdown title={"My Order"} id="basic-nav-dropdown">
-                        <NavDropdown.Item href="cart">View Cart</NavDropdown.Item>
+                        <NavDropdown.Item href="/order/cart">View Cart</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => this.onClear()}>Clear cart</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="checkout">Checkout</NavDropdown.Item>
+                        <NavDropdown.Item href="#checkout">Checkout</NavDropdown.Item>
                     </NavDropdown>
                 )}
             </Navbar>
