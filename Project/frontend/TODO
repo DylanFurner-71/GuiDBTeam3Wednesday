@@ -1,4 +1,8 @@
-Nav Bar for every account type includes:
-    - Home
-    - Edit Profile
-    - Sign out
+Endpoints needed:
+    - A Customer's past orders
+    - All restaurants
+
+Components:
+    - View Cart
+    - View Menu
+    - Past Orders

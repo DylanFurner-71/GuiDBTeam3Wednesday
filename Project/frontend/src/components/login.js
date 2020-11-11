@@ -51,15 +51,10 @@ class Login extends Component {
             <div className="container justify-content-center">
                 <div className="row mt-5">
                     <div className="col">
-                        <Link to="/" id="return-home" className="btn-flat waves-effect">
-                            <i className="material-icons left"></i> Return to
+                        <Link to="/" id="return-home" className="text-white btn-flat waves-effect">
+                            <i className="material-icons left text-white"></i> Return to
                             home
                         </Link>
-                        <div className="col s12" style={{paddingLeft: "11.250px"}}>
-                            <h4 className="welcome">
-                                Login
-                            </h4>
-                        </div>
                         <form onSubmit={this.onSubmit}>
                             <div className="input-field col s12">
                                 <input
