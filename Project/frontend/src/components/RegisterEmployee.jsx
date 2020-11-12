@@ -51,7 +51,7 @@ class RegisterEmployee extends Component {
                 <div className="col s8">
                     <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                         <h4 className="text-white">
-                            Register a restaurant employee account below
+                            Register a Restaurant Employee account below
                         </h4>
                     </div>
                     <form noValidate onSubmit={this.onSubmit}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, useParams } from "react-router-dom";
 import {Provider} from "react-redux";
 import {setCurrentUser, logoutUser} from "./respository/accountRepository";
 import jwt_decode from "jwt-decode";
@@ -11,7 +11,6 @@ import Login from './components/login'
 
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
-
 
 function App() {
     return (
@@ -27,6 +26,12 @@ function App() {
 	    	</div>
     	</Provider>
     );
+}
+
+function GetRestaurant() {
+    let { restName } = useParams();
+    // Get restaurant based on restName, replace restName below with restaurant
+    return <RestaurantView restaurant = {restName} />
 }
 
 export default App;

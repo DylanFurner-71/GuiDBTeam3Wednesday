@@ -8,14 +8,14 @@ export const LoginCard = (props) => {
         <>
         <div className="row mr-3">
             <div className="col-1"></div>
-            <div className="col-10 p-1 mb-2 bg-green text-white">
+            <div className="col-10 p-1 mb-2 bg-green rounded-lg">
                 <div className="p-2 mb-3">{props.accountType}</div>
                     <div className="row">
                         <div className="font-weight-bold mb-2 col-12">
                             <Link
-                                to={`/login/${props.accountType}`}
+                                to={`/login`}
                                 style={{
-                                    borderRadius: "0.5em",
+                                    borderRadius: "0.25em",
                                 }}
                                 className="btn-large btn-flat waves-effect white black-text"
                             >Log In</Link>
@@ -24,9 +24,9 @@ export const LoginCard = (props) => {
                     <div className="row">
                         <div className="font-weight-bold mb-2 col-12">
                             <Link
-                                to={`/register/${props.accountType}`}
+                                to={`/${props.accountType}/register`}
                                 style={{
-                                    borderRadius: "0.5em",
+                                    borderRadius: "0.25em",
                                 }}
                                 className="btn-large btn-flat waves-effect white black-text"
                             >Register</Link>

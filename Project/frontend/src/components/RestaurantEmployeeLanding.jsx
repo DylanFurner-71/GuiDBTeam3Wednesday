@@ -1,8 +1,9 @@
 import React, {Component} from "react";
 import '../App.css';
-import {Restaurant} from "../temporaryObjects/restaurantModel";
-import {MenuItemsForm} from "./menuItemsForm";
-import {MenuView} from "./MenuView";
+import { Restaurant } from "../models/Restaurant";
+import { MenuItemsForm } from "./menuItemsForm";
+import MenuView from "./MenuView";
+
 class RestaurantEmployeeLanding extends Component {
     restaurant = [new Restaurant("McDonalds", "5647 Ellsworth Ave, Dallas, TX 75205"), 
     new Restaurant("Raising Cane's", "2916 Dyer Street, University Park, TX, 75206"),
