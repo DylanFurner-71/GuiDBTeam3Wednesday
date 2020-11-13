@@ -128,14 +128,10 @@ app.get('/:restaurant/menu/search', function (req, res) {
 //*EPIC 9*
 //POST: Add Restaurant
 app.post('/api/v1/restaurants', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  var RestaurantID = req.body.RestaurantID
-  var RestaurantName = req.body.RestaurantName
-  var RestaurantAddress = req.body.RestaurantAddress
+  var name = req.body.restaurant_name
   
-  connection.query("INSERT INTO restaurant (RestaurantID, RestaurantName, RestaurantAddress) VALUES (?, ?, ?)",
-  [RestaurantID, RestaurantName, RestaurantAddress], function (err, result, fields) {
+  connection.query("INSERT INTO restaurant (restaurant_name) VALUES (?)",
+  [name], function (err, result, fields) {
   if (err) throw err;
   res.end(JSON.stringify(result));
   });
