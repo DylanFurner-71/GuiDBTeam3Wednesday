@@ -129,8 +129,8 @@ app.get('/:restaurant/menu/search', function (req, res) {
 //POST: Add Restaurant
 app.post('/api/v1/restaurants', function (req, res) {
   var name = req.body.restaurant_name
-  
-  connection.query("INSERT INTO restaurant (restaurant_name) VALUES (?)",
+  console.log(name)
+  connection.query(`INSERT INTO Restaurants (restaurant_name) VALUES (?)`,
   [name], function (err, result, fields) {
   if (err) throw err;
   res.end(JSON.stringify(result));
@@ -138,7 +138,7 @@ app.post('/api/v1/restaurants', function (req, res) {
 });
 
 //DELETE: Remove Restaurant
-app.post('/api/v1/restaurants', function (req, res) {
+app.delete('/api/v1/restaurants', function (req, res) {
   //TODO - DB query
   //TODO - RES
   var RestaurantID = req.body.RestaurantID
@@ -266,7 +266,7 @@ app.get('/api/v1/orders/:restaurant/queue', function (req, res) {
 });
 
 //PUT: Update order status to 'being prepared'
-router.put('/api/v1/orders/:order/status', async (req, res) => {
+app.put('/api/v1/orders/:order/status', async (req, res) => {
     var OrderStatusNew = req.body.OrderStatusNew
     var OrderStatusOld = req.body.OrderStatusOld
 
@@ -277,7 +277,7 @@ router.put('/api/v1/orders/:order/status', async (req, res) => {
 });
 
 //PUT: Update order status to 'finding driver'
-router.put('/api/v1/orders/:order/status', async (req, res) => {
+app.put('/api/v1/orders/:order/status', async (req, res) => {
     var OrderStatusNew = req.body.OrderStatusNew
     var OrderStatusOld = req.body.OrderStatusOld
 

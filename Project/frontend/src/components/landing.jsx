@@ -4,8 +4,10 @@ import {Link} from "react-router-dom";
 import {LoginCard} from "./LoginCard";
 import {userTypes} from "../types/userTypes";
 import logo from "../logo.png";
+import home from "../repository/accountRepository";
 
 class Landing extends Component {
+
     render() {
         return (
             <div  className="justify-content-center container valign-wrapper">

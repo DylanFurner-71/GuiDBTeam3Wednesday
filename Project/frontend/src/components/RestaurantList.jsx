@@ -1,6 +1,8 @@
 import React from 'react';
+import { getRestaurants } from '../repository/restaurantRepository';
 
 export class RestaurantList extends React.Component {
+
     render() {
         return (
             <>

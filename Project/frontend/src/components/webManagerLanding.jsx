@@ -5,6 +5,8 @@ import {Restaurant} from "../models/Restaurant";
 import {RestaurantsTable} from "./restaurantsTable";
 import {RestaurantsForm} from "./RestaurantsForm";
 import {DeleteRestaurantForm} from "./DeleteRestaurantForm";
+import {addRestaurant} from "../repository/restaurantRepository";
+
 class WebManagerLanding extends Component{
     restaurant = [new Restaurant("McDonalds", "5647 Ellsworth Ave, Dallas, TX 75205"), 
                     new Restaurant("Raising Cane's", "2916 Dyer Street, University Park, TX, 75206"),
@@ -24,13 +26,14 @@ class WebManagerLanding extends Component{
        this.setState({restaurants: this.state.restaurants});
     }
 
-    addRestaurant(element) {
-        console.log(this.state.restaurants);
-        console.log("ELEMENT", element);
-        this.state.restaurants.push(element);
-        console.log(this.state.restaurants);
-        this.setState({restaurants: this.state.restaurants });
+    onAddRestaurant(element) {
+        const r = {
+            restaurant_name: element.name
         }
+        addRestaurant(r);
+        this.state.restaurants.push(element);
+        this.setState({restaurants: this.state.restaurants });
+    }
 
     render() {
         const {userFullName} = this.state;
@@ -38,7 +41,7 @@ class WebManagerLanding extends Component{
             <div id = "restaurants_list">
                 <h1 className="welcome">Welcome, {userFullName}</h1>
                 <RestaurantsTable restaurants={this.state.restaurants}/>
-                <RestaurantsForm onRestaurantAdded={element => this.addRestaurant(element)} />
+                <RestaurantsForm onRestaurantAdded={element => this.onAddRestaurant(element)} />
                 <DeleteRestaurantForm onRestaurantDeleted={element => this.deleteRestaurants(element)} numRestaurants={this.state.restaurants.length}/>
             </div>
                

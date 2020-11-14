@@ -1,7 +1,7 @@
 import {
     SET_CURRENT_USER,
     USER_LOADING
-} from "../respository/types";
+} from "../repository/types";
 // const isEmpty = require("is-empty");
 const initialState = {
     isAuthenticated: false,

@@ -8,17 +8,21 @@ import {
 } from "./types";
 //authentication actions pertain to those actions called by react on the api that relate to logging in or registration
 
-
 const api = "http://localhost:8000";
+
 axios.defaults.baseURL = api;
+
+export const home = () => dispatch => {
+    axios.get(`/`);
+}
 export const register = (userData, history) => dispatch => {
     axios
         .post(`/register/${userData.accountType}`, userData)
         .then(() => history.push(`/login/${userData.accountType}`)) // re-direct to login on successful register
         .catch(err =>
             dispatch({
-                // type: GET_ERRORS,
-                // payload: err.response.data
+                type: GET_ERRORS,
+                payload: err.response.data
             })
         );
 };

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { register } from "../respository/accountRepository";
+import { register } from "../repository/accountRepository";
 class RegisterDriver extends Component {
     constructor() {
         super();

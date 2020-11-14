@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch, useParams } from "react-router-dom";
 import {Provider} from "react-redux";
-import {setCurrentUser, logoutUser} from "./respository/accountRepository";
+import {setCurrentUser, logoutUser} from "./repository/accountRepository";
 import jwt_decode from "jwt-decode";
 // import PrivateRoute from "./components/PrivateRoute"
 import Landing from './components/landing.jsx'
@@ -21,6 +21,7 @@ import CustomerOrderHistory from './components/CustomerOrderHistory';
 import RestaurantView from "./components/RestaurantView";
 import RestaurantEmployeeLanding from "./components/RestaurantEmployeeLanding";
 import OrderConfirmed from './components/OrderConfirmed';
+import axios from 'axios';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {

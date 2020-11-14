@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { register } from "../respository/accountRepository";
+import { register } from "../repository/accountRepository";
 class RegisterUser extends Component {
     constructor() {
         super();
@@ -36,10 +36,9 @@ class RegisterUser extends Component {
             lastName: this.state.lastName,
             email: this.state.email,
             password: this.state.password,
-            password2: this.state.password2,
-            address: this.state.address,
+            accountType: "user"
         };
-        this.props.registerUser(newUser, this.props.history);
+        register(newUser, this.props.history);
     };
     render() {
         const { error } = this.state;
@@ -90,16 +89,6 @@ class RegisterUser extends Component {
                                 <span className="red-text">{error.email}</span>
                             </div>
                             <div className="input-field col s12">
-                                <label htmlFor="address"></label>
-                <input type="text"
-                    id="address"
-                    name="address"
-                    value={this.state.address}
-                    placeholder="Address"
-                    onChange={ e => this.setState({ address: e.target.value })}
-                    />
-                    </div>
-                            <div className="input-field col s12">
                                 <input
                                     onChange={this.onChange}
                                     value={this.state.password}
@@ -147,6 +136,7 @@ class RegisterUser extends Component {
         );
     }
 }
+
 RegisterUser.propTypes = {
     register: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,

@@ -25,7 +25,7 @@ export class OrderConfirmed extends React.Component {
           timeValue= "" + hours;
         } else if (hours > 12) {
           timeValue= "" + (hours - 12);
-        } else if (hours == 0) {
+        } else if (hours === 0) {
           timeValue= "12";
         }
          
