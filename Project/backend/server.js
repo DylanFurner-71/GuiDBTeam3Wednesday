@@ -196,6 +196,27 @@ app.get('/api/v1/restaurants/:id/menu', function(req, res) {
   });
 });
 
+//creat restaurant menu
+app.post('/api/v1/restaurants/:id/menu', (req, res) => {
+  var RestaurantID = req.params.id
+  var MenuName = req.body.menu_name
+  
+  connection.query('INSERT INTO Menus (restaurant_id,menu_name) VALUES (?,?)', [RestaurantID,MenuName], (err, result, fields) => {
+    if (err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  });
+});
+
+//delete restaurant meun
+app.delete('/api/v1/restaurants/:id/menu', (req, res) => {
+  var RestaurantID = req.params.id;
+  var MenuID = req.body.menu_id;
+  connection.query("DELETE FROM Menus WHERE restaurant_id = ? and menu_id = ?", [RestaurantID,MenuID], (err, result, fields) => {
+    if (err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  });
+});
+
   
 /*
 //update password
@@ -263,26 +284,9 @@ app.put('/api/v1/accounts/:id/contact', async(req,res) => {
 
 
 
-//creat restaurant menu
-app.post('/api/v1/restaurants/:id/menu', (req, res) => {
-  var RestaurantID = req.params.id
-  var MenuName = req.body.menu_name
-  
-  connection.query('INSERT INTO Menus (restaurant_id,menu_name) VALUES (?,?)', [RestaurantID,MenuName], (err, result, fields) => {
-    if (err) logger.error(err.stack);
-    res.end(JSON.stringify(result));
-  });
-});
 
-//delete meun
-app.delete('/api/v1/restaurants/:id/menu', (req, res) => {
-  var RestaurantID = req.params.id;
 
-  connection.query("DELETE FROM Menus WHERE restaurant_id = ?", [RestaurantID], (err, result, fields) => {
-    if (err) logger.error(err.stack);
-    res.end(JSON.stringify(result));
-  });
-});
+
 
 //creat meun item
 
