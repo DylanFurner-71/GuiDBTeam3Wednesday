@@ -21,7 +21,6 @@ import CustomerOrderHistory from './components/CustomerOrderHistory';
 import RestaurantView from "./components/RestaurantView";
 import RestaurantEmployeeLanding from "./components/RestaurantEmployeeLanding";
 import OrderConfirmed from './components/OrderConfirmed';
-import axios from 'axios';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {

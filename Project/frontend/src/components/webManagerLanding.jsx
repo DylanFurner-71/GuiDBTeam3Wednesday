@@ -5,21 +5,20 @@ import {Restaurant} from "../models/Restaurant";
 import {RestaurantsTable} from "./restaurantsTable";
 import {RestaurantsForm} from "./RestaurantsForm";
 import {DeleteRestaurantForm} from "./DeleteRestaurantForm";
-import {addRestaurant} from "../repository/restaurantRepository";
+import {RestaurantRepository} from "../repository/restaurantRepository";
 
 class WebManagerLanding extends Component{
+    RestaurantRepository = new RestaurantRepository;
+
     restaurant = [new Restaurant("McDonalds", "5647 Ellsworth Ave, Dallas, TX 75205"), 
                     new Restaurant("Raising Cane's", "2916 Dyer Street, University Park, TX, 75206"),
                     new Restaurant("Barley House", "5612 SMU Boulevard, Dallas, TX, 75206")];
    
-    constructor(userFirstName, userLastName) { //sets the users full name and restaurants array
-        super();
-        this.state = {
-            // userFullName: userFirstName + " " + userLastName,
-            //the line below is nonesense right now. It would someday pull up the list of existing restaurants from the api
+    state = {
+        // userFullName: userFirstName + " " + userLastName,
+        //the line below is nonesense right now. It would someday pull up the list of existing restaurants from the api
         restaurants: this.restaurant
-        };
-    }
+    };
 
     deleteRestaurants(element){
        this.state.restaurants.splice(element, 1);
@@ -30,9 +29,9 @@ class WebManagerLanding extends Component{
         const r = {
             restaurant_name: element.name
         }
-        addRestaurant(r);
+        this.RestaurantRepository.addRestaurant(r);
         this.state.restaurants.push(element);
-        this.setState({restaurants: this.state.restaurants });
+        this.setState({restaurants: this.state.restaurants});
     }
 
     render() {
@@ -48,4 +47,5 @@ class WebManagerLanding extends Component{
     ) 
     }
 }
+
 export default WebManagerLanding;

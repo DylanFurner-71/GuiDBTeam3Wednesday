@@ -129,8 +129,7 @@ app.get('/:restaurant/menu/search', function (req, res) {
 //POST: Add Restaurant
 app.post('/api/v1/restaurants', function (req, res) {
   var name = req.body.restaurant_name
-  console.log(name)
-  connection.query(`INSERT INTO Restaurants (restaurant_name) VALUES (?)`,
+  connection.query(`INSERT INTO Restaurants (restaurant_name) VALUES ('${name}');`,
   [name], function (err, result, fields) {
   if (err) throw err;
   res.end(JSON.stringify(result));
