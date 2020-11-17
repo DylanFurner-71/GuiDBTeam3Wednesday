@@ -127,35 +127,221 @@ app.get('/:restaurant/menu/search', function (req, res) {
 
 //*EPIC 9*
 //POST: Add Restaurant
-app.post('/addrestaurant', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
+app.post('/api/v1/restaurants', function (req, res) {
+  var name = req.body.restaurant_name
+  connection.query(`INSERT INTO Restaurants (restaurant_name) VALUES ('${name}');`,
+  [name], function (err, result, fields) {
+  if (err) throw err;
+  res.end(JSON.stringify(result));
+  });
 });
 
 //DELETE: Remove Restaurant
-app.post('/rmrestaurant', function (req, res) {
+app.delete('/api/v1/restaurants', function (req, res) {
   //TODO - DB query
   //TODO - RES
+  var RestaurantID = req.body.RestaurantID
+  
+  connection.query("DELETE FROM restaurant WHERE RestaurantID = ? ", RestaurantID,function (err, result, fields) {
+        if (err)
+            return console.error(error.message);
+        res.end(JSON.stringify(result));
+      });
 });
 
 //DELETE: Remove Account
-app.delete('/rmaccount', function (req, res) {
+app.delete('/api/v1/accounts', function (req, res) {
   //TODO - DB query
   //TODO - RES
+  var CustomerID = req.body.CustomerID
+  
+  connection.query("DELETE FROM customer WHERE CustomerID = ? ", CustomerID,function (err, result, fields) {
+        if (err)
+            return console.error(error.message);
+        res.end(JSON.stringify(result));
+      });
 });
 
 //DELETE: Remove Review
-app.delete('/rmreview', function (req, res) {
+app.delete('/api/v1/restaurants/:id/reviews', function (req, res) {
   //TODO - DB query
   //TODO - RES
+  var OrderReviewID = req.body.OderReviewID
+  
+  connection.query("DELETE FROM OrderReview WHERE OrderReviewID = ? ", OrderReviewID,function (err, result, fields) {
+        if (err)
+            return console.error(error.message);
+        res.end(JSON.stringify(result));
+      });
+  
+  
 });
 
 //GET: See Restaurant Rating
-app.get('/:restaurant/rating', function (req, res) {
+app.get('/api/v1/stats', function (req, res) {
   //TODO - DB query
   //TODO - RES
+  connection.query("SELECT avg(rating) FROM restaurant", function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
 });
 
+//GET: Get available restaurants
+app.get('/api/v1/restaurants', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+  connection.query("SELECT avg(rating) FROM restaurant", function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
+//GET: Get restaurant menu
+app.get('/api/v1/restaurants/:rest/menu', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+  connection.query("SELECT * FROM DishDetails", function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
+//GET: Get restaurant
+app.get('/api/v1/restaurants/:rest', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+  connection.query("SELECT * FROM restaurant", function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
+//GET: Get item prices
+app.get('/api/v1/restaurants/:rest/menu', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+  connection.query("SELECT DishPrice FROM DishDetails", function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
+//GET: Get address
+app.get('/api/v1/accounts/:id/address', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+  connection.query("SELECT RestaurantAddress FROM restaurant", function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
+//POST: Create order
+app.post('/api/v1/orders', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+  var OderID = req.body.OderID
+  var CustomerID = req.body.CustomerID
+  var ToOderDetails = req.body.ToOderDetails
+  var OrderStatus = req.body.OrderStatus
+  
+  connection.query("INSERT INTO restaurant (OderID, CustomerID, ToOderDetails, OrderStatus) VALUES (?, ?, ?, ?)",
+  [OderID, CustomerID, ToOderDetails, OrderStatus], function (err, result, fields) {
+  if (err) throw err;
+  res.end(JSON.stringify(result));
+  });
+});
+
+//Spring05
+//GET: Get outstanding orders
+app.get('/api/v1/orders/:restaurant/queue', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+  connection.query("SELECT * FROM order", function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
+//PUT: Update order status to 'being prepared'
+app.put('/api/v1/orders/:order/status', async (req, res) => {
+    var OrderStatusNew = req.body.OrderStatusNew
+    var OrderStatusOld = req.body.OrderStatusOld
+
+     connection.query("UPDATE order SET OrderStatus = ? WHERE OrderStatus = ?", [OrderStatusNew,OrderStatusOld],function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+     });
+});
+
+//PUT: Update order status to 'finding driver'
+app.put('/api/v1/orders/:order/status', async (req, res) => {
+    var OrderStatusNew = req.body.OrderStatusNew
+    var OrderStatusOld = req.body.OrderStatusOld
+
+     connection.query("UPDATE order SET OrderStatus = ? WHERE OrderStatus = ?", [OrderStatusNew,OrderStatusOld],function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+     });
+});
+
+// POST: Request delivery driver
+// app.post('/api/v1/orders', function (req, res) {
+//   TODO - DB query
+//   TODO - RES
+//   var OderID = req.body.OderID
+//   var CustomerID = req.body.CustomerID
+//   var ToOderDetails = req.body.ToOderDetails
+//   var OrderStatus = req.body.OrderStatus
+//
+//   connection.query("INSERT INTO restaurant (OderID, CustomerID, ToOderDetails, OrderStatus) VALUES (?, ?, ?, ?)",
+//   [OderID, CustomerID, ToOderDetails, OrderStatus], function (err, result, fields) {
+//   if (err) throw err;
+//   res.end(JSON.stringify(result));
+//   });
+// });
+
+//GET: Get order details
+app.get('/api/v1/orders/:order/details', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+  connection.query("SELECT * FROM OrderDetails", function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
+//GET: Get restaurant order history
+app.get('/api/v1/orders/history', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+  connection.query("SELECT * FROM order", function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
+//GET: Get restaurant stats (3 most popular items)
+app.get('/api/v1/stats', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+  connection.query("SELECT DishName, PopularCount INT FROM order", function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
+
+//GET: get restaurant stats (time of day, most orders)
+app.get('/api/v1/stats', function (req, res) {
+  //TODO - DB query
+  //TODO - RES
+  connection.query("SELECT DishName INT FROM order", function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
 
 
 

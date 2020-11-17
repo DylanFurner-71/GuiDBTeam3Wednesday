@@ -26,11 +26,7 @@ class CustomerProfile extends Component {
     );
 
     onSave() {
-        this.state.address1 = this.state.address1;
-        this.state.address2 = this.state.address2;
-        this.state.city = this.state.city;
-        this.state.state = this.state.state;
-        this.state.zip = this.state.zip;
+        console.log("Temporary Save");
     }
 
     render() {

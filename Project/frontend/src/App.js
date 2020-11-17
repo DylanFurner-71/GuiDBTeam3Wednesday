@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch, useParams } from "react-router-dom";
 import {Provider} from "react-redux";
-import {setCurrentUser, logoutUser} from "./respository/accountRepository";
+import {setCurrentUser, logoutUser} from "./repository/accountRepository";
 import jwt_decode from "jwt-decode";
 import {ROUTES} from "./routes";
 // import PrivateRoute from "./components/PrivateRoute"
