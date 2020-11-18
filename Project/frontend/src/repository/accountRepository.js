@@ -8,13 +8,27 @@ import {
 } from "./types";
 //authentication actions pertain to those actions called by react on the api that relate to logging in or registration
 
-const api = "http://localhost:8000";
+export class AccountRepository {
+    url = "http://localhost:8000/api/v1";
 
-axios.defaults.baseURL = api;
-
-export const home = () => dispatch => {
-    axios.get(`/`);
+    getAccount(id) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/${id}`, this.config)
+            .then(x => resolve(x.data))
+            .catch(e => {
+                alert(e);
+                reject();
+            });
+        });
+    }
+    
+    componentDidMount() {
+        const accountId = 0;
+        this.accountsRepository.getAccount(accountId)
+            .then(account => this.setState(account));
+    }
 }
+
 export const register = (userData, history) => dispatch => {
     axios
         .post(`/register/${userData.accountType}`, userData)
@@ -85,36 +99,3 @@ export const logoutUser = () => dispatch => {
     // Set current user to empty object {} which will set isAuthenticated to false
     dispatch(setCurrentUser({}));
 };
-
-
-/*
-export class AccountsRepository {
-
-    url = 'https://api.johnlawrimore.com/directory/accounts';
-
-    config = {
-        headers: {
-            Authorization: 'jlawrimore'
-        }
-    };
-
-    getAccount(id) {
-        return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/${id}`, this.config)
-            .then(x => resolve(x.data))
-            .catch(e => {
-                alert(e);
-                reject();
-            });
-        });
-    }
-}
-
-
-componentDidMount() {
-    const accountId = 6;
-    this.accountsRepository.getAccount(accountId)
-        .then(account => this.setState(account));
-}
-
-*/
