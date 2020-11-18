@@ -1,69 +1,62 @@
 import axios from "axios";
 
-export class RestaurantRepository {
+export class OrderRepository {
     url = "http://localhost:8000/api/v1";
 
-    addRestaurant(restaurant) {
+    addOrder(order) {
         return new Promise((resolve, reject) => {
-            axios.post(`${this.url}/restaurants`, restaurant)
+            axios.post(`${this.url}/orders`, order)
+                .then(resp => resolve(resp.data))
+                .catch(err => console.log(err.response));
+        })
+    }
+    
+    getOrder(id) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/orders/${id}/details`)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })
     }
 
-    deleteRestaurant(id) {
+    getOrderStatus(id) {
         return new Promise((resolve, reject) => {
-            axios.delete(`${this.url}/restaurants/${id}`)
+            axios.get(`${this.url}/orders/${id}/status`)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })
     }
 
-    getRestaurants() {
+    getOrdersForQueue() {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/restaurants`)
+            axios.get(`${this.url}/orders/queue`)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })
     }
 
-    getRestaurant(id) {
+    updateOrderStatus(id, status) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/restaurants/${id}`)
+            axios.update(`${this.url}/orders/${id}/status`, status)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })
     }
 
-    getMenu(id) {
+    getOrdersForRestaurant(id) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/restaurants/${id}/menu`)
+            axios.get(`${this.url}/orders/${id}/queue`)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })
     }
 
-    addMenu(menu) {
+    getOrderHistoryForRestaurant(id) {
         return new Promise((resolve, reject) => {
-            axios.post(`${this.url}/restaurants/menu`, menu)
+            axios.get(`${this.url}/orders/${id}/history`)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })
     }
 
-    deleteMenu(id) {
-        return new Promise((resolve, reject) => {
-            axios.delete(`${this.url}/restaurants/${id}/menu`)
-                .then(resp => resolve(resp.data))
-                .catch(err => console.log(err.response));
-        })
-    }
-
-    addReview(id, review) {
-        return new Promise((resolve, reject) => {
-            axios.post(`${this.url}/restaurants/${id}/reviews`, review)
-                .then(resp => resolve(resp.data))
-                .catch(err => console.log(err.response));
-        })
-    }
 }
