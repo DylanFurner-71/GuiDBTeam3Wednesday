@@ -480,15 +480,42 @@ app.put('/api/v1/accounts/:id/contact', async(req,res) => {
 
 
 
-/*
+
 
 
 //creat meun item
+app.post('/api/v1/restaurants/:rest/menu/item', (req, res) => {
+  var ItemId = req.body.item_id
+  var MenuId = req.body.menu_id
+  var ItemDetails = req.body.item_details
+  var ItemPrice= req.body.item_price
+  
+  
+  connection.query('INSERT INTO Items (item_id,item_details,item_price,menu_id) VALUES (?,?,?,?)', [ItemId,ItemDetails,ItemPrice,MenuId], (err, result, fields) => {
+    if (err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  });
+});
 
-
-//delete menu item
+//delete menu item by item_details ???
+app.delete('api/v1/restaurants/:rest/menu/item', (req, res) => {
+  var ItemDetails = req.body.item_details;
+  connection.query("DELETE FROM Items WHERE item_details = ?", [ItemDetails], (err, result, fields) => {
+    if (err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  });
+});
 
 
 //update menu item
+app.put('/api/v1/restaurants/:rest/menu/item', async(req,res) => {
+  var ItemId = req.body.item_id
+  var ItemDetails = req.body.item_details
+  var ItemPrice= req.body.item_price
+  
+  connection.query("UPDATE Items SET item_details = ?, item_price = ? WHERE item_id = ?", [ItemDetails,ItemPrice,ItemId], function (err, result, fields){
+    if (err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  });
+});
 
-*/
