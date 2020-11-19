@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { register } from "../respository/accountRepository";
+import { register } from "../repository/accountRepository";
 class RegisterDriver extends Component {
     constructor() {
         super();
@@ -49,7 +49,7 @@ class RegisterDriver extends Component {
                     <div className="col s8">
                         <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                             <h4 className="text-white">
-                                Register a driver below
+                                Register a Driver below
                             </h4>
                         </div>
                         <form noValidate onSubmit={this.onSubmit}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Restaurant } from '../temporaryObjects/restaurantModel';
+import { Restaurant } from '../models/Restaurant';
 export class DeleteRestaurantForm extends React.Component {
   constructor() {
     super();
@@ -33,7 +33,7 @@ return items;
     render() {
             return <>
             <form className="container">
-            <h2 class="action">Delete Restaurant</h2>
+            <h2 className="action">Delete Restaurant</h2>
             <div className="form-group">
                 <label htmlFor="departmentId">Select Restaurant by index of the list above</label>
                 <div className="row">

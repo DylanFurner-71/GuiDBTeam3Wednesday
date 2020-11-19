@@ -11,7 +11,6 @@ export const MenuItemsCard = (props) => {
                         <div className="d-flex flex-row text-white">
                             {props.description}
                             ${props.price}
-                            <img src={props.img}/>
                         </div>
                     </div>
                 </div>

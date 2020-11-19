@@ -18,17 +18,6 @@ body {
   margin-top: 5em;
 }
 
-.App-header {
-  background-color:#3AA76D;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: #FFFFFF;
-}
-
 .welcome {
   color: #FFFFFF;
   font-size: 3em;
@@ -47,7 +36,6 @@ hr {
 
 .bg-green {
   background-color: #3AA76D!important;
-  border-radius: 1em;
 }
 
 .bg-secondary {
@@ -67,7 +55,6 @@ hr {
 
 .user-info-form {
   margin-bottom: 10%;
-  margin-top: 5%;
   margin-left: 20%;
   margin-right: 20%;
 }
@@ -103,4 +90,13 @@ input[type="button"] {
 .action {
   font-size: 2em;
   color: white;
+}
+
+.inactive {
+  color: #000000;
+  text-decoration: none;
+}
+
+a {
+  color: #000000!important;
 }

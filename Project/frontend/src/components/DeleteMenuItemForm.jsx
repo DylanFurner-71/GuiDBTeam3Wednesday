@@ -1,5 +1,5 @@
 import React from 'react';
-import { Restaurant } from '../temporaryObjects/restaurantModel';
+import { Restaurant } from '../models/Restaurant';
 export class DeleteRestaurantForm extends React.Component {
   constructor() {
     super();

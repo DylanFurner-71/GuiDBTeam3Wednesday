@@ -1,5 +1,6 @@
 import React from 'react';
-import { Restaurant } from '../temporaryObjects/restaurantModel';
+import { Restaurant } from '../models/Restaurant';
+
 export class RestaurantsForm extends React.Component {
   constructor() {
     super();
