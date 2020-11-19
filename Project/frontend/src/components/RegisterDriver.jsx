@@ -39,7 +39,7 @@ class RegisterDriver extends Component {
             password2: this.state.password2,
             address: this.state.address,
         };
-        this.props.registerUser(newUser, this.props.history);
+        this.accountsRepository.registerUser(newUser, this.props.history);
     };
     render() {
         const { error } = this.state;

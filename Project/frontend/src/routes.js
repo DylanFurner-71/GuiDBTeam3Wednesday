@@ -7,10 +7,10 @@ import WebManagerLanding from "./components/webManagerLanding";
 import CustomerLanding from "./components/customerLanding";
 import RestaurantEmployeeLanding from "./components/RestaurantEmployeeLanding";
 export const ROUTES = [
-    { path: `/register/${userTypes.Customer}`, component: RegisterUser},
-    { path: `/register/${userTypes.Delivery}`, component: RegisterDriver},
-    { path:`/register/${userTypes.WebManager}`, component: RegisterWebManager},
-    { path:`/register/${userTypes.RestaurantEmployee}`, component: RegisterEmployee},
+    { path: `/${userTypes.Customer}/register`, component: RegisterUser},
+    { path: `/${userTypes.Delivery}/register`, component: RegisterDriver},
+    { path:`/${userTypes.WebManager}/register`, component: RegisterWebManager},
+    { path:`/${userTypes.RestaurantEmployee}/register`, component: RegisterEmployee},
     { path:`/${userTypes.Customer}/home`, component: CustomerLanding},
     { path:`/${userTypes.WebManager}/home`, component: WebManagerLanding},
     { path:`/${userTypes.RestaurantEmployee}/home`, component: RestaurantEmployeeLanding},

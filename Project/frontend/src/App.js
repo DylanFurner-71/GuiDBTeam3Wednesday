@@ -28,10 +28,10 @@ function App() {
     );
 }
 
-function GetRestaurant() {
-    let { restName } = useParams();
-    // Get restaurant based on restName, replace restName below with restaurant
-    return <RestaurantView restaurant = {restName} />
-}
+// function GetRestaurant() {
+//     let { restName } = useParams();
+//     // Get restaurant based on restName, replace restName below with restaurant
+//     return <RestaurantView restaurant = {restName} />
+// }
 
 export default App;

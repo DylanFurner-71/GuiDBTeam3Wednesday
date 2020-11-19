@@ -5,10 +5,12 @@ import {connect} from "react-redux";
 import {loginUser} from "../repository/accountRepository";
 import {userTypes} from "../types/userTypes";
 import "react-bootstrap";
-
+import AccountsRepository from "../repository/accountRepository";
 class Login extends Component {
     constructor() {
         super();
+        accountsRepository = new AccountsRepository();
+
         this.state = {
             email: "",
             password: "",
@@ -43,7 +45,8 @@ class Login extends Component {
             email: this.state.email,
             password: this.state.password,
         };
-        this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+        //maybe pass the url parameters here to let the repository know which to call
+        this.accountsRepository.login(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
     };
     render() {
         const error = this.state.error;
