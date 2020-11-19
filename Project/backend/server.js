@@ -217,8 +217,10 @@ app.delete('/api/v1/restaurants/:id/menu', (req, res) => {
   });
 });
 
+
+
   
-/*
+
 //update password
 app.put('/api/v1/accounts/:id/password', async(req,res) => {
   var Newpassword = req.body.password
@@ -245,6 +247,7 @@ app.put('/api/v1/accounts/:id/payment', async(req,res) => {
   });
 });
 
+
 //create payment method
 app.post('/api/v1/accounts/:id/payment', (req, res) => {
   var AccountID = req.params.id
@@ -254,21 +257,23 @@ app.post('/api/v1/accounts/:id/payment', (req, res) => {
   var CardNumber = req.body.card_number
   var CVC = req.body.cvc
   
-  connection.query('INSERT INTO users (account_id,first_name,last_name,billing_address,card_number,cvc) VALUES (?,?,?,?,?,?)', [AccountID,FisrtName,LastName,Billing,CardNumber,CVC], (err, result, fields) => {
+  connection.query('INSERT INTO Payment (account_id,first_name,last_name,billing_address,card_number,cvc) VALUES (?,?,?,?,?,?)', [AccountID,FisrtName,LastName,Billing,CardNumber,CVC], (err, result, fields) => {
     if (err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   });
 });
 
+
 //delete payment method  ---???
 app.delete('/api/v1/accounts/:id/payment', (req, res) => {
-  var AccountId = req.params.id;
+  var AccountId = req.body.account_id;
 
   connection.query("DELETE FROM Payment WHERE account_id = ?", [AccountId], (err, result, fields) => {
     if (err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   });
 });
+
 
 //update contact information
 app.put('/api/v1/accounts/:id/contact', async(req,res) => {
@@ -285,7 +290,7 @@ app.put('/api/v1/accounts/:id/contact', async(req,res) => {
 
 
 
-
+/*
 
 
 //creat meun item
