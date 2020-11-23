@@ -17,7 +17,7 @@ export class RestaurantList extends React.Component {
                             <li key={i}>
                                 <div className="container">
                                     <div className="card bg-white">
-                                        <a className="card-block stretched-link text-decoration-none" href={"/menu/" + x.name}>
+                                        <a className="card-block stretched-link text-decoration-none" href={"/menu/" + x.id}>
                                             <div className="card-body">
                                                 <p className="font-weight-bold">{x.name}</p>
                                                 <p className="text-secondary">{x.address}</p>

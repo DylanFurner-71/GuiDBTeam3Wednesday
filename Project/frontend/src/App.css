@@ -21,7 +21,7 @@ body {
 .welcome {
   color: #FFFFFF;
   font-size: 3em;
-  margin: 1em;
+  margin: 0.75em;
 }
 
 .message {
@@ -42,7 +42,7 @@ hr {
   background-color: #282c34!important;
 }
 
-.p-2 {
+.font-dark {
   color: #282c34!important;
   font-size: 1.5em!important;
   font-weight: bolder;

@@ -1,10 +1,11 @@
 import React from 'react';
 import CustomerNav from "./CustomerNav";
+import { CartService } from '../services/CartService';
 
 export class OrderConfirmed extends React.Component {
-    state = {
-        
-    }
+    CartService = new CartService();
+
+    state = this.CartService.getCart();
 
     orders = []
 
@@ -41,7 +42,7 @@ export class OrderConfirmed extends React.Component {
                 <CustomerNav />
                 <h1 className="welcome">Order confirmed, thank you!</h1>
                 <h4 className="text-white">Estimated time of delivery: {this.getDeliveryTime()}</h4>
-                <p className="text-white">Todo: Display order status and a way to review the order</p>
+                <p className="text-white">Todo: Display order total, status, and a way to review the order</p>
             </>
         )
     }

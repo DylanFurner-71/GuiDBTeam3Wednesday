@@ -11,29 +11,36 @@ import CustomerOrderHistory from './components/CustomerOrderHistory';
 import RestaurantView from "./components/RestaurantView";
 import RestaurantEmployeeLanding from "./components/RestaurantEmployeeLanding";
 import OrderConfirmed from './components/OrderConfirmed';
+import ViewCart from './components/ViewCart';
+import Checkout from './components/Checkout';
 
 export const ROUTES = [
     // Misc.
-    { path: `/menu/:restName`, component: RestaurantView },
-    { path: `/order/:restName`, component: RestaurantView },
+    { path: `/menu/:restaurantId`, component: RestaurantView },
+
+    // Order
+    { path: `/order/cart`, component: ViewCart },
+    { path: `/order/checkout`, component: Checkout },
+    { path: `/order/confirmed/:customerId`, component: OrderConfirmed },
 
     // Customer Page Routes
     { path: '/customer/profile', component: CustomerProfile }, // TEMP
     { path: '/customer/:customerId/profile', component: CustomerProfile },
     { path: '/customer/past-orders', component: CustomerOrderHistory }, // TEMP
     { path: '/customer/:customerId/past-orders', component: CustomerOrderHistory },
-    { path: '/customer/order-confirmed/:orderId', component: OrderConfirmed }, // TEMP
-    { path: '/customer/:customerId/order-confirmed/:orderId', component: OrderConfirmed },
+
     // Home Page Routes
     { path: '/employee/home', component:  RestaurantEmployeeLanding },
     { path: '/web-manager/home', component: WebManagerLanding },
     // TODO: Driver Home Page { path: '/driver/home', component:  },
     { path: '/customer/home', component: CustomerLanding },
+    
     // Register Page Routes
     { path: '/employee/register', component: RegisterEmployee },
     { path: '/web-manager/register', component: RegisterWebManager },
     { path: '/driver/register', component: RegisterDriver },
     { path: '/customer/register', component: RegisterUser },
+
     // Landing/Login
     { path: '/login', component: Login },
     { path: '/home', component: Landing },
