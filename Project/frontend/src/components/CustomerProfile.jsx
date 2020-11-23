@@ -11,20 +11,21 @@ class CustomerProfile extends Component {
         "John",
         // lastName
         "Smith",
-        // email: 
+        // email
         "johnsmith@gmail.com",
+        // phone
+        "",
         // address1
         "",
         // address2
         "",
         // city
         "",
-        // state
-        "",
         // zip
-        0
+        ""
     );
-
+    
+    // note: convert phone and zip to int before sending to DB
     onSave() {
         console.log("Temporary Save");
     }
@@ -41,16 +42,16 @@ class CustomerProfile extends Component {
                 <input type="text" name="lastName" value={this.state.lastName} readOnly></input>
                 <label htmlFor="email">Email:</label>
                 <input type="email" name="email" value={this.state.email} readOnly></input>
-                <label htmlFor="address1" value={this.state.address1} onChange={event => this.setState({address1: event.target.value })}>Address Line 1:</label>
-                <input type="text" name="address1"></input>
-                <label htmlFor="address2" value={this.state.address2} onChange={event => this.setState({address2: event.target.value })}>Address Line 2:</label>
-                <input type="text" name="address2"></input>
-                <label htmlFor="city" value={this.state.city} onChange={event => this.setState({city: event.target.value })}>City:</label>
-                <input type="text" name="city"></input>
-                <label htmlFor="state" value={this.state.state} onChange={event => this.setState({state: event.target.value })}>State:</label>
-                <input type="text" name="state"></input>
-                <label htmlFor="zip" value={this.state.zip} onChange={event => this.setState({zip: event.target.value })}>Zip Code:</label>
-                <input type="number" name="zip"></input>
+                <label htmlFor="phone">Phone Number:</label>
+                <input type="number" name="phone" value={this.state.phone} onChange={event => this.setState({phone: event.target.value })}></input>
+                <label htmlFor="address1">Address Line 1:</label>
+                <input type="text" name="address1" value={this.state.address1} onChange={event => this.setState({address1: event.target.value })}></input>
+                <label htmlFor="address2">Address Line 2:</label>
+                <input type="text" name="address2" value={this.state.address2} onChange={event => this.setState({address2: event.target.value })}></input>
+                <label htmlFor="city">City:</label>
+                <input type="text" name="city" value={this.state.city} onChange={event => this.setState({city: event.target.value })}></input>
+                <label htmlFor="zip">Zip Code:</label>
+                <input type="number" name="zip" value={this.state.zip} onChange={event => this.setState({zip: event.target.value })}></input>
                 <input type="button" value="Save" onClick={() => this.onSave()}></input>
             </form>
         </>
