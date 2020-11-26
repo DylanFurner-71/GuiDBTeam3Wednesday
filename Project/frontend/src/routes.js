@@ -32,7 +32,7 @@ export const ROUTES = [
     // Home Page Routes
     { path: '/employee/home', component:  RestaurantEmployeeLanding },
     { path: '/web-manager/home', component: WebManagerLanding },
-    // TODO: Driver Home Page { path: '/driver/home', component:  },
+    { path: '/driver/home', component: DriverDashboard},
     { path: '/customer/home', component: CustomerLanding },
     
     // Register Page Routes
