@@ -1,15 +1,15 @@
 import React from 'react';
 
-export const RestaurantsTable = props => {
+export const UsersTable = props => {
     return <>
-    <h3 className="welcome">Restaurant List</h3>
+    <h3 className="welcome">User List</h3>
         <ul className="list-group">
             {
-                props.restaurants.map((x, i) =>
+                props.users.map((x, i) =>
                     <li className="list-group-item" key={i}>
                         <div className="row mb-0">
                             <div className="col d-flex align-items-center text-dark text-left">
-                                {x.name} - {x.address}
+                                <span className="font-weight-bold mr-2">{props.getAccountType(x.accountType)}:</span>{x.firstName} {x.lastName} 
                             </div>
                             <div className="col-2 text-right">             
                                 <button onClick={() => props.onDelete(x)} className="btn btn-outline-secondary">

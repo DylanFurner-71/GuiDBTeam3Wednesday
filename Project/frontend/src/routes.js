@@ -16,10 +16,16 @@ import Checkout from './components/Checkout';
 import DriverDashboard from './components/DriverDashboard';
 import DriverCurrentOrder from './components/DriverCurrentOrder';
 import DriverProfile from './components/DriverProfile';
+import WebManagerRestaurants from "./components/WebManagerRestaurants";
+import WebManagerUsers from "./components/WebManagerUsers";
 
 export const ROUTES = [
     // Misc.
     { path: `/menu/:restaurantId`, component: RestaurantView },
+
+    // Web Manager
+    { path: `/web-manager/restaurants`, component: WebManagerRestaurants },
+    { path: `/web-manager/users`, component: WebManagerUsers },
 
     // Driver
     { path: `/driver/order`, component: DriverCurrentOrder },
