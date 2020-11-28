@@ -14,10 +14,17 @@ import OrderConfirmed from './components/OrderConfirmed';
 import ViewCart from './components/ViewCart';
 import Checkout from './components/Checkout';
 import DriverDashboard from './components/DriverDashboard';
+import DriverCurrentOrder from './components/DriverCurrentOrder';
+import DriverProfile from './components/DriverProfile';
 
 export const ROUTES = [
     // Misc.
     { path: `/menu/:restaurantId`, component: RestaurantView },
+
+    // Driver
+    { path: `/driver/order`, component: DriverCurrentOrder },
+    { path: '/driver/profile', component: DriverProfile }, // TEMP
+    { path: '/driver/:driverId/profile', component: DriverProfile },
 
     // Order
     { path: `/order/cart`, component: ViewCart },
