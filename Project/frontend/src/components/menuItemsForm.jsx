@@ -35,7 +35,7 @@ export class MenuItemsForm extends React.Component {
     render() {
             return <>
             <form className="container">
-            <h3 class="action">Add Menu Item</h3>
+            <h3 className="action">Add Menu Item</h3>
             <div className="form-group">
                 <label htmlFor="name">Item Name</label>
                 <input type="text"
