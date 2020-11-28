@@ -46,7 +46,7 @@ class RegisterUser extends Component {
             <div className="container mt-5">
                 <div className="row">
                     <div className="col s8">
-                        <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+                        <div className="col s12">
                             <h4 className="text-white">
                                 Register a Customer Account below
                             </h4>

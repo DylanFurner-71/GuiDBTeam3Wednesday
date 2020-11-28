@@ -6,6 +6,17 @@ export class CartService {
         return window.cart || new Cart();
     }
 
+    getRestaurantId() {
+        let cart = window.cart || new Cart();
+        return cart.restaurantId || 0;
+    }
+
+    setRestaurantId(id) {
+        let cart = window.cart || new Cart();
+        cart.restaurantId = id;
+        window.cart = cart;
+    }
+
     addToCart(menuItem) {
         let cart = window.cart || new Cart();
         let existing = cart.items.find(x => x.menuItem.id == menuItem.id);

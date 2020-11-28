@@ -1,12 +1,13 @@
 import React, {Component} from "react";
 import '../App.css';
 import CustomerNav from "./CustomerNav";
-import { MenuItem } from '../models/MenuItem'
 import { MenuItemList } from './MenuItemList'
 import { RestaurantRepository } from '../repository/restaurantRepository';
+import CartService from "../services/CartService";
 
 class RestaurantView extends Component {
     RestaurantRepository = new RestaurantRepository();
+    cart = new CartService();
 
     // Temp Data
     state = {
@@ -28,6 +29,7 @@ class RestaurantView extends Component {
 
     componentDidMount() {
         const id = +this.props.match.params.restaurantId;
+        this.cart.setRestaurantId(id);
         if (id) {
             // this.RestaurantRepository.getRestaurant(id).then(restaurant => this.setState(restaurant));
         }
