@@ -15,7 +15,7 @@ class WebManagerLanding extends Component{
                     new Restaurant("Barley House", "5612 SMU Boulevard, Dallas, TX, 75206")];
    
     state = {
-        // userFullName: userFirstName + " " + userLastName,
+        //userFullName: userFirstName + " " + userLastName,
         //the line below is nonesense right now. It would someday pull up the list of existing restaurants from the api
         restaurants: this.restaurant
     };
@@ -41,7 +41,7 @@ class WebManagerLanding extends Component{
                 <h1 className="welcome">Welcome, {userFullName}</h1>
                 <RestaurantsTable restaurants={this.state.restaurants}/>
                 <RestaurantsForm onRestaurantAdded={element => this.onAddRestaurant(element)} />
-                <DeleteRestaurantForm onRestaurantDeleted={element => this.deleteRestaurants(element)} numRestaurants={this.state.restaurants.length}/>
+                {/* <DeleteRestaurantForm onRestaurantDeleted={element => this.deleteRestaurants(element)} numRestaurants={this.state.restaurants.length}/> */}
             </div>
                
     ) 

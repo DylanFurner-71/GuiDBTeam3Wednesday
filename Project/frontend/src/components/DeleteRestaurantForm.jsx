@@ -48,7 +48,7 @@ return items;
                 </select>
                         </div>
             </div>
-            <input className="bg-green" type="button" value="Submit"
+            <input className="bg-green" type="button" value="Delete"
             onClick={ () => this.onAddClick()}                                    />
       </form>
    </>
