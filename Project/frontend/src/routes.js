@@ -13,6 +13,7 @@ import RestaurantEmployeeLanding from "./components/RestaurantEmployeeLanding";
 import OrderConfirmed from './components/OrderConfirmed';
 import ViewCart from './components/ViewCart';
 import Checkout from './components/Checkout';
+import DriverDashboard from './components/DriverDashboard';
 
 export const ROUTES = [
     // Misc.
@@ -21,7 +22,7 @@ export const ROUTES = [
     // Order
     { path: `/order/cart`, component: ViewCart },
     { path: `/order/checkout`, component: Checkout },
-    { path: `/order/confirmed/:customerId`, component: OrderConfirmed },
+    { path: `/order/confirmed/:restaurantId`, component: OrderConfirmed },
 
     // Customer Page Routes
     { path: '/customer/profile', component: CustomerProfile }, // TEMP

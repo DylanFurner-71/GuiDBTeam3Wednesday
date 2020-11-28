@@ -32,7 +32,12 @@ export class Checkout extends React.Component {
 
     // Submit order to backend
     onSubmit() {
-        window.location.href = "/order/confirmed/" + this.state.id;
+        if (this.cart.total != 0) {
+            let id = this.CartService.getRestaurantId();
+            window.location.href = "/order/confirmed/" + id;
+        }
+        else
+            alert("Cannot submit an empty order!");
     }
 
     render() {
