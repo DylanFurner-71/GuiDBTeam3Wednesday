@@ -137,7 +137,7 @@ app.post('/api/v1/restaurants', function (req, res) {
 });
 
 //DELETE: Remove Restaurant
-app.delete('/api/v1/restaurants', function (req, res) {
+app.post('/api/v1/restaurants/:restaurantId', function (req, res) {
   //TODO - DB query
   //TODO - RES
   var RestaurantID = req.body.RestaurantID
@@ -150,7 +150,7 @@ app.delete('/api/v1/restaurants', function (req, res) {
 });
 
 //DELETE: Remove Account
-app.delete('/api/v1/accounts', function (req, res) {
+app.delete('/api/v1/accounts/:restaurantId', function (req, res) {
   //TODO - DB query
   //TODO - RES
   var CustomerID = req.body.CustomerID

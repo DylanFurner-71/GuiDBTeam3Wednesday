@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { register } from "../repository/accountRepository";
-class RegisterEmployee extends Component {
+import { AccountRepository } from "../repository/accountRepository";
+ class RegisterEmployee extends Component {
     constructor() {
         super();
+        this.accountRepository = new AccountRepository();
         this.state = {
             firstName: "",
             lastName: "",
@@ -159,16 +160,5 @@ class RegisterEmployee extends Component {
         );
     }
 }
-RegisterEmployee.propTypes = {
-    register: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    error: PropTypes.object.isRequired
-};
-const mapStateToProps = state => ({
-    auth: state.auth,
-    error: state.error
-});
-export default connect(
-    mapStateToProps,
-    { register }
-)(withRouter(RegisterEmployee));
+
+export default RegisterEmployee;

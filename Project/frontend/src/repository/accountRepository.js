@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export class AccountsRepository {
+export class AccountRepository {
 
     url = 'http://localhost:8000/api/v1';
 
@@ -8,7 +8,9 @@ export class AccountsRepository {
         // headers: {
         // }
     };
-
+    register(){
+        
+    }
     getAccounts() {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}`, this.config)

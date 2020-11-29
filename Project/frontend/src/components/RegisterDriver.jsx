@@ -2,9 +2,12 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { register } from "../repository/accountRepository";
-class RegisterDriver extends Component {
+import { AccountRepository } from "../repository/accountRepository";
+export default class RegisterDriver extends Component {
+
     constructor() {
+        this.accountRepository = new AccountRepository();
+
         super();
         this.state = {
             firstName: "",
@@ -147,16 +150,3 @@ class RegisterDriver extends Component {
         );
     }
 }
-RegisterDriver.propTypes = {
-    register: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    error: PropTypes.object.isRequired
-};
-const mapStateToProps = state => ({
-    auth: state.auth,
-    error: state.error
-});
-export default connect(
-    mapStateToProps,
-    { register }
-)(withRouter(RegisterDriver));

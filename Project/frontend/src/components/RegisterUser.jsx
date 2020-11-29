@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { register } from "../repository/accountRepository";
-class RegisterUser extends Component {
+import { AccountRepository } from "../repository/accountRepository";
+export default class RegisterUser extends Component {
     constructor() {
         super();
+        this.accountRepository = new AccountRepository();
         this.state = {
             firstName: "",
             lastName: "",
@@ -38,7 +39,7 @@ class RegisterUser extends Component {
             password: this.state.password,
             accountType: "user"
         };
-        register(newUser, this.props.history);
+        this.accountRepository.register(newUser, this.props.history);
     };
     render() {
         const { error } = this.state;
@@ -136,17 +137,3 @@ class RegisterUser extends Component {
         );
     }
 }
-
-RegisterUser.propTypes = {
-    register: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    error: PropTypes.object.isRequired
-};
-const mapStateToProps = state => ({
-    auth: state.auth,
-    error: state.error
-});
-export default connect(
-    mapStateToProps,
-    { register }
-)(withRouter(RegisterUser));

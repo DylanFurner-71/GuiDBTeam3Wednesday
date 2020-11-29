@@ -2,14 +2,14 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {loginUser} from "../repository/accountRepository";
+// import {loginUser} from "../repository/accountRepository";
 import {userTypes} from "../types/userTypes";
 import "react-bootstrap";
-import AccountsRepository from "../repository/accountRepository";
-class Login extends Component {
+import {AccountRepository} from "../repository/accountRepository";
+export default class Login extends Component {
+    accountsRepository = new AccountRepository();
     constructor() {
         super();
-        accountsRepository = new AccountsRepository();
 
         this.state = {
             email: "",
@@ -19,21 +19,11 @@ class Login extends Component {
     }
 //i think we will get a prop from the api response that allows us to determine account type
     componentDidMount() {
-        // If logged in and user navigates to Login page, should redirect them to dashboard
-        if (this.props.auth.isAuthenticated) {
-            this.props.history.push("/home");
-        }
+    
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.auth.isAuthenticated) {
-            this.props.history.push("/home"); // push user to dashboard when they login
-        }
-        if (nextProps.error) {
-            this.setState({
-                error: nextProps.error
-            });
-        }
+      
     }
 
     onChange = e => {
@@ -107,16 +97,3 @@ class Login extends Component {
         );
     }
 }
-
-Login.propTypes = {
-    loginUser: PropTypes.func.isRequired,
-};
-const mapStateToProps = state => ({
-    auth: state.auth,
-    error: state.error,
-
-});
-export default connect(
-    mapStateToProps,
-    {loginUser}
-)(Login);
