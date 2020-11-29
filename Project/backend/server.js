@@ -519,3 +519,21 @@ app.put('/api/v1/restaurants/:rest/menu/item', async(req,res) => {
   });
 });
 
+//creat review
+app.post('/api/v1/restaurants/:rest/reviews', (req, res) => {
+  var RestaurantId = req.params.rest
+  var AccountId = req.body.account_id
+  var Rating = req.body.rating
+  var Content= req.body.content
+  var ReviewId=req.body.review_id
+  
+  
+  connection.query('INSERT INTO Reviews (review_id,restaurant_id,account_id,rating,content) VALUES (?,?,?,?,?)', [ReviewId,RestaurantId,AccountId,Rating,Content], (err, result, fields) => {
+    if (err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  });
+});
+//order status
+
+//order queue
+
