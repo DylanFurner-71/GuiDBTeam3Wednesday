@@ -18,11 +18,12 @@ class WebManagerRestaurants extends Component{
     };
 
     deleteRestaurants(element){
-       this.state.restaurants.splice(element, 1);
+        // TODO: Delete the element from the api
        this.setState({restaurants: this.state.restaurants});
     }
 
     onAddRestaurant(element) {
+        // TODO add the address too when supported in backend
         const restaurant = {
             restaurant_name: element.name
         }

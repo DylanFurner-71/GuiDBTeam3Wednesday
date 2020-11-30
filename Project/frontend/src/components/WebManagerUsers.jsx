@@ -15,8 +15,8 @@ class WebManagerUsers extends Component{
     };
 
     deleteUsers(element){
-       this.state.users.splice(element, 1);
-       this.setState({users: this.state.users});
+    // TODO: Delete the user from the api
+        this.setState({users: this.state.users});
     }
 
     parseAccountType(type) {

@@ -9,7 +9,7 @@ class RestaurantView extends Component {
     RestaurantRepository = new RestaurantRepository();
     cart = new CartService();
 
-    // Temp Data
+    // Placeholder Data
     state = {
         name : 'McDonalds',
         address: '',
