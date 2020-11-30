@@ -1,6 +1,5 @@
 
 import React from 'react';
-import {MenuItemsCard} from "./MenuItemsCard";
 
 class MenuView extends React.Component {
     render() {

@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import '../App.css';
 import DriverNav from "./DriverNav";
 import { Driver } from "../models/Driver";
 

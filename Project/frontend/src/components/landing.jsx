@@ -1,10 +1,9 @@
 import React, {Component} from "react";
-import {Row, Col, Container} from "react-bootstrap"
-import {Link} from "react-router-dom";
+import {Row, Col} from "react-bootstrap"
 import {LoginCard} from "./LoginCard";
 import {userTypes} from "../types/userTypes";
+import {userRoutes} from "../types/userRoutes";
 import logo from "../logo.png";
-import home from "../repository/accountRepository";
 
 class Landing extends Component {
 
@@ -14,21 +13,21 @@ class Landing extends Component {
                 <div className="row">
                     <div className="col center-align">
                         <img id="landingLogo" src={logo} alt="Logo" />
-                        <h1 className="welcome mb-4">Welcome to Newber Eats</h1>
-                        <p className="message mb-4">
-                             Your newest undifferentiated food delivery app!
+                        <h1 className="welcome mb-4">Welcome to Newber Eats!</h1>
+                        <p className="message mb-5">
+                            The newest basic food delivery app
                         </p>
                 </div>
-                     <Container fluid="sm">
-                        <Row>
-                        <Col><LoginCard accountType={userTypes.Customer}/></Col>
-                        <Col><LoginCard accountType={userTypes.RestaurantEmployee}/></Col>
-                        </Row>
-                        <Row>
-                        <Col><LoginCard accountType={userTypes.Delivery}/></Col>
-                        <Col><LoginCard accountType={userTypes.WebManager}/></Col>
-                        </Row>
-                    </Container>
+                <div className="container">
+                    <Row>
+                    <Col><LoginCard accountType={userTypes.Customer} routeType={userRoutes.Customer}/></Col>
+                    <Col><LoginCard accountType={userTypes.RestaurantEmployee} routeType={userRoutes.RestaurantEmployee}/></Col>
+                    </Row>
+                    <Row>
+                    <Col><LoginCard accountType={userTypes.Delivery} routeType={userRoutes.Delivery}/></Col>
+                    <Col><LoginCard accountType={userTypes.WebManager} routeType={userRoutes.WebManager}/></Col>
+                    </Row>
+                </div>
             </div>
         </div>
         );

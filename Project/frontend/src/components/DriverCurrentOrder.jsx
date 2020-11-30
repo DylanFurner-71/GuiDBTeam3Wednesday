@@ -1,5 +1,4 @@
 import React from "react";
-import '../App.css';
 import { OrderRepository } from "../repository/orderRepository";
 import DriverNav from "./DriverNav";
 import DriverOrderService from "../services/DriverOrderService";
@@ -30,7 +29,7 @@ class DriverCurrentOrder extends React.Component {
             {(this.state.orderId === -1 &&
                 <div className="container">
                     <h1 className="welcome">No current orders.</h1>
-                    <Link className="btn bg-green" to="/driver/home">Return home</Link>
+                    <Link className="btn bg-green pt-2" to="/driver/home">Return home</Link>
                 </div>
             )}
             {(this.state.orderId !== -1 &&
@@ -41,28 +40,43 @@ class DriverCurrentOrder extends React.Component {
                     <div className="card col-6">
                         <div className="card-body">
                             <h5 className="card-header mb-2">Order #{this.state.orderId}</h5>
-                            <h3 className="display-4 m-3">{this.state.firstName} {this.state.lastName}</h3>
-                            <h4 className="h3 text-left">Phone Number: {this.state.phone}</h4>
-                            <h4 className="h3 text-left">Address: {this.state.address}</h4>
-                            <h4 className="h4 text-left">Order Contents:</h4>
-                            <ul className="list-group h5 text-left">
-                                {this.state.items.map((x, i) =>
-                                    <li key={i}>
-                                        <p className="text-decoration-none ml-4">- {x.quantity} {x.menuItem.name}, <span className="text-secondary h6">{x.menuItem.description}</span></p>
-                                    </li>
-                                )}
-                            </ul>
                             {(this.state.status === "In Progress" && 
-                                <button className="btn bg-green mt-3" onClick={() => this.onPickedUp()}>Confirm Picked Up</button>
+                            <>
+                                <h2 className="h-2">McDonalds</h2>
+                                <h3 className="h-3 text-left">Restaurant Phone Number: </h3>
+                                <h3 className="h-3 text-left">Restaurant Address: </h3>
+                                <h3 className="h-3 text-left">Order Contents:</h3>
+                                <ul className="list-group h5 text-left">
+                                    {this.state.items.map((x, i) =>
+                                        <li key={i}>
+                                            <p className="text-decoration-none ml-4">- {x.quantity} {x.menuItem.name}, <span className="text-secondary h6">{x.menuItem.description}</span></p>
+                                        </li>
+                                    )}
+                                </ul>
+                                <button className="btn bg-green mt-3 pb-2" onClick={() => this.onPickedUp()}>Confirm Picked Up</button>
+                            </>
                             )}
                             {(this.state.status === "Picked Up" && 
-                                <Link className="btn bg-green mt-3" onClick={() => this.onDelivered()}>Confirm Delivery Complete</Link>
+                            <>
+                                <h2 className="h-2">{this.state.firstName} {this.state.lastName}</h2>
+                                <h3 className="h-3 text-left">Customer Phone Number: {this.state.phone}</h3>
+                                <h3 className="h-3 text-left">Customer Address: {this.state.address}</h3>
+                                <h3 className="h-3 text-left">Order Contents:</h3>
+                                <ul className="list-group h5 text-left">
+                                    {this.state.items.map((x, i) =>
+                                        <li key={i}>
+                                            <p className="text-decoration-none ml-4">- {x.quantity} {x.menuItem.name}, <span className="text-secondary h6">{x.menuItem.description}</span></p>
+                                        </li>
+                                    )}
+                                </ul>
+                                <button className="btn bg-green mt-3 pb-2 btn-sm" onClick={() => this.onDelivered()}>Confirm Delivery Complete</button>
+                            </>
                             )}
                         </div>
                     </div>
                     <div className="col-3"></div>
                     </div>
-                    <Link className="btn bg-green" to="/driver/home">Return home</Link>
+                    <Link className="btn bg-green btn-sm" to="/driver/home">Return home</Link>
                 </div>
             )}
         </>;

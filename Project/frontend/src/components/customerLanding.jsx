@@ -1,9 +1,8 @@
 import React, {Component} from "react";
-import '../App.css';
 import CustomerNav from "./CustomerNav";
 import { Customer } from "../models/Customer";
 import { RestaurantList } from "./RestaurantList";
-import { Restaurant } from '../models/Restaurant'
+import { Restaurant } from '../models/Restaurant';
 
 class CustomerLanding extends Component {
     state = new Customer(

@@ -18,14 +18,14 @@ class WebManagerLanding extends Component{
                 <div className="row">
                     <div className="col-2"></div>
                     <div className="col-8">
-                        <Link className="btn-block bg-green text-black h2 rounded-lg p-3" to="restaurants">Manage Restaurants</Link>
+                        <Link className="btn-block bg-green text-black h2 rounded-lg p-3 text-decoration-none" to="restaurants">Manage Restaurants</Link>
                     </div>
                     <div className="col-2"></div>
                 </div>
                 <div className="row">
                     <div className="col-2"></div>
                     <div className="col-8">
-                        <Link className="btn-block bg-green text-black h2 rounded-lg p-3" to="users">Manage Users</Link>
+                        <Link className="btn-block bg-green text-black h2 rounded-lg p-3 text-decoration-none" to="users">Manage Users</Link>
                     </div>
                     <div className="col-2"></div>
                 </div>

@@ -2,12 +2,13 @@ import React from 'react';
 import { Rating } from './Rating'
 import { Link } from "react-router-dom";
 import { RestaurantRepository } from "../repository/restaurantRepository";
+import { Restaurant } from '../models/Restaurant';
 
 export class ReviewsTable extends React.Component {
     RestaurantRepository = new RestaurantRepository();
 
     state = {
-        restaurant: null,
+        restaurant: new Restaurant("McDonalds", "5647 Ellsworth Ave, Dallas, TX 75205", 0),
         reviews: []
     }
 

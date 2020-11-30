@@ -25,12 +25,12 @@ export class MenuItemList extends React.Component {
                         <li className="m-3 card" key={i}>
                             <div className="card-body">
                                 <div className="row">
-                                    <div className="col-10 text-left">
+                                    <div className="col text-left">
                                         <p className="h4">{item.name}
                                             <span className="font-weight-light text-muted font-italic"> - {item.description}</span>
                                         </p>
                                     </div>
-                                    <div className="col-2 text-right">
+                                    <div className="col text-right">
                                         <p className="h4">${item.price.toFixed(2)}</p>
                                     </div>
                                 </div>

@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import '../App.css';
 import CustomerNav from "./CustomerNav";
 import { MenuItemList } from './MenuItemList'
 import { RestaurantRepository } from '../repository/restaurantRepository';

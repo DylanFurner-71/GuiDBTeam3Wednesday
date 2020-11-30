@@ -29,6 +29,8 @@ class WebManagerUsers extends Component{
                 return "Driver";
             case 3:
                 return "Web Manager";
+            default:
+                return "No Type";
         }
     }
 
