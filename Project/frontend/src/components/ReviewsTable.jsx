@@ -20,10 +20,7 @@ export class ReviewsTable extends React.Component {
     render() {
         return <>
             {this.state.reviews.length === 0 && (
-            <>
                 <p className="welcome">No reviews currently for {this.state.restaurant.name}</p>
-                <Link className="btn bg-green" to="/web-manager/restaurants">Return to Restaurant List</Link>
-            </>
             )}
             {this.state.reviews.length > 0 && (
             <>
@@ -52,7 +49,6 @@ export class ReviewsTable extends React.Component {
                         </li>)
                     }
                 </ul>
-                <Link className="btn bg-green mt-3" to="/web-manager/restaurants">Return to Restaurant List</Link>
             </>
             )}
         </>;
