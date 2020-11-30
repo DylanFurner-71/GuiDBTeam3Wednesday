@@ -8,8 +8,15 @@ export class AccountRepository {
         // headers: {
         // }
     };
-    register(){
-        
+    register(accountData){
+       return new Promise((resolve, reject) => {
+           axios.post(`${this.url}/accounts/staff`, accountData)
+           .then(x=> resolve(x.data))
+           .catch(e => {
+               alert(e);
+               reject();
+           });
+           });
     }
     getAccounts() {
         return new Promise((resolve, reject) => {
@@ -21,8 +28,17 @@ export class AccountRepository {
             });
         });
     }
-
-    getAccount(id) {
+    login() {
+            return new Promise((resolve, reject) => {
+                axios.post(`${this.url}/:id`, this.config)
+                .then(x => resolve(x.data))
+                .catch(e => {
+                    alert(e);
+                    reject();
+                });
+            });
+    }
+    getEmployee(id) {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/${id}`, this.config)
             .then(x => resolve(x.data))

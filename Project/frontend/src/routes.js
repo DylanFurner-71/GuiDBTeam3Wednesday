@@ -19,7 +19,8 @@ import DriverProfile from './components/DriverProfile';
 import WebManagerRestaurants from "./components/WebManagerRestaurants";
 import WebManagerUsers from "./components/WebManagerUsers";
 import MenuView from './components/MenuView.jsx';
-
+import EmployeeOrders from "./components/EmployeeOrders";
+import EmployeeProfile from "./components/EmployeeProfile";
 export const ROUTES = [
     //employee 
     { path: `/employee/profile/:id`, component: EmployeeProfile},

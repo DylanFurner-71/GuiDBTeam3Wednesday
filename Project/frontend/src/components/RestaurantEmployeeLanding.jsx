@@ -5,6 +5,9 @@ import { MenuItemsForm } from "./menuItemsForm";
 import MenuView from "./MenuView";
 import { Employee } from "../models/Employee";
 import { AccountRepository } from "../repository/accountRepository";
+import { RestaurantRepository } from "../repository/restaurantRepository";
+import EmployeeNav from "./EmployeeNav";
+
 /*
 
 1st: make sure we get the restaurant id so we can get the restaurant menu at api/restaurants/:id/menu
@@ -16,29 +19,27 @@ class RestaurantEmployeeLanding extends Component {
     restaurant = new Restaurant("McDonalds", "5647 Ellsworth Ave, Dallas, TX 75205");
     currentEmployee = new Employee(1, "Dylan", "Furner", "dfurner@smu.edu", "4793816662", "1234 Greenville Ave", 1);
     accountRepository = new AccountRepository();
+    restaurantRepository = new RestaurantRepository();
     constructor() { //this will likely require an employeeId parameter
 super();
 this.state = {
-    employee: '',
+    employee: {},
 // userFullName: userFirstName + " " + userLastName,
 //the line below is nonesense right now. It would someday pull up the list of existing restaurants from the api
-    menu: [],
 };
 }
 render() {
     return(
         <>
-        <EmployeeNav restId={this.restaurant.id} id={this.currentEmployee.id}/>
+        <EmployeeNav restId={this.state.employee.restaurantId} id={this.state.employee.id}/>
 <h2> Hello {this.currentEmployee.firstName} </h2>
-<MenuView/>
-        </>
+    <p> Welcome, to get started, please make sure your restaurant has a menu. Click the orders tab to view pending and past orders at your restaurant. {`${this.state.employee.firstName}`}</p>        </>
     )
 }
 componentDidMount() {
-    // this.accountRepository.getProducts()
-    // .then(account => {
-    //     this.setState({currentEmployee: account})});
-
+     this.accountRepository.getEmployee()
+     .then(account => {
+         this.setState({currentEmployee: account})});
 }
 }
 export default RestaurantEmployeeLanding;

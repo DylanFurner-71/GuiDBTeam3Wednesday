@@ -16,6 +16,7 @@ import { AccountRepository } from "../repository/accountRepository";
             error: "",
             restaurantAddress: "",
             restaurantName: "",
+            restaurantId: "", //for now this is by hand.
         };
     }
     componentDidMount() {
@@ -40,9 +41,10 @@ import { AccountRepository } from "../repository/accountRepository";
             password: this.state.password,
             password2: this.state.password2,
             restaurantName: this.state.restaurantName,
-            restaurantAddress: this.state.restaurantAddress
+            restaurantAddress: this.state.restaurantAddress,
+            restaurantId: this.state.restaurantId,
         };
-        this.props.registerUser(newUser, this.props.history);
+        this.accountRepository.register(newUser);
     };
     render() {
         const { error } = this.state;
@@ -103,13 +105,23 @@ import { AccountRepository } from "../repository/accountRepository";
                 />
                 </div>
                 <div className="input-field col s12">
-                            <label htmlFor="email"></label>
+                            <label htmlFor="restaurantAddress"></label>
             <input type="text"
-                id="email"
-                name="email"
+                id="restaurantAddress"
+                name="restaurantAddress"
                 value={this.state.restaurantAddress}
                 placeholder="Restaurant Address"
                 onChange={ e => this.setState({ restaurantAddress: e.target.value })}
+                />
+                </div>
+                <div className="input-field col s12">
+                            <label htmlFor="restaurantId"></label>
+                <input type="text"
+                id="restaurantId"
+                name="restaurantId"
+                value={this.state.restaurantId}
+                placeholder="Restaurant ID"
+                onChange={ e => this.setState({ restaurantId: e.target.value })}
                 />
                 </div>
                         <div className="input-field col s12">
