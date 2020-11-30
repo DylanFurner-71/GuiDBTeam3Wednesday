@@ -1,12 +1,26 @@
 import React from 'react';
 import CustomerNav from "./CustomerNav";
+import { CartService } from '../services/CartService';
+import { ReviewForm } from './ReviewForm';
+import { RestaurantRepository } from '../repository/restaurantRepository';
 
 export class OrderConfirmed extends React.Component {
+    CartService = new CartService();
+    RestaurantRepository = new RestaurantRepository();
+
+    cart = this.CartService.getCart();
+
     state = {
-        
+      isReviewed: false
     }
 
     orders = []
+
+    addReview(review) {
+      let id = +this.props.match.params.restaurantId;
+      this.RestaurantRepository.addReview(id, review);
+      this.setState({isReviewed: true});
+  }
 
     getDeliveryTime() {
         var dt = new Date();
@@ -39,9 +53,17 @@ export class OrderConfirmed extends React.Component {
         return (
             <>
                 <CustomerNav />
-                <h1 className="welcome">Order confirmed, thank you!</h1>
-                <h4 className="text-white">Estimated time of delivery: {this.getDeliveryTime()}</h4>
-                <p className="text-white">Todo: Display order status and a way to review the order</p>
+                <div className="container">
+                  <h1 className="welcome">Order confirmed, thank you!</h1>
+                  <h4 className="text-white">Estimated time of delivery: {this.getDeliveryTime()}</h4>
+                  <p className="text-white">Todo: Display order total and status</p>
+                  {(!this.state.isReviewed) && (
+                    <ReviewForm onReviewAdded={ review => this.addReview(review) } />
+                  )}
+                  {(this.state.isReviewed) && (
+                    <h4 className="text-white">Thank you for leaving a review!</h4>
+                  )}
+                </div>
             </>
         )
     }

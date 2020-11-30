@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import '../App.css';
-import CustomerNav from "./CustomerNav";
-import { Customer } from "../models/Customer";
+import DriverNav from "./DriverNav";
+import { Driver } from "../models/Driver";
 
-class CustomerProfile extends Component {
-    state = new Customer(
+class DriverProfile extends Component {
+    state = new Driver(
         // id
         1,
         // firstName
@@ -33,9 +33,9 @@ class CustomerProfile extends Component {
     render() {
     return (
         <>
-            <CustomerNav customer= {this.state} />
+            <DriverNav driver= {this.state} />
             <h1 className="welcome">Edit Profile</h1>
-            <form name="customerInfo" className="user-info-form">
+            <form name="driverInfo" className="user-info-form">
                 <label htmlFor="firstName">First Name:</label>
                 <input type="text" name="firstName" value={this.state.firstName} readOnly></input>
                 <label htmlFor="lastName">Last Name:</label>
@@ -58,4 +58,4 @@ class CustomerProfile extends Component {
     )}
 }
 
-export default CustomerProfile
+export default DriverProfile

@@ -6,8 +6,8 @@ export const MenuItemsCard = (props) => {
         <>
             <div className="p-3 mb-2 bg-primary text-white">
                 <div className="d-flex flex-column">
-                    <div className="p-2">{props.name}</div>
-                    <div className="p-2">
+                    <div className="p-2 font-dark">{props.name}</div>
+                    <div className="p-2 font-dark">
                         <div className="d-flex flex-row text-white">
                             {props.description}
                             ${props.price}

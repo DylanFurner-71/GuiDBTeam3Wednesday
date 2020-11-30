@@ -2,24 +2,31 @@
 import React from 'react';
 import {MenuItemsCard} from "./MenuItemsCard";
 
-export const MenuView = (props) => {
-
-    return (
-        <>
-        <h3 className="list-group-item bg-secondary text-white list-name"> Menu </h3>
-        <div className="container">
-            <div className="row">
-            {
-            props.menu.map((menuItem, i) => 
-        <div className="col-md-4" key={i}>
-            <MenuItemsCard name = {menuItem.name} description={menuItem.description} price={menuItem.price} imgUrl={menuItem.imgUrl}/>
-            </div>
-            )
-            }
-</div>
-            </div>
-        </>
-    );
+class MenuView extends React.Component {
+    deleteItems(element){
+this.state.restaurants.splice(element, 1);
+this.setState({restaurants: this.state.restaurants});
 }
 
+addItem(element) {
+console.log(this.state.menu);
+console.log("ELEMENT", element);
+this.state.menu.push(element);
+console.log(this.state.menu);
+this.setState({restaurants: this.state.menu });
+}
+
+render() {
+const {userFullName} = this.state;
+return(
+<div id = "restaurants_list">
+<h1 className="text-white">Welcome, {this.state.userFirstName}</h1>
+<p className="text-white">Someday you will see current orders displayed nicely below with a small navigation component to find the menu and edit it</p>
+<MenuItemsForm onItemAdded={element => this.addItem(element) }restaurantID= {this.state.restaurantID} menuID = {this.state.menuID} />
+</div>
+) 
+}
+};
+
 export default MenuView;
+       
