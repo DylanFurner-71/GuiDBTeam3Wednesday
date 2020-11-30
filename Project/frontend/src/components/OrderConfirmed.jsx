@@ -14,7 +14,7 @@ export class OrderConfirmed extends React.Component {
 
     // Placeholder, Get order status from api
     state = {
-      status: "Pending",
+      status: "Waiting",
       isReviewed: false
     }
 
@@ -64,7 +64,7 @@ export class OrderConfirmed extends React.Component {
             <h2 className="text-white">Order Status: {this.state.status}</h2>
             <h3 className="text-white bg-white"><hr></hr></h3>
             <h4 className="text-white mb-4">Estimated time of delivery: {this.getDeliveryTime()}</h4>
-            {(!this.state.isReviewed) && (
+            {(!this.state.isReviewed && this.state.status == "Delivered") && (
               <ReviewForm onReviewAdded={ review => this.addReview(review) } />
             )}
             {(this.state.isReviewed) && (
