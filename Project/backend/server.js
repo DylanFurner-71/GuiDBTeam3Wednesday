@@ -526,13 +526,22 @@ app.post('/api/v1/restaurants/:rest/reviews', (req, res) => {
   var Rating = req.body.rating
   var Content= req.body.content
   
-  
   connection.query('INSERT INTO Reviews (restaurant_id,account_id,rating,content) VALUES (?,?,?,?)', [RestaurantId,AccountId,Rating,Content], (err, result, fields) => {
     if (err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   });
 });
-//order status
 
+//get all reviews
+app.get('/api/v1/restaurants/:rest/reviews', function(req, res) {
+  var RestaurantID = req.body.restaurant_id
+  connection.query("SELECT content,rating FROM Reviews WHERE restaurant_id = ?", [RestaurantID], function (err, result, fields) {
+    if (err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  });
+});
+
+//order status
+ 
 //order queue
 
