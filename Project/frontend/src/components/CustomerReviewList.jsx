@@ -1,19 +1,19 @@
 import React from 'react';
-import WebManagerNav from "./WebManagerNav";
+import CustomerNav from "./CustomerNav";
 import { ReviewsTable } from "./ReviewsTable";
 import { Link } from "react-router-dom";
 
-export class WebManagerReviewList extends React.Component {
+export class CustomerReviewList extends React.Component {
     state = {
         id: 0
     }
 
     render() {
         return <>
-            <WebManagerNav/>
+            <CustomerNav/>
             <div className="container">
                 <ReviewsTable restaurantId={this.state.id}/>
-                <Link className="btn bg-green mt-3" to="/web-manager/restaurants">Return to Restaurant List</Link>
+                <Link className="btn bg-green mt-3" to="/customer/home">Return to Restaurant List</Link>
             </div>
         </>;
     }
@@ -26,4 +26,4 @@ export class WebManagerReviewList extends React.Component {
     }
 }
 
-export default WebManagerReviewList;
+export default CustomerReviewList;
