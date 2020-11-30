@@ -18,7 +18,12 @@ export class OrderConfirmed extends React.Component {
 
     addReview(review) {
       let id = +this.props.match.params.restaurantId;
-      this.RestaurantRepository.addReview(id, review);
+      let r = {
+        account_id: review.userId,
+        rating: review.rating,
+        content: review.comment
+      }
+      this.RestaurantRepository.addReview(id, r);
       this.setState({isReviewed: true});
   }
 
