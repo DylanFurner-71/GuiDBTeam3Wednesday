@@ -29,8 +29,8 @@ class DriverCurrentOrder extends React.Component {
             <DriverNav />
             {(this.state.orderId === -1 &&
                 <div className="container">
-                    <h1 className="welcome">Thank you for completing the order!</h1>
-                    <Link className="btn bg-green btn-lg" to="/driver/home">Return home</Link>
+                    <h1 className="welcome">No current orders.</h1>
+                    <Link className="btn bg-green" to="/driver/home">Return home</Link>
                 </div>
             )}
             {(this.state.orderId !== -1 &&
@@ -53,10 +53,10 @@ class DriverCurrentOrder extends React.Component {
                                 )}
                             </ul>
                             {(this.state.status === "In Progress" && 
-                                <button className="btn bg-green btn-lg mt-3" onClick={() => this.onPickedUp()}>Confirm Picked Up</button>
+                                <button className="btn bg-green mt-3" onClick={() => this.onPickedUp()}>Confirm Picked Up</button>
                             )}
                             {(this.state.status === "Picked Up" && 
-                                <Link className="btn bg-green btn-lg mt-3" onClick={() => this.onDelivered()}>Confirm Delivery Complete</Link>
+                                <Link className="btn bg-green mt-3" onClick={() => this.onDelivered()}>Confirm Delivery Complete</Link>
                             )}
                         </div>
                     </div>
