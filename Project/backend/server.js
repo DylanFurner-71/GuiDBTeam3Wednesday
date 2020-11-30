@@ -525,10 +525,9 @@ app.post('/api/v1/restaurants/:rest/reviews', (req, res) => {
   var AccountId = req.body.account_id
   var Rating = req.body.rating
   var Content= req.body.content
-  var ReviewId=req.body.review_id
   
   
-  connection.query('INSERT INTO Reviews (review_id,restaurant_id,account_id,rating,content) VALUES (?,?,?,?,?)', [ReviewId,RestaurantId,AccountId,Rating,Content], (err, result, fields) => {
+  connection.query('INSERT INTO Reviews (restaurant_id,account_id,rating,content) VALUES (?,?,?,?)', [RestaurantId,AccountId,Rating,Content], (err, result, fields) => {
     if (err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   });
