@@ -539,7 +539,7 @@ app.get('/api/v1/restaurants/:rest/reviews', function(req, res) {
     if (err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   });
-});
+}); 
 
 //order status
  
