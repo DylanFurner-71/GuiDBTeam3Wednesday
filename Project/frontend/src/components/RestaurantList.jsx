@@ -1,5 +1,4 @@
 import React from 'react';
-import { RestaurantRepository } from '../repository/restaurantRepository';
 
 export class RestaurantList extends React.Component {
 

@@ -18,6 +18,7 @@ import DriverCurrentOrder from './components/DriverCurrentOrder';
 import DriverProfile from './components/DriverProfile';
 import WebManagerRestaurants from "./components/WebManagerRestaurants";
 import WebManagerUsers from "./components/WebManagerUsers";
+import WebManagerReviewList from './components/WebManagerReviewList.jsx';
 
 export const ROUTES = [
     // Misc.
@@ -25,6 +26,7 @@ export const ROUTES = [
 
     // Web Manager
     { path: `/web-manager/restaurants`, component: WebManagerRestaurants },
+    { path: `/web-manager/restaurant/:restaurantId`, component: WebManagerReviewList },
     { path: `/web-manager/users`, component: WebManagerUsers },
 
     // Driver

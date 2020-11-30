@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-
 import {Restaurant} from "../models/Restaurant";
 import {RestaurantsForm} from "./RestaurantsForm";
 import {RestaurantsTable} from "./restaurantsTable";
