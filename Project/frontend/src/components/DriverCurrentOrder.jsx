@@ -62,6 +62,7 @@ class DriverCurrentOrder extends React.Component {
                     </div>
                     <div className="col-3"></div>
                     </div>
+                    <Link className="btn bg-green" to="/driver/home">Return home</Link>
                 </div>
             )}
         </>;
