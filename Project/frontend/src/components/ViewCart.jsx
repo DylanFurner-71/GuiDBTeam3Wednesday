@@ -43,8 +43,9 @@ export class ViewCart extends React.Component {
                     </tr>
                 </tfoot>
                 </table>
-                <button type="button" className="btn btn-secondary text-white btn-block" onClick={() => this.setState(this.CartService.clearCart)}>Clear Cart</button>
+                <Link className="btn bg-green text-white btn-block" to={"/menu/" + this.CartService.getRestaurantId()}>Continue Shopping</Link>
                 <Link className="btn bg-green text-white btn-block" to={"/order/checkout"}>Checkout</Link>
+                <button type="button" className="btn btn-secondary text-white btn-block" onClick={() => this.setState(this.CartService.clearCart)}>Clear Cart</button>
             </div>
         </>;
     }
