@@ -23,6 +23,13 @@ class DriverCurrentOrder extends React.Component {
         this.setState(this.DriverOrderService.clearOrder());
     }
 
+    onCanceled() {
+        this.DriverOrderService.setStatus("Pending");
+        this.setState(this.DriverOrderService.getOrder());
+        // Send status to backend
+        this.setState(this.DriverOrderService.clearOrder());
+    }
+
     render() {
         return <>
             <DriverNav />
@@ -53,7 +60,8 @@ class DriverCurrentOrder extends React.Component {
                                         </li>
                                     )}
                                 </ul>
-                                <button className="btn bg-green mt-3 pb-2" onClick={() => this.onPickedUp()}>Confirm Picked Up</button>
+                                <button className="btn btn-danger btn-sm mt-3 mr-1 pb-2" onClick={() => this.onCanceled()}>Cancel Order</button>
+                                <button className="btn bg-green mt-3 ml-1 pb-2" onClick={() => this.onPickedUp()}>Confirm Picked Up</button>
                             </>
                             )}
                             {(this.state.status === "Picked Up" && 
@@ -69,7 +77,8 @@ class DriverCurrentOrder extends React.Component {
                                         </li>
                                     )}
                                 </ul>
-                                <button className="btn bg-green mt-3 pb-2 btn-sm" onClick={() => this.onDelivered()}>Confirm Delivery Complete</button>
+                                <button className="btn btn-danger btn-sm mt-3 mr-1 pb-2" onClick={() => this.onCanceled()}>Cancel Order</button>
+                                <button className="btn bg-green mt-3 pb-4 ml-1 btn-sm" onClick={() => this.onDelivered()}>Confirm Delivery Complete</button>
                             </>
                             )}
                         </div>
