@@ -3,18 +3,20 @@ import CustomerNav from "./CustomerNav";
 import { CartService } from '../services/CartService';
 import { ReviewForm } from './ReviewForm';
 import { RestaurantRepository } from '../repository/restaurantRepository';
+import { OrderRepository } from '../repository/orderRepository';
 
 export class OrderConfirmed extends React.Component {
     CartService = new CartService();
     RestaurantRepository = new RestaurantRepository();
+    OrderRepository = new OrderRepository();
 
     cart = this.CartService.getCart();
 
+    // Placeholder, Get order status from api
     state = {
+      status: "Pending",
       isReviewed: false
     }
-
-    orders = []
 
     addReview(review) {
       let id = +this.props.match.params.restaurantId;
@@ -25,7 +27,7 @@ export class OrderConfirmed extends React.Component {
       }
       this.RestaurantRepository.addReview(id, r);
       this.setState({isReviewed: true});
-  }
+    }
 
     getDeliveryTime() {
         var dt = new Date();
@@ -55,22 +57,21 @@ export class OrderConfirmed extends React.Component {
     }
 
     render() {
-        return (
-            <>
-                <CustomerNav />
-                <div className="container">
-                  <h1 className="welcome">Order confirmed, thank you!</h1>
-                  <h4 className="text-white">Estimated time of delivery: {this.getDeliveryTime()}</h4>
-                  <p className="text-white">Todo: Display order total and status</p>
-                  {(!this.state.isReviewed) && (
-                    <ReviewForm onReviewAdded={ review => this.addReview(review) } />
-                  )}
-                  {(this.state.isReviewed) && (
-                    <h4 className="text-white">Thank you for leaving a review!</h4>
-                  )}
-                </div>
-            </>
-        )
+        return <>
+          <CustomerNav />
+          <div className="container">
+            <h1 className="welcome">Order confirmed, thank you!</h1>
+            <h2 className="text-white">Order Status: {this.state.status}</h2>
+            <h3 className="text-white bg-white"><hr></hr></h3>
+            <h4 className="text-white mb-4">Estimated time of delivery: {this.getDeliveryTime()}</h4>
+            {(!this.state.isReviewed) && (
+              <ReviewForm onReviewAdded={ review => this.addReview(review) } />
+            )}
+            {(this.state.isReviewed) && (
+              <h4 className="text-white">Thank you for leaving a review!</h4>
+            )}
+          </div>
+      </>;
     }
 }
 

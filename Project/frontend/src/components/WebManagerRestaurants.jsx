@@ -6,7 +6,7 @@ import {RestaurantRepository} from "../repository/restaurantRepository";
 import WebManagerNav from "./WebManagerNav";
 
 class WebManagerRestaurants extends Component{
-    RestaurantRepository = new RestaurantRepository;
+    RestaurantRepository = new RestaurantRepository();
 
     // Placeholder data
     restaurants = [new Restaurant("McDonalds", "5647 Ellsworth Ave, Dallas, TX 75205"), 
