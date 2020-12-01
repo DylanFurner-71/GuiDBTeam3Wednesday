@@ -89,7 +89,7 @@ app.post('/register/:account_type', function (req, res) {
       function(err, result) {
         if (result.length == 0) {
           switch(type) {
-            case 0: 
+            case "0": 
               connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username) VALUES (?, ?, ?, ?, ?)', [first, last, password, "user", {username: email}],
               function (err, result) {
                 if (err)
@@ -107,7 +107,7 @@ app.post('/register/:account_type', function (req, res) {
                   console.log("We are here now");
               });
               break;
-            case 2:
+            case "2":
               connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email, org) VALUES (?, ?, ?, ?, ?)', [first, last, password, "employee", {username: email}, org],
               function (err, result) {
                 if (err)
