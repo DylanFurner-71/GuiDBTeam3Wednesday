@@ -505,4 +505,3 @@ app.get('/api/v1/restaurants/:rest/reviews', function(req, res) {
 //order status
  
 //order queue
-

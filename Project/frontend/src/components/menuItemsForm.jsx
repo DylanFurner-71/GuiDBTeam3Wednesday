@@ -1,17 +1,15 @@
 import React from 'react';
 import { MenuItem } from '../models/MenuItem';
+import {
+
+    useParams
+  } from "react-router-dom";
 export class MenuItemsForm extends React.Component {
   constructor() {
+    let {restaurantId} = useParams();
     super();
     this.state = {
-        restaurantName: '',
-        restaurantAddress: '',
-        price: 0.0,
-        description: '',
-        itemName: '',
-        restaurantID: 1,
-        menuID: 1
-
+        item: {}
     };
 
   }
@@ -20,15 +18,7 @@ export class MenuItemsForm extends React.Component {
         this.props.onItemAdded(t);
 
         this.setState({
-            restaurantName: '',
-           restaurantAddress: '',
-           restaurantName: '',
-           restaurantAddress: '',
-           price: 0.0,
-           description: '',
-           itemName: '',
-           restaurantID: 1,
-           menuID: 1
+           item: {}
         });
     }
 
