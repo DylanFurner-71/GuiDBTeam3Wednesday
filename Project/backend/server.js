@@ -82,8 +82,8 @@ app.post('/register/:account_type', function (req, res) {
   let email = req.body.email;
   let password = req.body.password;
   let type = req.params.account_type;
-  let org = req.body.org;
-  let admin = req.body.adminCode
+  let org_id = req.body.org;
+  let admin_code = req.body.adminCode
   
   connection.query('SELECT * FROM Accounts JOIN Contact ON Accounts.account_id = Contact.account_id WHERE email = ? AND password = ?', [email, password],
       function(err, result) {
@@ -95,7 +95,7 @@ app.post('/register/:account_type', function (req, res) {
                 if (err)
                   throw err;
                 else 
-                  res.send('successfully created user')
+                  console.log("Successfully created user");
               });
               break;
             case "1":
@@ -104,25 +104,25 @@ app.post('/register/:account_type', function (req, res) {
                 if (err)
                   throw err;
                 else 
-                  console.log("We are here now");
+                  console.log("We are here now - successfully createed driver");
               });
               break;
             case "2":
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email, org) VALUES (?, ?, ?, ?, ?)', [first, last, password, "employee", {username: email}, org],
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username, org_id) VALUES (?, ?, ?, ?, ?, ?)', [first, last, password, "employee", {username: email}, org_id],
               function (err, result) {
                 if (err)
                   throw err;
                 else 
-                  res.send('successfully created employee')
+                console.log("We are here now - successfully created employee");
               });
               break;
             case "3":
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username, org) VALUES (?, ?, ?, ?, ?)', [first, last, password, "admin", {username: email}, adminCode],
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username, admin_code) VALUES (?, ?, ?, ?, ?, ?)', [first, last, password, "admin", {username: email}, admin_code],
               function (err, result) {
                 if (err)
                   throw err;
                 else 
-                  res.send('successfully created webmanager')
+                console.log("We are here now - web manager account creation success");
               });
               break;
           }

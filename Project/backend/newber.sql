@@ -11,6 +11,7 @@ CREATE TABLE `Accounts` (
     `password` VARCHAR(20) NOT NULL,
     `account_type` VARCHAR(20) NOT NULL,
     `org_id` INT(10) DEFAULT NULL,
+    `admin_code` VARCHAR(20) DEFAULT NULL,
     PRIMARY KEY (`account_id`)
 );
 
