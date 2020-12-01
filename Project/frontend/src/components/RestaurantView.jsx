@@ -21,7 +21,7 @@ class RestaurantView extends Component {
             <CustomerNav myOrderFlag={true}/>
             <div className="container">
                 <h1 className="welcome">{this.state.name}</h1>
-                <MenuItemList id={+this.props.match.params.restaurantId}/>
+                <MenuItemList menu={this.state.menu}/>
             </div>
         </>;
     }
@@ -31,6 +31,7 @@ class RestaurantView extends Component {
         this.cart.setRestaurantId(id);
         if (id) {
             // this.RestaurantRepository.getRestaurant(id).then(restaurant => this.setState(restaurant));
+            this.RestaurantRepository.getMenu(id).then(_menu => this.setState({menu: _menu}));
         }
     }
 }
