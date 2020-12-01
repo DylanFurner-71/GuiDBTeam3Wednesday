@@ -380,7 +380,7 @@ else{
 //get restaurant menu
 app.get('/api/v1/restaurants/:id/menu', function(req, res) {
   var RestaurantID = req.params.id
-  connection.query("SELECT item_details FROM Items inner join Menus on Items.menu_id = Menus.menu_id where Menus.restaurant_id = ?", [RestaurantID], function (err, result, fields) {
+  connection.query("SELECT item_details,item_price FROM Items inner join Menus on Items.menu_id = Menus.menu_id where Menus.restaurant_id = ?", [RestaurantID], function (err, result, fields) {
     if (err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   });
