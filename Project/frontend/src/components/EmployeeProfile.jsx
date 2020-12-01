@@ -8,11 +8,11 @@ app.post('/register/:account_type', function (req, res) {
 
 import React, {Component} from "react";
 import '../App.css';
-import DriverNav from "./DriverNav";
-import { Driver } from "../models/Driver";
+import EmployeeNav from "./EmployeeNav";
+import { Employee } from "../models/Employee";
 //needs to be redone
 class EmployeeProfile extends Component {
-    state = new Driver(
+    state = new Employee(
         // id
         1,
         // firstName
@@ -41,7 +41,7 @@ class EmployeeProfile extends Component {
     render() {
     return (
         <>
-            <DriverNav driver= {this.state} />
+        <EmployeeNav restId={this.state.employee.restaurantId} id={this.state.employee.id}/>
             <h1 className="welcome">Edit Profile</h1>
             <form name="driverInfo" className="user-info-form">
                 <label htmlFor="firstName">First Name:</label>

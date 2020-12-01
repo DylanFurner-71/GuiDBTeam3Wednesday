@@ -38,7 +38,7 @@ class EmployeeOrders extends React.Component {
 
     render() {
         return <>
-            <EmployeeNav />
+        <EmployeeNav restId={this.state.employee.restaurantId} id={this.state.employee.id}/>
             <div className="container">
             <OrderList Orders={this.state.Orders} ordersType={"Pending"}/>
             <OrderList Orders={this.state.pastOrders} ordersType={"Past"}/>

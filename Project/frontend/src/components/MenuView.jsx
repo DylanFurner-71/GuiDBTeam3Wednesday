@@ -5,7 +5,7 @@ import {RestaurantRepository} from "../repository/restaurantRepository";
 import { RestaurantsTable } from './restaurantsTable';
 import {MenuItemsForm} from "./menuItemsForm";
 import {Link} from "react-router-dom";
-
+import EmployeeNav from "./EmployeeNav";
 
 const ProductCard = (products) => {
     return products.map((product, i) =>
@@ -45,6 +45,7 @@ console.log(this.state.menu);
 render() {
 return(
 <div id = "restaurants_list">
+    <EmployeeNav/>
 <h1 className="text-white">Welcome</h1>
 <p className="text-white">Someday you will see current orders displayed nicely below with a small navigation component to find the menu and edit it</p>
 <MenuItemsForm onItemAdded={element => this.addItem(element) } restaurantId= {this.state.restaurantId} />

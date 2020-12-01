@@ -6,7 +6,7 @@ import {
   } from "react-router-dom";
 export class MenuItemsForm extends React.Component {
   constructor() {
-    let {restaurantId} = useParams();
+    // let {restaurantId} = useParams();
     super();
     this.state = {
         item: {}
@@ -14,7 +14,7 @@ export class MenuItemsForm extends React.Component {
 
   }
     onAddClick() {
-        const t = new MenuItem(this.state.itemName, this.state.description, this.state.price, this.props.restaurantID, this.props.menuID);
+        const t = new MenuItem(this.state.itemName, this.state.description, this.state.price, this.props.restaurantId, this.props.restaurantId);
         this.props.onItemAdded(t);
 
         this.setState({
