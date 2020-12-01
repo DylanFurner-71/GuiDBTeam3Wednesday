@@ -10,13 +10,14 @@ export default class RegisterDriver extends Component {
         super();
         this.accountRepository = new AccountRepository();
         this.state = {
+            username: "",
             firstName: "",
             lastName: "",
             email: "",
             password: "",
             password2: "",
-            address: "",
-            error: ""
+            error: "",
+            account_type: "1"
         };
     }
     componentDidMount() {
@@ -40,9 +41,8 @@ export default class RegisterDriver extends Component {
             email: this.state.email,
             password: this.state.password,
             password2: this.state.password2,
-            address: this.state.address,
         };
-        this.accountsRepository.registerUser(newUser, this.props.history);
+        this.accountRepository.register(newUser, this.state.account_type);
     };
     render() {
         const { error } = this.state;
@@ -96,16 +96,7 @@ export default class RegisterDriver extends Component {
                                 />
                                 <span className="red-text">{error.email}</span>
                             </div>
-                            <div className="input-field col s12">
-                                <label htmlFor="email"></label>
-                <input type="text"
-                    id="email"
-                    name="email"
-                    value={this.state.address}
-                    placeholder="Address"
-                    onChange={ e => this.setState({ address: e.target.value })}
-                    />
-                    </div>
+            
                             <div className="input-field col s12">
                                 <input
                                     onChange={this.onChange}
@@ -131,6 +122,19 @@ export default class RegisterDriver extends Component {
                                 />
                                 <label htmlFor="password2"></label>
                                 <span className="red-text">{error.password2}</span>
+                            </div>
+                            <div className="input-field col s12">
+                                <input
+                                    onChange={this.onChange}
+                                    value={this.state.username}
+                                    error={error.username}
+                                    id="username"
+                                    type="text"
+                                    placeholder="Username"
+
+                                />
+                                <label htmlFor="password2"></label>
+                                <span className="red-text">{error.username}</span>
                             </div>
                             <div className="col s12">
                                 <button

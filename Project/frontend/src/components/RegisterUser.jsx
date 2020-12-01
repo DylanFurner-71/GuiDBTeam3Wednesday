@@ -14,6 +14,7 @@ export default class RegisterUser extends Component {
             password: "",
             password2: "",
             address: "",
+            accountType: "0",
             error: ""
         };
     }
@@ -39,7 +40,7 @@ export default class RegisterUser extends Component {
             password: this.state.password,
             accountType: "user"
         };
-        this.accountRepository.register(newUser, this.props.history);
+        this.accountRepository.register(newUser, this.state.accountType);
     };
     render() {
         const { error } = this.state;

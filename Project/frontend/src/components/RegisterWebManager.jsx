@@ -15,7 +15,8 @@ export default class RegisterWebManager extends Component {
             password2: "",
             address: "",
             error: "",
-            adminCode: ""
+            adminCode: "",
+            accountType: "3"
         };
     }
     componentDidMount() {
@@ -42,7 +43,7 @@ export default class RegisterWebManager extends Component {
             address: this.state.address,
             adminCode: this.state.adminCode,
         };
-        this.props.registerUser(newUser, this.props.history);
+        this.accountRepository.register(newUser, this.state.accountType);
     };
     render() {
         const { error } = this.state;

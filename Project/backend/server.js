@@ -83,13 +83,15 @@ app.post('/register/:account_type', function (req, res) {
   let password = req.body.password;
   let type = req.params.account_type;
   let org = req.body.org;
+  let admin = req.body.adminCode;
+  let username= req.body.username;
   
   connection.query('SELECT * FROM Accounts JOIN Contact ON Accounts.account_id = Contact.account_id WHERE email = ? AND password = ?', [email, password],
       function(err, result) {
         if (result.length == 0) {
           switch(type) {
             case 0: 
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username) VALUES (?, ?, ?, ?, ?)', [first, last, password, account_type, username],
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username) VALUES (?, ?, ?, ?, ?)', [first, last, password, "user", username],
               function (err, result) {
                 if (err)
                   throw err;
@@ -98,7 +100,7 @@ app.post('/register/:account_type', function (req, res) {
               });
               break;
             case 1:
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username) VALUES (?, ?, ?, ?, ?)', [first, last, password, account_type, username],
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username) VALUES (?, ?, ?, ?, ?)', [first, last, password, "driver", username],
               function (err, result) {
                 if (err)
                   throw err;
@@ -107,7 +109,7 @@ app.post('/register/:account_type', function (req, res) {
               });
               break;
             case 2:
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username, org) VALUES (?, ?, ?, ?, ?)', [first, last, password, account_type, username, org],
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username, org) VALUES (?, ?, ?, ?, ?)', [first, last, password, "employee", username, org],
               function (err, result) {
                 if (err)
                   throw err;
@@ -116,7 +118,7 @@ app.post('/register/:account_type', function (req, res) {
               });
               break;
             case 3:
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username, org) VALUES (?, ?, ?, ?, ?)', [first, last, password, account_type, username, "admin"],
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username, org) VALUES (?, ?, ?, ?, ?)', [first, last, password, "admin", username, adminCode],
               function (err, result) {
                 if (err)
                   throw err;
