@@ -198,14 +198,14 @@ app.get('/api/v1/restaurants', function (req, res) {
 });
 
 //GET: Get restaurant menu
-app.get('/api/v1/restaurants/:rest/menu', function (req, res) {
+//app.get('/api/v1/restaurants/:rest/menu', function (req, res) {
   //TODO - DB query
   //TODO - RES
-  connection.query("SELECT * FROM DishDetails", function (err, result, fields) {
-        if (err) throw err;
-        res.end(JSON.stringify(result)); // Result in JSON format
-    });
-});
+  //connection.query("SELECT * FROM DishDetails", function (err, result, fields) {
+        //if (err) throw err;
+        //res.end(JSON.stringify(result)); // Result in JSON format
+    //});
+//});
 
 //GET: Get restaurant
 app.get('/api/v1/restaurants/:rest', function (req, res) {
@@ -217,15 +217,15 @@ app.get('/api/v1/restaurants/:rest', function (req, res) {
     });
 });
 
-//GET: Get item prices
-app.get('/api/v1/restaurants/:rest/menu', function (req, res) {
+//GET: Get item prices 
+//app.get('/api/v1/restaurants/:rest/menu', function (req, res) {
   //TODO - DB query
   //TODO - RES
-  connection.query("SELECT DishPrice FROM DishDetails", function (err, result, fields) {
-        if (err) throw err;
-        res.end(JSON.stringify(result)); // Result in JSON format
-    });
-});
+  //connection.query("SELECT DishPrice FROM DishDetails", function (err, result, fields) {
+        //if (err) throw err;
+        //res.end(JSON.stringify(result)); // Result in JSON format
+    //});
+//});
 
 //GET: Get address
 app.get('/api/v1/accounts/:id/address', function (req, res) {
@@ -380,7 +380,7 @@ else{
 //get restaurant menu
 app.get('/api/v1/restaurants/:id/menu', function(req, res) {
   var RestaurantID = req.params.id
-  connection.query("SELECT menu_id FROM Menus WHERE restaurant_id = ?", [RestaurantID], function (err, result, fields) {
+  connection.query("SELECT item_details FROM Items inner join Menus on Items.menu_id = Menus.menu_id where Menus.restaurant_id = ?", [RestaurantID], function (err, result, fields) {
     if (err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   });
