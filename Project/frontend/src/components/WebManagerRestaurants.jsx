@@ -17,9 +17,12 @@ class WebManagerRestaurants extends Component{
         restaurants: this.restaurants
     };
 
-    deleteRestaurants(element){
-        // TODO: Delete the element from the api
-       this.setState({restaurants: this.state.restaurants});
+    deleteRestaurant(element, index){
+        let id = element.restaurant_id;
+        this.RestaurantRepository.deleteRestaurant(id);
+        let _restaurants = this.state.restaurants;
+        _restaurants.splice(index, 1);
+        this.setState({restaurants: _restaurants});
     }
 
     onAddRestaurant(element) {
@@ -37,7 +40,7 @@ class WebManagerRestaurants extends Component{
             <WebManagerNav/>
             <div className="container">
                 <RestaurantsForm onRestaurantAdded={element => this.onAddRestaurant(element)} />
-                <RestaurantsTable onDelete={element => this.deleteRestaurants(element)} restaurants={this.state.restaurants}/>
+                <RestaurantsTable onDelete={(element, index) => this.deleteRestaurant(element, index)} restaurants={this.state.restaurants}/>
             </div>
                
         </>

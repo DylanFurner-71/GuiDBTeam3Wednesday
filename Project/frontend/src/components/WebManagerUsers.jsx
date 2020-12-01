@@ -3,8 +3,10 @@ import React, {Component} from "react";
 import {User} from "../models/User";
 import {UsersTable} from "./usersTable";
 import WebManagerNav from "./WebManagerNav";
+import {AccountRepository} from "../repository/accountRepository";
 
 class WebManagerUsers extends Component{
+    AccountRepository = new AccountRepository();
 
     // Placeholder data
     users = [new User(0, "John", "Smith", "email.com", 0), 
@@ -14,9 +16,12 @@ class WebManagerUsers extends Component{
         users: this.users
     };
 
-    deleteUsers(element){
-    // TODO: Delete the user from the api
-        this.setState({users: this.state.users});
+    deleteUser(element, index){
+        let id = element.account_id;
+        this.AccountRepository.deleteAccount(id);
+        let _users = this.state.users;
+        _users.splice(index, 1);
+        this.setState({users: _users});
     }
 
     parseAccountType(type) {
@@ -38,7 +43,7 @@ class WebManagerUsers extends Component{
         return <>
             <WebManagerNav/>
             <div className="container">
-                <UsersTable onDelete={element => this.deleteUsers(element)} users={this.state.users} getAccountType={type => this.parseAccountType(type)}/>
+                <UsersTable onDelete={(element, index) => this.deleteUser(element, index)} users={this.state.users} getAccountType={type => this.parseAccountType(type)}/>
             </div>
                
         </>

@@ -77,7 +77,7 @@ export class RestaurantRepository {
 
     deleteReview(id) {
         return new Promise((resolve, reject) => {
-            axios.delete(`${this.url}/restaurants/${id}/reviews`)
+            axios.delete(`${this.url}/review/${id}`)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })

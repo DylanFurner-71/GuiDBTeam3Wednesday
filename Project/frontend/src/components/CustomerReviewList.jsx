@@ -12,7 +12,7 @@ export class CustomerReviewList extends React.Component {
         return <>
             <CustomerNav/>
             <div className="container">
-                <ReviewsTable restaurantId={this.state.id}/>
+                <ReviewsTable accountType={0} restaurantId={this.state.id}/>
                 <Link className="btn bg-green mt-3" to="/customer/home">Return to Restaurant List</Link>
             </div>
         </>;

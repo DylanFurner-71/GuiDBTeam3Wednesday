@@ -137,12 +137,9 @@ app.post('/api/v1/restaurants', function (req, res) {
 });
 
 //DELETE: Remove Restaurant
-app.post('/api/v1/restaurants/:restaurantId', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  var RestaurantID = req.body.RestaurantID
-  
-  connection.query("DELETE FROM restaurant WHERE RestaurantID = ? ", RestaurantID,function (err, result, fields) {
+app.delete('/api/v1/restaurants/:restaurantId', function (req, res) {
+  var RestaurantID = req.params.restaurantID
+  connection.query("DELETE FROM Restaurants WHERE restaurant_id = ?", [RestaurantID],function (err, result, fields) {
         if (err)
             return console.error(error.message);
         res.end(JSON.stringify(result));
@@ -150,12 +147,9 @@ app.post('/api/v1/restaurants/:restaurantId', function (req, res) {
 });
 
 //DELETE: Remove Account
-app.delete('/api/v1/accounts/:restaurantId', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  var CustomerID = req.body.CustomerID
-  
-  connection.query("DELETE FROM customer WHERE CustomerID = ? ", CustomerID,function (err, result, fields) {
+app.delete('/api/v1/accounts/:accountID', function (req, res) {
+  var AccountID = req.params.accountID
+  connection.query("DELETE FROM Accounts WHERE account_id = ?", [AccountID],function (err, result, fields) {
         if (err)
             return console.error(error.message);
         res.end(JSON.stringify(result));
@@ -163,12 +157,9 @@ app.delete('/api/v1/accounts/:restaurantId', function (req, res) {
 });
 
 //DELETE: Remove Review
-app.delete('/api/v1/restaurants/:id/reviews', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  var OrderReviewID = req.body.OderReviewID
-  
-  connection.query("DELETE FROM OrderReview WHERE OrderReviewID = ? ", OrderReviewID,function (err, result, fields) {
+app.delete('/api/v1/review/:reviewId', function (req, res) {
+  var OrderReviewID = req.params.reviewId
+  connection.query("DELETE FROM Reviews WHERE review_id = ?", [OrderReviewID],function (err, result, fields) {
         if (err)
             return console.error(error.message);
         res.end(JSON.stringify(result));
