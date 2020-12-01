@@ -141,7 +141,7 @@ app.post('/login', function (req, res) {
   let username = req.body.email;
   let password = red.body.password;
   if (username & password) {
-    connection.query('SELECT * FROM Accounts JOIN Contact ON Accounts.account_id = Contact.account_id WHERE email = ? AND password = ?', [username, password], 
+    connection.query('SELECT * FROM Accounts WHERE username = ? AND password = ?', [username, password], 
     function(err, result, fields) {
       if(result.length > 0) {
         let user = {name: email};
