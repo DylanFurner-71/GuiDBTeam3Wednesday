@@ -89,3 +89,26 @@ CREATE TABLE `Reviews` (
     `content` TEXT,
     PRIMARY KEY (`review_id`)
 );
+
+-- Orders
+DROP TABLE IF EXISTS `Orders`;
+CREATE TABLE `Orders` (
+    `order_id` INT(10) NOT NULL AUTO_INCREMENT,
+    `restaurant_id` INT(10),
+    `account_id` INT(10),
+    `address_id` INT(10),
+    `status` VARCHAR(30),
+    `total_price` DOUBLE(10),
+    PRIMARY KEY (`order_id`)
+);
+
+-- OrderItems
+DROP TABLE IF EXISTS `OrderItems`;
+CREATE TABLE `OrderItems` (
+    `order_item_id` INT(10) NOT NULL AUTO_INCREMENT,
+    `order_id` INT(10),
+    `name` VARCHAR(50),
+    `price` DOUBLE(10),
+    `quantity` INT(10),
+    PRIMARY KEY (`order_item_id`)
+);

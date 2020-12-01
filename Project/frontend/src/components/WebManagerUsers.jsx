@@ -22,13 +22,13 @@ class WebManagerUsers extends Component{
 
     parseAccountType(type) {
         switch (type) {
-            case 0:
+            case "user":
                 return "Customer";
-            case 1:
+            case "employee":
                 return "Restaurant Employee";
-            case 2:
+            case "driver":
                 return "Driver";
-            case 3:
+            case "admin":
                 return "Web Manager";
             default:
                 return "No Type";
