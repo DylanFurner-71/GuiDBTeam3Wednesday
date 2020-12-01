@@ -3,7 +3,6 @@ import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {loginUser} from "../repository/accountRepository";
-import {userTypes} from "../types/userTypes";
 import "react-bootstrap";
 
 class Login extends Component {
@@ -51,7 +50,7 @@ class Login extends Component {
             <div className="container justify-content-center">
                 <div className="row mt-5">
                     <div className="col">
-                        <Link to="/" id="return-home" className="text-white btn-flat waves-effect">
+                        <Link to="/" id="return-home" className="text-white btn waves-effect">
                             <i className="material-icons left text-white"></i> Return to
                             home
                         </Link>
@@ -62,13 +61,12 @@ class Login extends Component {
                                     value={this.state.email}
                                     id="email"
                                     type="email"
-
                                 />
                                 <label htmlFor="email">Email</label>
                                 <span className="red-text">
                                     {error.email}
                                     {error.emailnotfound}
-                </span>
+                                </span>
                             </div>
                             <div className="input-field col s12">
                                 <input
@@ -81,19 +79,12 @@ class Login extends Component {
                                 <span className="red-text">
                                     {error.password}
                                     {error.passwordincorrect}
-                </span>
+                                </span>
                             </div>
-                            <div className="col s12" style={{paddingLeft: "11.250px"}}>
+                            <div className="col s12 d-flex justify-content-center align-items-center">
                                 <button
-                                    style={{
-                                        width: "150px",
-                                        borderRadius: "3px",
-                                        letterSpacing: "1.5px",
-                                        marginTop: "1rem"
-                                    }}
                                     type="submit"
-                                    className="btn btn-large waves-effect waves-light hoverable bg-green text-white accent-3"
-                                >
+                                    className="btn hoverable bg-green text-white accent-3 rounded-lg">
                                     Login
                                 </button>
                             </div>

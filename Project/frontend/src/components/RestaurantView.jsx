@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import '../App.css';
 import CustomerNav from "./CustomerNav";
 import { MenuItemList } from './MenuItemList'
 import { RestaurantRepository } from '../repository/restaurantRepository';
@@ -9,7 +8,7 @@ class RestaurantView extends Component {
     RestaurantRepository = new RestaurantRepository();
     cart = new CartService();
 
-    // Temp Data
+    // Placeholder Data
     state = {
         name : 'McDonalds',
         address: '',

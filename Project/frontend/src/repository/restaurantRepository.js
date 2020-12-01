@@ -66,4 +66,20 @@ export class RestaurantRepository {
                 .catch(err => console.log(err.response));
         })
     }
+
+    getReviews(id) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/restaurants/${id}/reviews`)
+                .then(resp => resolve(resp.data))
+                .catch(err => console.log(err.response));
+        })
+    }
+
+    deleteReview(id) {
+        return new Promise((resolve, reject) => {
+            axios.delete(`${this.url}/restaurants/${id}/reviews`)
+                .then(resp => resolve(resp.data))
+                .catch(err => console.log(err.response));
+        })
+    }
 }

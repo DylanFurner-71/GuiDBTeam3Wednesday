@@ -18,6 +18,8 @@ import DriverCurrentOrder from './components/DriverCurrentOrder';
 import DriverProfile from './components/DriverProfile';
 import WebManagerRestaurants from "./components/WebManagerRestaurants";
 import WebManagerUsers from "./components/WebManagerUsers";
+import WebManagerReviewList from './components/WebManagerReviewList.jsx';
+import CustomerReviewList from './components/CustomerReviewList.jsx';
 
 export const ROUTES = [
     // Misc.
@@ -25,12 +27,12 @@ export const ROUTES = [
 
     // Web Manager
     { path: `/web-manager/restaurants`, component: WebManagerRestaurants },
+    { path: `/web-manager/restaurant/:restaurantId`, component: WebManagerReviewList },
     { path: `/web-manager/users`, component: WebManagerUsers },
 
     // Driver
     { path: `/driver/order`, component: DriverCurrentOrder },
-    { path: '/driver/profile', component: DriverProfile }, // TEMP
-    { path: '/driver/:driverId/profile', component: DriverProfile },
+    { path: '/driver/profile', component: DriverProfile },
 
     // Order
     { path: `/order/cart`, component: ViewCart },
@@ -38,10 +40,9 @@ export const ROUTES = [
     { path: `/order/confirmed/:restaurantId`, component: OrderConfirmed },
 
     // Customer Page Routes
-    { path: '/customer/profile', component: CustomerProfile }, // TEMP
-    { path: '/customer/:customerId/profile', component: CustomerProfile },
-    { path: '/customer/past-orders', component: CustomerOrderHistory }, // TEMP
-    { path: '/customer/:customerId/past-orders', component: CustomerOrderHistory },
+    { path: '/customer/profile', component: CustomerProfile },
+    { path: '/customer/past-orders', component: CustomerOrderHistory },
+    { path: `/customer/restaurant/:restaurantId`, component: CustomerReviewList },
 
     // Home Page Routes
     { path: '/employee/home', component:  RestaurantEmployeeLanding },

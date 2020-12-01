@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-
 import {Restaurant} from "../models/Restaurant";
 import {RestaurantsForm} from "./RestaurantsForm";
 import {RestaurantsTable} from "./restaurantsTable";
@@ -7,7 +6,7 @@ import {RestaurantRepository} from "../repository/restaurantRepository";
 import WebManagerNav from "./WebManagerNav";
 
 class WebManagerRestaurants extends Component{
-    RestaurantRepository = new RestaurantRepository;
+    RestaurantRepository = new RestaurantRepository();
 
     // Placeholder data
     restaurants = [new Restaurant("McDonalds", "5647 Ellsworth Ave, Dallas, TX 75205"), 
@@ -19,11 +18,12 @@ class WebManagerRestaurants extends Component{
     };
 
     deleteRestaurants(element){
-       this.state.restaurants.splice(element, 1);
+        // TODO: Delete the element from the api
        this.setState({restaurants: this.state.restaurants});
     }
 
     onAddRestaurant(element) {
+        // TODO add the address too when supported in backend
         const restaurant = {
             restaurant_name: element.name
         }

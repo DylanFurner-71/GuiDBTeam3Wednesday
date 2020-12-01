@@ -43,7 +43,7 @@ export class RestaurantsForm extends React.Component {
                     value={this.state.restaurantAddress}
                     onChange={ event => this.setState({ restaurantAddress: event.target.value }) } />
             </div>
-            <input className="bg-green mb-4" type="button" value="Submit"
+            <input className="bg-green mb-4 text-black" type="button" value="Submit"
             onClick={ () => this.onAddClick()}                                    />
       </form>
    </>

@@ -45,6 +45,10 @@ class RegisterDriver extends Component {
         const { error } = this.state;
         return (
             <div className="container mt-5">
+                <Link to="/" id="return-home" className="text-white btn-flat btn waves-effect mb-5">
+                    <i className="material-icons left text-white"></i> Return to
+                    home
+                </Link>
                 <div className="row">
                     <div className="col s8">
                         <div className="col s12" style={{ paddingLeft: "11.250px" }}>
@@ -125,18 +129,11 @@ class RegisterDriver extends Component {
                                 <label htmlFor="password2"></label>
                                 <span className="red-text">{error.password2}</span>
                             </div>
-                            <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+                            <div className="col s12">
                                 <button
-                                    style={{
-                                        width: "150px",
-                                        borderRadius: "3px",
-                                        letterSpacing: "1.5px",
-                                        marginTop: "1rem"
-                                    }}
                                     type="submit"
-                                    className="btn btn-large waves-effect waves-light hoverable bg-green text-white accent-3"
-                                    onClick = {this.onSubmit}
-                                >
+                                    className="btn btn-lg hoverable bg-green text-white accent-3"
+                                    onClick = {this.onSubmit}>
                                     Sign up
                                 </button>
                             </div>

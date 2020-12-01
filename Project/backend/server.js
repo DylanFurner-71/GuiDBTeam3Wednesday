@@ -534,10 +534,12 @@ app.post('/api/v1/restaurants/:rest/reviews', (req, res) => {
 
 //get all reviews
 app.get('/api/v1/restaurants/:rest/reviews', function(req, res) {
-  var RestaurantID = req.body.restaurant_id
-  connection.query("SELECT content,rating FROM Reviews WHERE restaurant_id = ?", [RestaurantID], function (err, result, fields) {
-    if (err) logger.error(err.stack);
-    res.end(JSON.stringify(result));
+  var RestaurantID = req.params.rest;
+  connection.query("SELECT * FROM Reviews WHERE restaurant_id = ?", [RestaurantID], function (err, result, fields) {
+    if (err) 
+      logger.error(err.stack);
+    else
+      res.end(JSON.stringify(result));
   });
 }); 
 
