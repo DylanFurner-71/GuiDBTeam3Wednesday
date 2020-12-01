@@ -390,7 +390,7 @@ app.get('/api/v1/restaurants/:id/menu', function(req, res) {
 app.post('/api/v1/restaurants/:id/menu', (req, res) => {
   var RestaurantID = req.params.id
   var MenuName = req.body.menu_name
-  
+   
   connection.query('INSERT INTO Menus (restaurant_id,menu_name) VALUES (?,?)', [RestaurantID,MenuName], (err, result, fields) => {
     if (err) logger.error(err.stack);
     res.end(JSON.stringify(result));
