@@ -12,7 +12,7 @@ export class WebManagerReviewList extends React.Component {
         return <>
             <WebManagerNav/>
             <div className="container">
-                <ReviewsTable restaurantId={this.state.id}/>
+                <ReviewsTable accountType={3} restaurantId={this.state.id}/>
                 <Link className="btn bg-green mt-3" to="/web-manager/restaurants">Return to Restaurant List</Link>
             </div>
         </>;
