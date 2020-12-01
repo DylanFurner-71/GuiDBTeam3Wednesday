@@ -1,14 +1,12 @@
 import React from 'react';
 import { Rating } from './Rating'
-import { Link } from "react-router-dom";
 import { RestaurantRepository } from "../repository/restaurantRepository";
-import { Restaurant } from '../models/Restaurant';
 
 export class ReviewsTable extends React.Component {
     RestaurantRepository = new RestaurantRepository();
 
     state = {
-        restaurant: new Restaurant("McDonalds", "5647 Ellsworth Ave, Dallas, TX 75205", 0),
+        restaurant: [{restaurant_name: ""}],
         reviews: []
     }
 
@@ -23,11 +21,11 @@ export class ReviewsTable extends React.Component {
     render() {
         return <>
             {this.state.reviews.length === 0 && (
-                <p className="welcome">No reviews currently for {this.state.restaurant.name}</p>
+                <p className="welcome">No reviews currently for {this.state.restaurant[0].restaurant_name}</p>
             )}
             {this.state.reviews.length > 0 && (
             <>
-                <h1 className="welcome">Reviews for {this.state.restaurant.name}</h1>
+                <h1 className="welcome">Reviews for {this.state.restaurant[0].restaurant_name}</h1>
                 <ul className="list-group">
                     {this.state.reviews.map((x, i) =>
                         <li className="list-group-item" key={i}>
@@ -60,12 +58,9 @@ export class ReviewsTable extends React.Component {
     }
 
     componentDidMount() {
-        const id = this.props.restaurantId;
-        if (id >= 0) {
-            // TODO
-            // this.RestaurantRepository.getRestaurant(id).then(element => this.setState({restaurant: element}));
-            this.RestaurantRepository.getReviews(id).then(elements => this.setState({reviews: elements}));
-        }
+        const restaurantId = +this.props.restaurantId;
+        this.RestaurantRepository.getRestaurant(restaurantId).then(_restaurant => this.setState({restaurant: _restaurant}));
+        this.RestaurantRepository.getReviews(restaurantId).then(_reviews => this.setState({reviews: _reviews}));
     }
 }
 

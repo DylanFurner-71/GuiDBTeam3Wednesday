@@ -2,9 +2,5 @@ Features:
     - Sign out
 
 Routes needed:
-    Get Menu by restaurant id
-    Get Restaurant by id
-    Get Restaurants
     Get orders by a status parameter
-    Get account by id
-    Get Accounts
+    Get account by id (created, not tested)

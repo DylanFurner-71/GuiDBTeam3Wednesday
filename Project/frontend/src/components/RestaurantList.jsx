@@ -17,13 +17,12 @@ export class RestaurantList extends React.Component {
                             <li key={i}>
                                 <div className="card">
                                     <div className="bg-white">
-                                        <a className="card-block text-decoration-none" href={"/menu/" + x.id}>
+                                        <a className="card-block text-decoration-none" href={"/menu/" + x.restaurant_id}>
                                             <div className="card-body">
-                                                <p className="font-weight-bold">{x.name}</p>
-                                                <p className="text-secondary">{x.address}</p>
+                                                <p className="font-weight-bold h-3">{x.restaurant_name}</p>
                                             </div>
                                         </a>
-                                        <Link className="btn btn-sm bg-green mb-3" to={"restaurant/" + x.id}>Reviews</Link>
+                                        <Link className="btn btn-sm bg-green mb-3" to={"restaurant/" + x.restaurant_id}>Reviews</Link>
                                     </div>
                                 </div>
                             </li>)

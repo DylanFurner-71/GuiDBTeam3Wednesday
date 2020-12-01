@@ -11,6 +11,14 @@ import {
 export class AccountRepository {
     url = "http://localhost:8000/api/v1";
 
+    getAccounts() {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/accounts`)
+            .then(resp => resolve(resp.data))
+            .catch(err => console.log(err.response));
+        });
+    }
+
     getAccount(id) {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/accounts/${id}`)

@@ -35,6 +35,22 @@ export class RestaurantRepository {
         })
     }
 
+    getRestaurantAddress(id) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/restaurant/${id}/address`)
+                .then(resp => resolve(resp.data))
+                .catch(err => console.log(err.response));
+        })
+    }
+
+    getRestaurantContact(id) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/restaurant/${id}/contact`)
+                .then(resp => resolve(resp.data))
+                .catch(err => console.log(err.response));
+        })
+    }
+
     getMenu(id) {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/restaurants/${id}/menu`)

@@ -8,20 +8,16 @@ import {AccountRepository} from "../repository/accountRepository";
 class WebManagerUsers extends Component{
     AccountRepository = new AccountRepository();
 
-    // Placeholder data
-    users = [new User(0, "John", "Smith", "email.com", 0), 
-            new User(1, "Guy", "Fieri", "email.net", 1)];
-   
     state = {
-        users: this.users
+        accounts: []
     };
 
     deleteUser(element, index){
         let id = element.account_id;
         this.AccountRepository.deleteAccount(id);
-        let _users = this.state.users;
-        _users.splice(index, 1);
-        this.setState({users: _users});
+        let _accounts = this.state.accounts;
+        _accounts.splice(index, 1);
+        this.setState({accounts: _accounts});
     }
 
     parseAccountType(type) {
@@ -43,10 +39,13 @@ class WebManagerUsers extends Component{
         return <>
             <WebManagerNav/>
             <div className="container">
-                <UsersTable onDelete={(element, index) => this.deleteUser(element, index)} users={this.state.users} getAccountType={type => this.parseAccountType(type)}/>
+                <UsersTable onDelete={(element, index) => this.deleteUser(element, index)} users={this.state.accounts} getAccountType={type => this.parseAccountType(type)}/>
             </div>
-               
         </>
+    }
+
+    componentDidMount() {
+        this.AccountRepository.getAccounts().then(_accounts => this.setState({accounts: _accounts}));
     }
 }
 
