@@ -5,6 +5,7 @@ const app = express();
 const cors = require('cors');
 const mysql = require('mysql');
 const { log, ExpressAPILogMiddleware } = require('@rama41222/node-logger');
+const jwt = require('jsonwebtoken');
 
 // express configs
 const config = {
@@ -48,6 +49,26 @@ app.get('/', function (req, res) {
   res.status(200).send('home')
 });
 
+//VALIDATE TOKEN FUNCTION
+function validateToken(req, res, next) {
+  let authHeader = req.headers['authorization'];
+  let token = authHeader && authHeader.split(' ')[1];
+
+  if (token != null) {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+      if (err)
+        return res.sendStatus(403);
+      else {
+        req.user = user;
+        next();
+      }
+    })
+  }
+  else {
+    return res.sendStatus(401);
+  }
+}
+
 
 
 
@@ -56,16 +77,90 @@ app.get('/', function (req, res) {
 //*Epic 3*
 //POST: Register Account
 app.post('/register/:account_type', function (req, res) {
-  //TODO - DB query
-  console.log(`created ${req.params.account_type}`)
+  let first = req.body.firstName;
+  let last = req.body.lastName;
+  let email = req.body.email;
+  let password = red.body.password;
+  let type = req.params.account_type;
+  let org = req.params.org;
+  
+  connection.query('SELECT * FROM Accounts JOIN Contact ON Accounts.account_id = Contact.account_id WHERE email = ? AND password = ?', [email, password],
+      function(err, result) {
+        if (result.length == 0) {
+          switch(type) {
+            case 0: 
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username) VALUES (?, ?, ?, ?, ?)', [first, last, password, account_type, username],
+              function (err, result) {
+                if (err)
+                  throw err;
+                else 
+                  res.send('successfully created user')
+              });
+              break;
+            case 1:
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username) VALUES (?, ?, ?, ?, ?)', [first, last, password, account_type, username],
+              function (err, result) {
+                if (err)
+                  throw err;
+                else 
+                  res.send('successfully created driver')
+              });
+              break;
+            case 2:
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username, org) VALUES (?, ?, ?, ?, ?)', [first, last, password, account_type, username, org],
+              function (err, result) {
+                if (err)
+                  throw err;
+                else 
+                  res.send('successfully created employee')
+              });
+              break;
+            case 3:
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username, org) VALUES (?, ?, ?, ?, ?)', [first, last, password, account_type, username, "admin"],
+              function (err, result) {
+                if (err)
+                  throw err;
+                else 
+                  res.send('successfully created webmanager')
+              });
+              break;
+          }
+        }
+        else {
+          res.status(400).send('user with those credentials already exists');
+        }
+      });
+
   res.send({ 'request': 'valid', 'account_type': req.params.account_type })
 });
 
 //POST: Login Account
 app.post('/login', function (req, res) {
-  //TODO - DB query
-  console.log()
-  res.send({ 'account_id': '00001' })
+  //Authenticate user
+  let username = req.body.email;
+  let password = red.body.password;
+  if (username & password) {
+    connection.query('SELECT * FROM Accounts JOIN Contact ON Accounts.account_id = Contact.account_id WHERE email = ? AND password = ?', [username, password], 
+    function(err, result, fields) {
+      if(result.length > 0) {
+        let user = {name: email};
+        let accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+        let response = {
+          accessToken: accessToken,
+          user: result
+        }
+        res.send(JSON.parse(JSON.stringify(response)));
+      }
+      else  {
+        res.status(400).send('incorrect username/password')
+      }
+      res.end();
+    });
+  }
+  else {
+    res.send('please enter username and password');
+    res.end();
+  }
 });
 
 //PUT: Change Account Password
