@@ -7,11 +7,11 @@ export const UsersTable = props => {
             {
                 props.users.map((x, i) =>
                 <div key={i}>
-                    {x.accountType != null && (
+                    {x.account_type != null && (
                         <li className="list-group-item">
                             <div className="row mb-0">
                                 <div className="col d-flex align-items-center text-dark text-left">
-                                    <span className="font-weight-bold mr-2">{props.getAccountType(x.accountType)}:</span>{x.firstName} {x.lastName} 
+                                    <span className="font-weight-bold mr-2">{props.getAccountType(x.account_type)}:</span>{x.firstName} {x.lastName} 
                                 </div>
                                 <div className="col-2 text-right">             
                                     <button onClick={() => props.onDelete(x, i)} className="btn btn-outline-secondary">
