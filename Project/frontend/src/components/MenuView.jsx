@@ -1,7 +1,7 @@
 
 import React from 'react';
 import {MenuItemsCard} from "./MenuItemsCard";
-import RestaurantRepository from "../repository/restaurantRepository";
+import {RestaurantRepository} from "../repository/restaurantRepository";
 import { RestaurantsTable } from './restaurantsTable';
 class MenuView extends React.Component {
     restaurantRepository = new RestaurantRepository();
@@ -24,7 +24,7 @@ this.setState({restaurants: this.state.menu });
 render() {
 return(
 <div id = "restaurants_list">
-<h1 className="text-white">Welcome, {this.state.}</h1>
+<h1 className="text-white">Welcome</h1>
 <p className="text-white">Someday you will see current orders displayed nicely below with a small navigation component to find the menu and edit it</p>
 {/* <MenuItemsForm onItemAdded={element => this.addItem(element) }restaurantID= {this.state.restaurantID} menuID = {this.state.menuID} /> */}
 </div>

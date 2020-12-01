@@ -31,15 +31,18 @@ this.state = {
 render() {
     return(
         <>
+        <div className="text-white">       
         <EmployeeNav restId={this.state.employee.restaurantId} id={this.state.employee.id}/>
-<h2> Hello {this.currentEmployee.firstName} </h2>
-    <p> Welcome, to get started, please make sure your restaurant has a menu. Click the orders tab to view pending and past orders at your restaurant. {`${this.state.employee.firstName}`}</p>        </>
+<h2> Hello {this.state.employee.first_name} </h2>
+    <p> Welcome, to get started, please make sure your restaurant has a menu. Click the orders tab to view pending and past orders at your restaurant. {`${this.state.employee.firstName}`}</p>      
+    </div>
+  </>
     )
 }
 componentDidMount() {
-     this.accountRepository.getEmployee()
+     this.accountRepository.getAccount(1)
      .then(account => {
-         this.setState({currentEmployee: account})});
+         this.setState({employee: account})});
 }
 }
 export default RestaurantEmployeeLanding;
