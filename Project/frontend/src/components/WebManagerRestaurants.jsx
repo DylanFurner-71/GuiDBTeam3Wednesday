@@ -8,13 +8,8 @@ import WebManagerNav from "./WebManagerNav";
 class WebManagerRestaurants extends Component{
     RestaurantRepository = new RestaurantRepository();
 
-    // Placeholder data
-    restaurants = [new Restaurant("McDonalds", "5647 Ellsworth Ave, Dallas, TX 75205"), 
-                    new Restaurant("Raising Cane's", "2916 Dyer Street, University Park, TX, 75206"),
-                    new Restaurant("Barley House", "5612 SMU Boulevard, Dallas, TX, 75206")];
-   
     state = {
-        restaurants: this.restaurants
+        restaurants: []
     };
 
     deleteRestaurant(element, index){
@@ -28,7 +23,7 @@ class WebManagerRestaurants extends Component{
     onAddRestaurant(element) {
         // TODO add the address too when supported in backend
         const restaurant = {
-            restaurant_name: element.name
+            restaurant_name: element.restaurant_name
         }
         this.RestaurantRepository.addRestaurant(restaurant);
         this.state.restaurants.push(element);
@@ -44,6 +39,10 @@ class WebManagerRestaurants extends Component{
             </div>
                
         </>
+    }
+
+    componentDidMount() {
+        this.RestaurantRepository.getRestaurants().then(_restaurants => this.setState({restaurants: _restaurants}));
     }
 }
 

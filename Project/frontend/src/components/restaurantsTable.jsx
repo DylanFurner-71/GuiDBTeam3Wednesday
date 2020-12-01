@@ -10,10 +10,10 @@ export const RestaurantsTable = props => {
                     <li className="list-group-item" key={i}>
                         <div className="row mb-0">
                             <div className="col d-flex align-items-center text-dark text-left">
-                                    {x.name} - {x.address}
+                                    {x.restaurant_name}
                             </div>
                             <div className="col d-flex align-items-center text-right">
-                                <Link className="btn bg-green" to={"restaurant/" + x.id}>Reviews</Link>
+                                <Link className="btn bg-green" to={"restaurant/" + x.restaurant_id}>Reviews</Link>
                             </div>
                             <div className="col d-flex align-items-center flex-row-reverse text-right">             
                                 <button onClick={() => props.onDelete(x, i)} className="btn btn-outline-secondary">

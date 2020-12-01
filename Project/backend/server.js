@@ -164,8 +164,6 @@ app.delete('/api/v1/review/:reviewId', function (req, res) {
             return console.error(error.message);
         res.end(JSON.stringify(result));
       });
-  
-  
 });
 
 //GET: See Restaurant Rating
@@ -178,51 +176,53 @@ app.get('/api/v1/stats', function (req, res) {
     });
 });
 
-//GET: Get available restaurants
+//GET: Get all restaurants
 app.get('/api/v1/restaurants', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
   connection.query("SELECT * FROM Restaurants", function (err, result, fields) {
         if (err) throw err;
         res.end(JSON.stringify(result)); // Result in JSON format
     });
 });
 
-//GET: Get restaurant menu
-//app.get('/api/v1/restaurants/:rest/menu', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  //connection.query("SELECT * FROM DishDetails", function (err, result, fields) {
-        //if (err) throw err;
-        //res.end(JSON.stringify(result)); // Result in JSON format
-    //});
-//});
-
 //GET: Get restaurant
 app.get('/api/v1/restaurants/:rest', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  connection.query("SELECT * FROM restaurant", function (err, result, fields) {
+  var RestaurantID = req.params.rest;
+  connection.query("SELECT * FROM Restaurants WHERE restaurant_id = ?", [RestaurantID], function (err, result, fields) {
         if (err) throw err;
         res.end(JSON.stringify(result)); // Result in JSON format
     });
 });
 
-//GET: Get item prices 
-//app.get('/api/v1/restaurants/:rest/menu', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  //connection.query("SELECT DishPrice FROM DishDetails", function (err, result, fields) {
-        //if (err) throw err;
-        //res.end(JSON.stringify(result)); // Result in JSON format
-    //});
-//});
+//GET: Get restaurant address
+app.get('/api/v1/restaurant/:rest/address', function (req, res) {
+  var RestaurantID = req.params.rest;
+  connection.query("SELECT address_body, city, state, zip FROM Restaurants INNER JOIN Addresses on Restaurants.address_id = Addresses.address_id WHERE Restaurants.restaurant_id = ?", [RestaurantID], function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
 
-//GET: Get address
-app.get('/api/v1/accounts/:id/address', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  connection.query("SELECT RestaurantAddress FROM restaurant", function (err, result, fields) {
+//GET: Get restaurant contact
+app.get('/api/v1/restaurant/:rest/contact', function (req, res) {
+  var RestaurantID = req.params.rest;
+  connection.query("SELECT * FROM Contact WHERE restaurant_id = ?", [RestaurantID], function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
+//GET: Get all accounts
+app.get('/api/v1/accounts', function (req, res) {
+  connection.query("SELECT * FROM Accounts", function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
+//GET: Get account
+app.get('/api/v1/accounts/:id', function (req, res) {
+  var AccountID = req.params.id;
+  connection.query("SELECT * FROM Accounts WHERE account_id = ?", [AccountID], function (err, result, fields) {
         if (err) throw err;
         res.end(JSON.stringify(result)); // Result in JSON format
     });
@@ -323,18 +323,6 @@ app.get('/api/v1/stats', function (req, res) {
     });
 });
 
-
-//GET: get restaurant stats (time of day, most orders)
-app.get('/api/v1/stats', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  connection.query("SELECT DishName INT FROM order", function (err, result, fields) {
-        if (err) throw err;
-        res.end(JSON.stringify(result)); // Result in JSON format
-    });
-});
-
-
 //JohnZ
 
 //update address
@@ -344,26 +332,6 @@ app.get('/api/v1/stats', function (req, res) {
   connection.query("UPDATE Accounts SET  = ? WHERE  = ?", [Newaddress, Newid], function (err, result, fields){
       if (err) throw err;
       res.end(JSON.stringify(result)); // Result in JSON format
-  });
-});
-*/
-
-/*
-//get restaurant
-app.get('/api/v1/restaurants',(req, res) =>{
-  connection.query("SELECT restaurant_name FROM Newber.Restaurants", function (err, result, fields) { 
-if(err){
-  logger.error("Error while excuting Query: \n", err);
-  res.status(400).json({
-    "data": [],
-    "error": "MySQL error"
-  })
-}
-else{
-  res.status(200).json({
-    "data": result
-  })
-}
   });
 });
 */

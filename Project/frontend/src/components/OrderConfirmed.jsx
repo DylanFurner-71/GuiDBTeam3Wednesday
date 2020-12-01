@@ -14,7 +14,7 @@ export class OrderConfirmed extends React.Component {
 
     // Placeholder, Get order status from api
     state = {
-      status: "Waiting",
+      status: "Delivered",
       isReviewed: false
     }
 
