@@ -80,9 +80,9 @@ app.post('/register/:account_type', function (req, res) {
   let first = req.body.firstName;
   let last = req.body.lastName;
   let email = req.body.email;
-  let password = red.body.password;
+  let password = req.body.password;
   let type = req.params.account_type;
-  let org = req.params.org;
+  let org = req.body.org;
   
   connection.query('SELECT * FROM Accounts JOIN Contact ON Accounts.account_id = Contact.account_id WHERE email = ? AND password = ?', [email, password],
       function(err, result) {

@@ -6,9 +6,9 @@ import { AccountRepository } from "../repository/accountRepository";
 export default class RegisterDriver extends Component {
 
     constructor() {
-        this.accountRepository = new AccountRepository();
 
         super();
+        this.accountRepository = new AccountRepository();
         this.state = {
             firstName: "",
             lastName: "",

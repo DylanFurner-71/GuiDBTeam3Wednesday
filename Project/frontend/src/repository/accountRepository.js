@@ -2,15 +2,15 @@ import axios from 'axios';
 
 export class AccountRepository {
 
-    url = 'http://localhost:8000/api/v1';
+    url = 'http://localhost:8000';
 
     config = {
         // headers: {
         // }
     };
-    register(accountData){
+    register(accountData, account_type){
        return new Promise((resolve, reject) => {
-           axios.post(`${this.url}/accounts/staff`, accountData)
+           axios.post(`${this.url}/register/${account_type}`, accountData)
            .then(x=> resolve(x.data))
            .catch(e => {
                alert(e);
@@ -30,7 +30,7 @@ export class AccountRepository {
     }
     login() {
             return new Promise((resolve, reject) => {
-                axios.post(`${this.url}/:id`, this.config)
+                axios.post(`http://localhost:8000/login`, this.config)
                 .then(x => resolve(x.data))
                 .catch(e => {
                     alert(e);
