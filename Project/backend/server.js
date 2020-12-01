@@ -137,12 +137,9 @@ app.post('/api/v1/restaurants', function (req, res) {
 });
 
 //DELETE: Remove Restaurant
-app.post('/api/v1/restaurants/:restaurantId', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  var RestaurantID = req.body.RestaurantID
-  
-  connection.query("DELETE FROM restaurant WHERE RestaurantID = ? ", RestaurantID,function (err, result, fields) {
+app.delete('/api/v1/restaurants/:restaurantId', function (req, res) {
+  var RestaurantID = req.params.restaurantID
+  connection.query("DELETE FROM Restaurants WHERE restaurant_id = ?", [RestaurantID],function (err, result, fields) {
         if (err)
             return console.error(error.message);
         res.end(JSON.stringify(result));
@@ -150,12 +147,9 @@ app.post('/api/v1/restaurants/:restaurantId', function (req, res) {
 });
 
 //DELETE: Remove Account
-app.delete('/api/v1/accounts/:restaurantId', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  var CustomerID = req.body.CustomerID
-  
-  connection.query("DELETE FROM customer WHERE CustomerID = ? ", CustomerID,function (err, result, fields) {
+app.delete('/api/v1/accounts/:accountID', function (req, res) {
+  var AccountID = req.params.accountID
+  connection.query("DELETE FROM Accounts WHERE account_id = ?", [AccountID],function (err, result, fields) {
         if (err)
             return console.error(error.message);
         res.end(JSON.stringify(result));
@@ -163,18 +157,13 @@ app.delete('/api/v1/accounts/:restaurantId', function (req, res) {
 });
 
 //DELETE: Remove Review
-app.delete('/api/v1/restaurants/:id/reviews', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  var OrderReviewID = req.body.OderReviewID
-  
-  connection.query("DELETE FROM OrderReview WHERE OrderReviewID = ? ", OrderReviewID,function (err, result, fields) {
+app.delete('/api/v1/review/:reviewId', function (req, res) {
+  var OrderReviewID = req.params.reviewId
+  connection.query("DELETE FROM Reviews WHERE review_id = ?", [OrderReviewID],function (err, result, fields) {
         if (err)
             return console.error(error.message);
         res.end(JSON.stringify(result));
       });
-  
-  
 });
 
 //GET: See Restaurant Rating
@@ -187,21 +176,9 @@ app.get('/api/v1/stats', function (req, res) {
     });
 });
 
-//GET: Get available restaurants
+//GET: Get all restaurants
 app.get('/api/v1/restaurants', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
   connection.query("SELECT * FROM Restaurants", function (err, result, fields) {
-        if (err) throw err;
-        res.end(JSON.stringify(result)); // Result in JSON format
-    });
-});
-
-//GET: Get restaurant menu
-app.get('/api/v1/restaurants/:rest/menu', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  connection.query("SELECT * FROM DishDetails", function (err, result, fields) {
         if (err) throw err;
         res.end(JSON.stringify(result)); // Result in JSON format
     });
@@ -209,29 +186,43 @@ app.get('/api/v1/restaurants/:rest/menu', function (req, res) {
 
 //GET: Get restaurant
 app.get('/api/v1/restaurants/:rest', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  connection.query("SELECT * FROM restaurant", function (err, result, fields) {
+  var RestaurantID = req.params.rest;
+  connection.query("SELECT * FROM Restaurants WHERE restaurant_id = ?", [RestaurantID], function (err, result, fields) {
         if (err) throw err;
         res.end(JSON.stringify(result)); // Result in JSON format
     });
 });
 
-//GET: Get item prices
-app.get('/api/v1/restaurants/:rest/menu', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  connection.query("SELECT DishPrice FROM DishDetails", function (err, result, fields) {
+//GET: Get restaurant address
+app.get('/api/v1/restaurant/:rest/address', function (req, res) {
+  var RestaurantID = req.params.rest;
+  connection.query("SELECT address_body, city, state, zip FROM Restaurants INNER JOIN Addresses on Restaurants.address_id = Addresses.address_id WHERE Restaurants.restaurant_id = ?", [RestaurantID], function (err, result, fields) {
         if (err) throw err;
         res.end(JSON.stringify(result)); // Result in JSON format
     });
 });
 
-//GET: Get address
-app.get('/api/v1/accounts/:id/address', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  connection.query("SELECT RestaurantAddress FROM restaurant", function (err, result, fields) {
+//GET: Get restaurant contact
+app.get('/api/v1/restaurant/:rest/contact', function (req, res) {
+  var RestaurantID = req.params.rest;
+  connection.query("SELECT * FROM Contact WHERE restaurant_id = ?", [RestaurantID], function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
+//GET: Get all accounts
+app.get('/api/v1/accounts', function (req, res) {
+  connection.query("SELECT * FROM Accounts", function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
+//GET: Get account
+app.get('/api/v1/accounts/:id', function (req, res) {
+  var AccountID = req.params.id;
+  connection.query("SELECT * FROM Accounts WHERE account_id = ?", [AccountID], function (err, result, fields) {
         if (err) throw err;
         res.end(JSON.stringify(result)); // Result in JSON format
     });
@@ -332,18 +323,6 @@ app.get('/api/v1/stats', function (req, res) {
     });
 });
 
-
-//GET: get restaurant stats (time of day, most orders)
-app.get('/api/v1/stats', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  connection.query("SELECT DishName INT FROM order", function (err, result, fields) {
-        if (err) throw err;
-        res.end(JSON.stringify(result)); // Result in JSON format
-    });
-});
-
-
 //JohnZ
 
 //update address
@@ -357,30 +336,10 @@ app.get('/api/v1/stats', function (req, res) {
 });
 */
 
-/*
-//get restaurant
-app.get('/api/v1/restaurants',(req, res) =>{
-  connection.query("SELECT restaurant_name FROM Newber.Restaurants", function (err, result, fields) { 
-if(err){
-  logger.error("Error while excuting Query: \n", err);
-  res.status(400).json({
-    "data": [],
-    "error": "MySQL error"
-  })
-}
-else{
-  res.status(200).json({
-    "data": result
-  })
-}
-  });
-});
-*/
-
 //get restaurant menu
 app.get('/api/v1/restaurants/:id/menu', function(req, res) {
   var RestaurantID = req.params.id
-  connection.query("SELECT menu_id FROM Menus WHERE restaurant_id = ?", [RestaurantID], function (err, result, fields) {
+  connection.query("SELECT item_details,item_price FROM Items inner join Menus on Items.menu_id = Menus.menu_id where Menus.restaurant_id = ?", [RestaurantID], function (err, result, fields) {
     if (err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   });
@@ -390,7 +349,7 @@ app.get('/api/v1/restaurants/:id/menu', function(req, res) {
 app.post('/api/v1/restaurants/:id/menu', (req, res) => {
   var RestaurantID = req.params.id
   var MenuName = req.body.menu_name
-  
+   
   connection.query('INSERT INTO Menus (restaurant_id,menu_name) VALUES (?,?)', [RestaurantID,MenuName], (err, result, fields) => {
     if (err) logger.error(err.stack);
     res.end(JSON.stringify(result));
@@ -518,4 +477,32 @@ app.put('/api/v1/restaurants/:rest/menu/item', async(req,res) => {
     res.end(JSON.stringify(result));
   });
 });
+
+//creat review
+app.post('/api/v1/restaurants/:rest/reviews', (req, res) => {
+  var RestaurantId = req.params.rest
+  var AccountId = req.body.account_id
+  var Rating = req.body.rating
+  var Content= req.body.content
+  
+  connection.query('INSERT INTO Reviews (restaurant_id,account_id,rating,content) VALUES (?,?,?,?)', [RestaurantId,AccountId,Rating,Content], (err, result, fields) => {
+    if (err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  });
+});
+
+//get all reviews
+app.get('/api/v1/restaurants/:rest/reviews', function(req, res) {
+  var RestaurantID = req.params.rest;
+  connection.query("SELECT * FROM Reviews WHERE restaurant_id = ?", [RestaurantID], function (err, result, fields) {
+    if (err) 
+      logger.error(err.stack);
+    else
+      res.end(JSON.stringify(result));
+  });
+}); 
+
+//order status
+ 
+//order queue
 

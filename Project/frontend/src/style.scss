@@ -1,0 +1,16 @@
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+$enable-responsive-font-sizes: true;
+$font-size-base: 1rem;
+
+.welcome {
+    @include font-size(4rem);
+}
+
+.h-2 {
+    @include font-size(2.5rem);
+}
+
+.h-3 {
+    @include font-size(1.5rem);
+}

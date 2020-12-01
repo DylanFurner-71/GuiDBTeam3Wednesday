@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-
 import {Restaurant} from "../models/Restaurant";
 import {RestaurantsForm} from "./RestaurantsForm";
 import {RestaurantsTable} from "./restaurantsTable";
@@ -7,25 +6,24 @@ import {RestaurantRepository} from "../repository/restaurantRepository";
 import WebManagerNav from "./WebManagerNav";
 
 class WebManagerRestaurants extends Component{
-    RestaurantRepository = new RestaurantRepository;
+    RestaurantRepository = new RestaurantRepository();
 
-    // Placeholder data
-    restaurants = [new Restaurant("McDonalds", "5647 Ellsworth Ave, Dallas, TX 75205"), 
-                    new Restaurant("Raising Cane's", "2916 Dyer Street, University Park, TX, 75206"),
-                    new Restaurant("Barley House", "5612 SMU Boulevard, Dallas, TX, 75206")];
-   
     state = {
-        restaurants: this.restaurants
+        restaurants: []
     };
 
-    deleteRestaurants(element){
-       this.state.restaurants.splice(element, 1);
-       this.setState({restaurants: this.state.restaurants});
+    deleteRestaurant(element, index){
+        let id = element.restaurant_id;
+        this.RestaurantRepository.deleteRestaurant(id);
+        let _restaurants = this.state.restaurants;
+        _restaurants.splice(index, 1);
+        this.setState({restaurants: _restaurants});
     }
 
     onAddRestaurant(element) {
+        // TODO add the address too when supported in backend
         const restaurant = {
-            restaurant_name: element.name
+            restaurant_name: element.restaurant_name
         }
         this.RestaurantRepository.addRestaurant(restaurant);
         this.state.restaurants.push(element);
@@ -37,10 +35,14 @@ class WebManagerRestaurants extends Component{
             <WebManagerNav/>
             <div className="container">
                 <RestaurantsForm onRestaurantAdded={element => this.onAddRestaurant(element)} />
-                <RestaurantsTable onDelete={element => this.deleteRestaurants(element)} restaurants={this.state.restaurants}/>
+                <RestaurantsTable onDelete={(element, index) => this.deleteRestaurant(element, index)} restaurants={this.state.restaurants}/>
             </div>
                
         </>
+    }
+
+    componentDidMount() {
+        this.RestaurantRepository.getRestaurants().then(_restaurants => this.setState({restaurants: _restaurants}));
     }
 }
 

@@ -56,7 +56,7 @@ export class Checkout extends React.Component {
                                             <input type="text" id="firstName" className="form-control" placeholder="First Name"
                                             value={this.state.firstName} 
                                             onChange={event => this.setState({firstName: event.target.value})}/>
-                                            <label htmlFor="firstName" className="text-black">First name</label>
+                                            <label htmlFor="firstName">First name</label>
                                         </div>
                                     </div>
                                     <div className="col-lg-6">

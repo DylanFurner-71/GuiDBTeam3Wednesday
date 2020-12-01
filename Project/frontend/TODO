@@ -1,2 +1,6 @@
-Components:
-    - Functionality for multiple addresses
+Features:
+    - Sign out
+
+Routes needed:
+    Get orders by a status parameter
+    Get account by id (created, not tested)

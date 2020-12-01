@@ -1,12 +1,15 @@
 import React, {Component} from "react";
-import '../App.css';
 import CustomerNav from "./CustomerNav";
 import { Customer } from "../models/Customer";
 import { RestaurantList } from "./RestaurantList";
-import { Restaurant } from '../models/Restaurant'
+import { RestaurantRepository } from '../repository/restaurantRepository';
 
 class CustomerLanding extends Component {
-    state = new Customer(
+    RestaurantRepository = new RestaurantRepository();
+
+    state = {
+        // TODO, remove placeholder, get account elsewhere
+        customer: new Customer(
             // id
             1,
             // firstName
@@ -25,20 +28,21 @@ class CustomerLanding extends Component {
             "",
             // zip
             0
-        );
-
-    // Placeholder data
-    restaurants = [new Restaurant("McDonalds", "5647 Ellsworth Ave, Dallas, TX 75205", 0), 
-        new Restaurant("Raising Cane's", "2916 Dyer Street, University Park, TX, 75206", 1),
-        new Restaurant("Barley House", "5612 SMU Boulevard, Dallas, TX, 75206", 2)];
+        ),
+        restaurants: []
+    }
 
     render() {
         return(
             <>
                 <CustomerNav />
-                <RestaurantList restaurants = {this.restaurants} />
+                <RestaurantList restaurants = {this.state.restaurants} />
             </>
         ) 
+    }
+
+    componentDidMount() {
+        this.RestaurantRepository.getRestaurants().then(_restaurants => this.setState({restaurants: _restaurants}));
     }
 }
 

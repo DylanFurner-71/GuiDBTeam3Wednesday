@@ -26,10 +26,10 @@ export class ViewCart extends React.Component {
                 <tbody>
                     {
                     this.state.items.map((item, i) =>
-                        item.menuItem.price != 0 && (
+                        item.menuItem.item_price != 0 && (
                         <tr key={i}>
                             <td>{item.quantity}</td>
-                            <td>{item.menuItem.name}<span className="text-secondary"> / ${item.menuItem.price.toFixed(2)}</span></td>
+                            <td>{item.menuItem.item_details}<span className="text-secondary"> / ${item.menuItem.item_price.toFixed(2)}</span></td>
                             <td>${item.totalPrice.toFixed(2)}</td>
                         </tr>
                         )
@@ -43,8 +43,9 @@ export class ViewCart extends React.Component {
                     </tr>
                 </tfoot>
                 </table>
-                <button type="button" className="btn btn-secondary text-white btn-block" onClick={() => this.setState(this.CartService.clearCart)}>Clear Cart</button>
+                <Link className="btn bg-green text-white btn-block" to={"/menu/" + this.CartService.getRestaurantId()}>Continue Shopping</Link>
                 <Link className="btn bg-green text-white btn-block" to={"/order/checkout"}>Checkout</Link>
+                <button type="button" className="btn btn-secondary text-white btn-block" onClick={() => this.setState(this.CartService.clearCart)}>Clear Cart</button>
             </div>
         </>;
     }

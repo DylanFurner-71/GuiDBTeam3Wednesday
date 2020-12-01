@@ -43,6 +43,7 @@ CREATE TABLE `Contact` (
     `account_id` INT(10) NOT NULL,
     `phone` VARCHAR(10) NOT NULL,
     `email` VARCHAR(30) NOT NULL,
+    `restaurant_id` INT(10) NOT NULL,
     PRIMARY KEY (`contact_id`)
 );
 
@@ -57,16 +58,6 @@ CREATE TABLE `Payment` (
     `card_number` INT(16),
     `cvc` INT(3),
     PRIMARY KEY (`payment_id`)
-);
-
--- Contact
-DROP TABLE IF EXISTS `Contact`;
-CREATE TABLE `Contact` (
-    `contact_id` INT(10),
-    `account_id` INT(10),
-    `phone` VARCHAR(20),
-    `email` VARCHAR(30),
-    PRIMARY KEY (`contact_id`)
 );
 
 -- Items

@@ -1,22 +1,28 @@
 import React, {Component} from "react";
-import {Navbar, Nav, NavDropdown} from "react-bootstrap"
+import {Navbar, Nav, NavDropdown} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 class CustomerNav extends Component {
 
     render() {
         return (
-            <Navbar bg="green" variant="light">
-                <Navbar.Brand href="/customer/home">Newber Eats</Navbar.Brand>
-                <Nav.Link href="/customer/home" className="inactive">Home</Nav.Link>
-                <Nav.Link href="/customer/profile" className="inactive">My Profile</Nav.Link>
-                <Nav.Link href="/customer/past-orders" className="inactive">Past Orders</Nav.Link>
-                {this.props.myOrderFlag === true && (
-                    <NavDropdown title={"My Order"} id="basic-nav-dropdown">
-                        <NavDropdown.Item href="/order/cart">View Cart</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="/order/checkout">Checkout</NavDropdown.Item>
-                    </NavDropdown>
-                )}
+            <Navbar sticky="top" className="bg-green" expand="lg">
+                <Navbar.Brand as={Link} to="/customer/home">Newber Eats</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" className="bg-white mb-4"/>
+                <Navbar.Collapse id="basic-navbar-nav" className="bg-green">
+                    <Nav className="mr-auto">
+                        <Nav.Link as={Link} to="/customer/home" className="inactive">Home</Nav.Link>
+                        <Nav.Link as={Link} to="/customer/profile" className="inactive">My Profile</Nav.Link>
+                        <Nav.Link as={Link} to="/customer/past-orders" className="inactive">Past Orders</Nav.Link>
+                        {this.props.myOrderFlag === true && (
+                            <NavDropdown title="My Order" id="basic-nav-dropdown">
+                                <NavDropdown.Item as={Link} to="/order/cart" className="text-center">View Cart</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item as={Link} to="/order/checkout" className="text-center">Checkout</NavDropdown.Item>
+                            </NavDropdown>
+                        )}
+                    </Nav>
+                </Navbar.Collapse>
             </Navbar>
         )}
 }

@@ -100,3 +100,37 @@ input[type="button"] {
 a {
   color: #000000!important;
 }
+
+.text-black {
+  color: #000000!important;
+}
+
+.nav-link {
+  padding: 0rem!important;
+  padding-left: 1em!important;
+  padding-right: 1em!important;
+}
+
+@media (max-width: 768px) {
+  .btn {
+    font-size:11px!important;
+  }
+}
+
+@media (min-width: 768px) {
+  .btn {
+    font-size:12px!important;
+  }
+}
+
+@media (min-width: 992px) {
+  .btn {
+    font-size:14px!important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .btn {
+    font-size:18px!important;
+  }
+}

@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import '../App.css';
 import { Restaurant } from "../models/Restaurant";
 import { MenuItemsForm } from "./menuItemsForm";
 import MenuView from "./MenuView";
@@ -22,6 +21,7 @@ class RestaurantEmployeeLanding extends Component {
     restaurantRepository = new RestaurantRepository();
     constructor() { //this will likely require an employeeId parameter
 super();
+// Placeholder data
 this.state = {
     employee: {},
 // userFullName: userFirstName + " " + userLastName,

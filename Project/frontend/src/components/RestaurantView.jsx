@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import '../App.css';
 import CustomerNav from "./CustomerNav";
 import { MenuItemList } from './MenuItemList'
 import { RestaurantRepository } from '../repository/restaurantRepository';
@@ -9,11 +8,8 @@ class RestaurantView extends Component {
     RestaurantRepository = new RestaurantRepository();
     cart = new CartService();
 
-    // Temp Data
     state = {
-        name : 'McDonalds',
-        address: '',
-        id: 0,
+        restaurant: [{restaurant_name: ""}],
         menu: []
     }
 
@@ -21,18 +17,19 @@ class RestaurantView extends Component {
         return <>
             <CustomerNav myOrderFlag={true}/>
             <div className="container">
-                <h1 className="welcome">{this.state.name}</h1>
-                <MenuItemList id={+this.props.match.params.restaurantId}/>
+                <h1 className="welcome">{this.state.restaurant[0].restaurant_name} Menu</h1>
+                <MenuItemList menu={this.state.menu}/>
             </div>
         </>;
     }
 
     componentDidMount() {
-        const id = +this.props.match.params.restaurantId;
-        this.cart.setRestaurantId(id);
-        if (id) {
-            // this.RestaurantRepository.getRestaurant(id).then(restaurant => this.setState(restaurant));
+        const restaurantId = +this.props.match.params.restaurantId;
+        if (restaurantId >= 0) {
+            this.RestaurantRepository.getRestaurant(restaurantId).then(_restaurant => this.setState({restaurant: _restaurant}));
+            this.RestaurantRepository.getMenu(restaurantId).then(_menu => this.setState({menu: _menu}));
         }
+        this.cart.setRestaurantId(restaurantId);
     }
 }
 

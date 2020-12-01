@@ -19,12 +19,12 @@ export class CartService {
 
     addToCart(menuItem) {
         let cart = window.cart || new Cart();
-        let existing = cart.items.find(x => x.menuItem.id == menuItem.id);
+        let existing = cart.items.find(x => x.menuItem.item_details == menuItem.item_details);
         if (existing) {
             existing.quantity += 1;
-            existing.totalPrice = existing.menuItem.price * existing.quantity;
+            existing.totalPrice = existing.menuItem.item_price * existing.quantity;
         } else {
-            cart.items.push(new CartItem(menuItem, 1, menuItem.price));
+            cart.items.push(new CartItem(menuItem, 1, menuItem.item_price));
         }
 
         cart.total = cart.items.map(x => x.totalPrice).reduce((x, y) => x + y);

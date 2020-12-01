@@ -38,7 +38,7 @@ export class AccountRepository {
                 });
             });
     }
-    getEmployee(id) {
+    getAccount(id) {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/${id}`, this.config)
             .then(x => resolve(x.data))
