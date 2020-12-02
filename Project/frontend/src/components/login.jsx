@@ -32,12 +32,14 @@ export default class Login extends Component {
     };
     onSubmit = e => {
         e.preventDefault();
-        const userData = {
-            email: this.state.email,
+            const userData ={
+                email: this.state.email,
             password: this.state.password,
-        };
+            };
         //maybe pass the url parameters here to let the repository know which to call
-        this.accountsRepository.login(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+        this.accountsRepository.login(userData)
+        .then( 
+            res => console.log("Response: ", res)); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
     };
     render() {
         const error = this.state.error;
@@ -55,7 +57,7 @@ export default class Login extends Component {
                                     onChange={this.onChange}
                                     value={this.state.email}
                                     id="email"
-                                    type="email"
+                                    type="text"
                                 />
                                 <label htmlFor="email">Email</label>
                                 <span className="red-text">
@@ -68,7 +70,7 @@ export default class Login extends Component {
                                     onChange={this.onChange}
                                     value={this.state.password}
                                     id="password"
-                                    type="password"
+                                    type="text"
                                 />
                                 <label htmlFor="password">Password</label>
                                 <span className="red-text">

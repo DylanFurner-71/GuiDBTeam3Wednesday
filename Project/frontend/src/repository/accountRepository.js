@@ -28,16 +28,32 @@ export class AccountRepository {
             });
         });
     }
-    login() {
-            return new Promise((resolve, reject) => {
-                axios.post(`http://localhost:8000/login`, this.config)
-                .then(x => resolve(x.data))
-                .catch(e => {
-                    alert(e);
-                    reject();
-                });
-            });
-    }
+        login(userData) {
+            const {email, password} = userData;
+          return new Promise((resolve, reject) => {
+              axios
+            .post("http://localhost:8000/login", 
+            {
+             email,
+              password
+            }
+            )
+            .then(response => {
+              if (response.data.accessToken) {
+                localStorage.setItem("user", JSON.stringify(response.data));
+              }
+      
+              return resolve(response.data);
+            }).catch(e=> {
+            alert(e); 
+        reject();
+    })
+    })
+}
+      
+        logout() {
+          localStorage.removeItem("user");
+        }
     getAccount(id) {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/accounts/${id}`, this.config)

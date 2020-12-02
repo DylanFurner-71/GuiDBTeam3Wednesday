@@ -139,17 +139,19 @@ app.post('/register/:account_type', function (req, res) {
 app.post('/login', function (req, res) {
   //Authenticate user
   let username = req.body.email;
-  let password = red.body.password;
-  if (username & password) {
+  let password = req.body.password;
+  if (username && password) {
     connection.query('SELECT * FROM Accounts WHERE username = ? AND password = ?', [username, password], 
     function(err, result, fields) {
-      if(result.length > 0) {
-        let user = {name: email};
+      console.log("result: ", result);
+      if(result) {
+        let user = {name: username};
         let accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
         let response = {
           accessToken: accessToken,
           user: result
         }
+        console.log("Response:::: ", response);
         res.send(JSON.parse(JSON.stringify(response)));
       }
       else  {
