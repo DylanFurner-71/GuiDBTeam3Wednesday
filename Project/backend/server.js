@@ -19,10 +19,6 @@ let whitelist = ['http://ec2-3-14-79-223.us-east-2.compute.amazonaws.com:3000']
 // logger
 const logger = log({ console: true, file: false, label: config.name });
 app.use(bodyParser.json());
-app.use(cors({
-  origin: 'http://ec2-3-14-79-223.us-east-2.compute.amazonaws.com:3000'
-}));
-app.use(ExpressAPILogMiddleware(logger, { request: true }));
 
 // cors
 app.use(function(req, res, next) {
