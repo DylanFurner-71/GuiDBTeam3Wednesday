@@ -144,12 +144,11 @@ app.post('/login', function (req, res) {
     connection.query('SELECT * FROM Accounts WHERE username = ? AND password = ?', [username, password], 
     function(err, result, fields) {
       if(result.length > 0) {
+        let user = {name: username}
         let accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-        let response = {
-          "accessToken": accessToken,
-          "user": result
-        }
-        res.send(JSON.parse(JSON.stringify(response)));
+        let response = JSON.parse(JSON.stringify(result))
+        response[0].token = accessToken;
+        res.send(response);
       }
       else  {
         res.status(400).send('incorrect username/password')
