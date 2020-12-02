@@ -7,18 +7,18 @@ const mysql = require('mysql');
 const { log, ExpressAPILogMiddleware } = require('@rama41222/node-logger');
 const jwt = require('jsonwebtoken');
 
-// logger
-const logger = log({ console: true, file: false, label: config.name });
-app.use(bodyParser.json());
-app.use(cors());
-app.use(ExpressAPILogMiddleware(logger, { request: true }));
-
 // express configs
 const config = {
   name: 'newber',
   port: 8000,
   host: '0.0.0.0',
 };
+
+// logger
+const logger = log({ console: true, file: false, label: config.name });
+app.use(bodyParser.json());
+app.use(cors());
+app.use(ExpressAPILogMiddleware(logger, { request: true }));
 
 
 //mysql connection
