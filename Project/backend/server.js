@@ -2,7 +2,7 @@ require(`dotenv`).config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-//const cors = require('cors');
+const cors = require('cors');
 const mysql = require('mysql');
 const { log, ExpressAPILogMiddleware } = require('@rama41222/node-logger');
 const jwt = require('jsonwebtoken');
