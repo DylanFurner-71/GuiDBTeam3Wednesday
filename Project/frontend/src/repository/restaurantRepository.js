@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export class RestaurantRepository {
-    url = "http://localhost:8000/api/v1";
+    url = "http://ec2-3-14-79-223.us-east-2.computer.amazonaws.com:8000/api/v1";
 
     addRestaurant(restaurant) {
         return new Promise((resolve, reject) => {

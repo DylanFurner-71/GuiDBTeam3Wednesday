@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export class OrderRepository {
-    url = "http://localhost:8000/api/v1";
+    url = "http://ec2-3-14-79-223.us-east-2.computer.amazonaws.com:8000/api/v1";
 
     addOrder(order) {
         return new Promise((resolve, reject) => {
