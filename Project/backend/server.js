@@ -17,11 +17,15 @@ const config = {
 // create a logger object.  Using logger is preferable to simply writing to the console.
 const logger = log({ console: true, file: false, label: config.name });
 
-// specify middleware to use
-app.use(bodyParser.json());
-// app.use(cors({
-//   origin: '*'
-// }));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", '*');
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+  next();
+});
+
+app.use(cors()); // <---- use cors middleware
 app.use(ExpressAPILogMiddleware(logger, { request: true }));
 
 //mysql connection
