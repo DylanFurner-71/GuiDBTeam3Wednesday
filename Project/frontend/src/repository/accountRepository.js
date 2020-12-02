@@ -34,6 +34,22 @@ export class AccountRepository {
             .catch(err => console.log(err.response));
         });
     }
+
+    getAccountContact(id) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/account/${id}/contact`)
+                .then(resp => resolve(resp.data))
+                .catch(err => console.log(err.response));
+        })
+    }
+
+    addOrderAddress(address) {
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}/address`, address)
+                .then(resp => resolve(resp.data))
+                .catch(err => console.log(err.response));
+        })
+    }
     
     componentDidMount() {
         const accountId = 0;

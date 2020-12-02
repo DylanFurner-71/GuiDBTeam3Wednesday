@@ -1,22 +1,15 @@
-import { Order } from './../models/Order';
-
 export class DriverOrderService {
-    getOrder() {
-        return window.order || new Order();
+    getOrderId() {
+        return window.orderId || -1;
     }
     
-    setOrder(order) {
-        window.order = order;
-        window.order.status = "In Progress";
-    }
-
-    setStatus(status) {
-        window.order.status = status;
+    setOrderId(id) {
+        window.orderId = id;
     }
 
     clearOrder() {
-        window.order = new Order();
-        return new Order();
+        window.orderId = -1
+        return -1;
     }
 }
 
