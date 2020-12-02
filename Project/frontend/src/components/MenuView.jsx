@@ -10,6 +10,8 @@ class MenuView extends React.Component {
   state = {
       menu: [],
       employee: {},
+      most: [],
+      least: [],
   }
 
   onDelete(id, index) {
@@ -25,7 +27,6 @@ class MenuView extends React.Component {
     let m = this.state.menu;
     m.push(element);
     this.setState({menu: m})
-    //put a new item on the menu - small route
   }
 
   render() {
@@ -37,7 +38,18 @@ class MenuView extends React.Component {
         <div className="row h-100" style={{minHeight: "100%"}}>
           <ProductCard products={this.state.menu} onDelete={(element, index) => this.onDelete(element, index)}/>
         </div>
+        <div className="row h-100 justify-content-center flex-between" style={{minHeight: "100%"}}>
+          <div className="col">
+        <h3 className="text-white justify-left"> Most Popular </h3>
+        <ProductCard products={this.state.most} onDelete={(element, index) => this.onDelete(element, index)}/> 
+        </div>
+        <div className="col">
+        <h3 className="text-white"> Least Popular </h3>
+        <ProductCard products={this.state.least} onDelete={(element, index) => this.onDelete(element, index)}/>
+        
+        </div>
       </div>
+    </div>
     </div>
     ) 
   }
@@ -59,6 +71,9 @@ class MenuView extends React.Component {
 
   componentDidMount() {
     this.restaurantRepository.getMenu(this.state.employee.org_id).then(_menu => this.setState({menu: _menu}));
+    this.restaurantRepository.getMenu(this.state.employee.org_id).then(_menu => this.setState({most: _menu.slice(0, 3)}));
+    this.restaurantRepository.getMenu(this.state.employee.org_id).then(_menu => this.setState({least: _menu.slice(4, 7)}));
+
   }
 };
 
