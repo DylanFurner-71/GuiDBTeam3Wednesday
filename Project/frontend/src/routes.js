@@ -5,7 +5,7 @@ import RegisterDriver from "./components/RegisterDriver";
 import RegisterWebManager from "./components/RegisterWebManager";
 import RegisterEmployee from "./components/RegisterEmployee";
 import WebManagerLanding from "./components/webManagerLanding";
-import CustomerLanding from "./components/CustomerLanding";
+import CustomerLanding from "./components/customerLanding";
 import CustomerProfile from "./components/CustomerProfile";
 import CustomerOrderHistory from './components/CustomerOrderHistory';
 import RestaurantView from "./components/RestaurantView";

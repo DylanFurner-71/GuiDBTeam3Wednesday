@@ -61,7 +61,7 @@ export class OrderConfirmed extends React.Component {
           <CustomerNav />
           <div className="container">
             <h1 className="welcome">Order confirmed, thank you!</h1>
-            <h2 className="text-white">Order Status: {this.state.order[0].status}</h2>
+            {/* <h2 className="text-white">Order Status: {this.state.order[0].status}</h2> */}
             <h3 className="text-white bg-white"><hr></hr></h3>
             <h4 className="text-white mb-4">Estimated time of delivery: {this.getDeliveryTime()}</h4>
             {(!this.state.isReviewed && this.state.status == "Delivered") && (
