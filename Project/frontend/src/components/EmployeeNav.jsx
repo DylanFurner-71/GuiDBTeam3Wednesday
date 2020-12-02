@@ -16,11 +16,12 @@ class EmployeeNav extends Component {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" className="bg-white mb-4"/>
                 <Navbar.Collapse id="basic-navbar-nav" className="bg-green">
                     <Nav className="mr-auto">
-                        <Nav.Link as={Link} className="inactive" to={`/employee/orders/${this.props.restId}`}>Orders</Nav.Link>
+                        <Nav.Link as={Link} className="inactive" to={`/employee/orders/${this.props.restId}`}>Current Orders</Nav.Link>
+                        <Nav.Link as={Link} to={`/restaurant/${this.props.restId}/past-orders`} className="inactive">Past Orders</Nav.Link>
                         <Nav.Link as={Link} className="inactive" to={`/employee/menu/${this.props.restId}`} >My Restaurant Menu</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
-                <Navbar.Brand to={`/`}> <Button className="bg-white text-black" onClick={this.acccountRep.logout}>Logout</Button></Navbar.Brand>
+                <Navbar.Brand href={`/`}> <Button className="bg-white text-black" onClick={this.acccountRep.logout}>Logout</Button></Navbar.Brand>
             </Navbar>
         )
     }

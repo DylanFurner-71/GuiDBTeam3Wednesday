@@ -14,22 +14,14 @@ class DriverDashboard extends React.Component {
 
     state = {
         orders: [],
-        customer_names: [],
         restaurant_names: []
     }
 
     onSetOrder(orderId) {
         this.DriverOrderService.setOrderId(orderId);
+        this.OrderRepository.updateOrderStatus(orderId, "Started");
     }
 
-    getCustomerName(id) {
-        this.AccountRepository.getAccount(id).then(element => {
-            let cnames = this.state.customer_names;
-            cnames.push(element[0].first_name + " " + element[0].last_name);
-            this.setState({customer_names: cnames});
-        });
-    }
-    
     getRestaurantName(id) {
         this.RestaurantRepository.getRestaurant(id).then(element => {
             let rnames = this.state.restaurant_names;
@@ -54,7 +46,6 @@ class DriverDashboard extends React.Component {
                             <div className="card col-6">
                                 <div className="card-body">
                                     <h5 className="text-secondary card-header mb-4">Order #{x.order_id}</h5>
-                                    <h3 className="card-title">Customer Name: {this.state.customer_names[i]}</h3>
                                     <h4 className="card-text">Restaurant: {this.state.restaurant_names[i]}</h4>
                                     <h4 className="card-text">Total Price: ${x.total_price.toFixed(2)}</h4>
                                     <Link className="btn bg-green mt-3 pt-2 pb-2" onClick={() => this.onSetOrder(x.order_id)} to={"/driver/order/" + x.order_id}>Begin</Link>
@@ -82,11 +73,9 @@ class DriverDashboard extends React.Component {
         }
       }
     componentDidMount() {
-        // TODO CHANGE TO WAITING AFTER TESTING DONE
-        this.OrderRepository.getOrdersByStatus("Pending").then(elements => {
+        this.OrderRepository.getOrdersByStatus("Waiting").then(elements => {
             this.setState({orders: elements});
             for (var i = 0; i < elements.length; i++) {
-                this.getCustomerName(elements[i].account_id);
                 this.getRestaurantName(elements[i].restaurant_id);
             }
         });

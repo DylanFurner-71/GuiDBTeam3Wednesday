@@ -55,7 +55,7 @@ export class CustomerOrderHistory extends React.Component {
                                     <div className="card bg-white">
                                         <div className="card-body">
                                             <h4 className="card-text">Restaurant: {this.state.restaurant_names[i]}</h4>
-                                            <h4 className="card-text">Total Price: ${x.total_price.toFixed()}</h4>
+                                            <h4 className="card-text">Total Price: ${x.total_price.toFixed(2)}</h4>
                                         </div>
                                     </div>
                                 </li>)
