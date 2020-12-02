@@ -39,8 +39,6 @@ export default class Login extends Component {
         this.accountsRepository.login(userData, this.props.history)
         .then( 
             res => {if (res) {
-                console.log(
-                    'res123: :',res)
                 this.props.history.push(`${res.user[0].account_type}/home`)} 
              } ) // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
     };

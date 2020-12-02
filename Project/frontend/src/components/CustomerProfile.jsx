@@ -34,7 +34,6 @@ class CustomerProfile extends Component {
             customer: customer[0]
             });
         }
-        console.log(customer);
     }
 
     render() {

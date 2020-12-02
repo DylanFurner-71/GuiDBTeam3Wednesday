@@ -104,7 +104,7 @@ app.post('/register/:account_type', function (req, res) {
                 if (err)
                   throw err;
                 else 
-                  console.log("We are here now - successfully createed driver");
+                  console.log("Successfully createed driver");
               });
               break;
             case "2":
@@ -113,7 +113,7 @@ app.post('/register/:account_type', function (req, res) {
                 if (err)
                   throw err;
                 else 
-                console.log("We are here now - successfully created employee");
+                console.log("Successfully created employee");
               });
               break;
             case "3":
@@ -122,7 +122,7 @@ app.post('/register/:account_type', function (req, res) {
                 if (err)
                   throw err;
                 else 
-                console.log("We are here now - web manager account creation success");
+                console.log("Successfully created Web manager");
               });
               break;
           }
@@ -337,7 +337,6 @@ app.post('/api/v1/orders', function (req, res) {
   var LastName = req.body.last_name;
   var Phone = req.body.phone;
   var Items = req.body.items || [];
-  console.log("123a!");
   connection.query("INSERT INTO Orders (restaurant_id, account_id, address_id, status, total_price, first_name, last_name, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
     [RestaurantID, AccountID, AddressID, Status, TotalPrice, FirstName, LastName, Phone], function (err, result, fields) {
       if (err) throw err;
@@ -357,7 +356,6 @@ app.post('/api/v1/address', function (req, res) {
   var City = req.body.city;
   var State = req.body.state;
   var Zip = req.body.zip;
-  console.log("test123");
   connection.query("INSERT INTO Addresses (address_body, city, state, zip, country, address_type) VALUES (?, ?, ?, ?, ?, ?)",
   [AddressBody, City, State, Zip, "US", "order"], function (err, result, fields) {
   if (err) throw err;

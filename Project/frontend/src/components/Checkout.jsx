@@ -32,7 +32,6 @@ export class Checkout extends React.Component {
           
         }
         else {
-            console.log(customer);
             this.setState({
                 customer: customer[0]
             });

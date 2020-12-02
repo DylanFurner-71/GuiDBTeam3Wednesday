@@ -128,7 +128,6 @@ class DriverCurrentOrder extends React.Component {
             this.RestaurantRepository.getRestaurant(topElement[0].restaurant_id).then(element => this.setState({restaurant: element[0]}));
             this.OrderRepository.getOrderItems(orderId).then(elements => {
                 this.setState({items: elements});
-                console.log(elements);
             });
             this.OrderRepository.getOrderAddress(topElement[0].address_id).then(element => this.setState({customerAddress: element[0]}));
         })

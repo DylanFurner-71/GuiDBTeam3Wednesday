@@ -24,7 +24,6 @@ export class CustomerOrderHistory extends React.Component {
           
         }
         else {
-            console.log(customer);
             this.setState({
                 customer: customer[0]
             });
@@ -70,7 +69,6 @@ export class CustomerOrderHistory extends React.Component {
     componentDidMount() {
         this.AccountRepository.getOrderHistory(+this.state.customer.account_id).then(elements => {
             this.setState({orders: elements});
-            console.log(elements);
             for (var i = 0; i < elements.length; i++) {
                 this.getRestaurantName(elements[i].restaurant_id);
             }

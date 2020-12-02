@@ -23,7 +23,6 @@ export default class RegisterDriver extends Component {
         // If logged in and user navigates to Register page, should redirect them to dashboard
     }
     componentWillReceiveProps(nextProps) {
-        console.log("We are here")
         if (nextProps.error) {
             this.setState({
                 error: nextProps.error
