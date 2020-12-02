@@ -41,6 +41,7 @@ export class Checkout extends React.Component {
                     total_price: this.cart.total,
                     items: this.cart.items
                 }
+                console.log(element.insertId);
                 this.OrderRepository.addOrder(order).then(element => {
                     console.log(element);
                     this.CartService.setOrderId(element.insertId);

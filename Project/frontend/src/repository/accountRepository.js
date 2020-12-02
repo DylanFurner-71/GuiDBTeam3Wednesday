@@ -50,12 +50,6 @@ export class AccountRepository {
                 .catch(err => console.log(err.response));
         })
     }
-    
-    componentDidMount() {
-        const accountId = 0;
-        this.accountsRepository.getAccount(accountId)
-            .then(account => this.setState(account));
-    }
 }
 
 export const register = (userData, history) => dispatch => {

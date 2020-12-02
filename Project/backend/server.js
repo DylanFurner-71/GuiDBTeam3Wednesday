@@ -440,30 +440,56 @@ app.get('/api/v1/restaurants/:id/menu', function(req, res) {
   });
 });
 
-//creat restaurant menu
-app.post('/api/v1/restaurants/:id/menu', (req, res) => {
-  var RestaurantID = req.params.id
-  var MenuName = req.body.menu_name
-   
-  connection.query('INSERT INTO Menus (restaurant_id,menu_name) VALUES (?,?)', [RestaurantID,MenuName], (err, result, fields) => {
+// add menu item
+app.post('/api/v1/menu/item', function(req, res) {
+  var ItemDetails = req.body.item_details;
+  var ItemPrice = req.body.item_price;
+  connection.query("INSERT INTO Items (item_details, item_price) VALUES (?, ?)", [ItemDetails, ItemPrice], function (err, result, fields) {
     if (err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   });
 });
 
-//delete restaurant meun
+// update menu item
+app.put('/api/v1/menu/item/:id', function(req, res) {
+  var ItemID = req.params.id
+  var ItemDetails = req.body.item_details;
+  var ItemPrice = req.body.item_price;
+  connection.query("UPDATE Items SET item_details = ?, item_price = ? WHERE item_id = ?", [ItemDetails, ItemPrice, ItemID], function (err, result, fields) {
+    if (err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  });
+});
+
+// delete menu item
+app.delete('/api/v1/menu/item/:id', function(req, res) {
+  var ItemID = req.params.id;
+
+  connection.query("DELETE FROM Items WHERE item_id = ?", [ItemID], function (err, result, fields) {
+    if (err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  });
+});
+
+//create restaurant menu
+app.post('/api/v1/restaurants/menu', (req, res) => {
+  var RestaurantID = req.body.restaurantId;
+   
+  connection.query('INSERT INTO Menus (restaurant_id) VALUES (?)', [RestaurantID], (err, result, fields) => {
+    if (err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  });
+});
+
+//delete restaurant menu
 app.delete('/api/v1/restaurants/:id/menu', (req, res) => {
   var RestaurantID = req.params.id;
-  var MenuID = req.body.menu_id;
-  connection.query("DELETE FROM Menus WHERE restaurant_id = ? and menu_id = ?", [RestaurantID,MenuID], (err, result, fields) => {
+
+  connection.query("DELETE FROM Menus WHERE restaurant_id = ?", [RestaurantID], (err, result, fields) => {
     if (err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   });
 });
-
-
-
-  
 
 //update password
 app.put('/api/v1/accounts/:id/password', async(req,res) => {
@@ -474,7 +500,6 @@ app.put('/api/v1/accounts/:id/password', async(req,res) => {
     res.end(JSON.stringify(result));
   });
 });
-
 
 //update payment method
 app.put('/api/v1/accounts/:id/payment', async(req,res) => {
