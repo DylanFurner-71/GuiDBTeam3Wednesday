@@ -29,7 +29,7 @@ export class OrderRepository {
 
     updateOrderStatus(id, status) {
         return new Promise((resolve, reject) => {
-            axios.update(`${this.url}/orders/${id}/${status}`, status)
+            axios.put(`${this.url}/orders/${id}/${status}`, status)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })
