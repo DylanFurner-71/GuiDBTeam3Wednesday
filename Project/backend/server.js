@@ -18,8 +18,21 @@ const config = {
 const logger = log({ console: true, file: false, label: config.name });
 app.use(bodyParser.json());
 app.use(cors());
+app.options('*', cores())
 app.use(ExpressAPILogMiddleware(logger, { request: true }));
 
+// cors
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+})
+
+app.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 
 //mysql connection
 var connection = mysql.createConnection({
