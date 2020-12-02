@@ -51,7 +51,8 @@ class EmployeeOrders extends React.Component {
         if (this.state.employee){
           let m = this.state.Orders;
         this.OrderRepository.getOrdersForRestaurant(this.state.employee.org_id).then(res => m.push(res), this.setState({Orders: m}))
-      console.log("This.state....",this.state);  
+      console.log("This.state....",this.state); 
+      console.log(this.state.Orders);
       }
       }
 
@@ -62,11 +63,9 @@ class EmployeeOrders extends React.Component {
     onClickPastOrder(order){
         //this will someday be a way to leave a complaint about a customer
     }
-    renderOrderList(orders, status) {
-      if (this.state.Orders.length > 0){
-        return (<div><OrderList Orders={orders} ordersType={status}/> </div>) 
-     } else {
-      return (<div>Soon</div>)
+    renderOrderList( status) {
+      if (this.state.Orders){
+        return (<div><OrderList Orders={this.state.Orders[0]} ordersType={status}/> </div>) 
      }
 
     }
@@ -75,10 +74,10 @@ class EmployeeOrders extends React.Component {
         <EmployeeNav restId={this.state.employee.org_id} id={this.state.employee.account_id}/>
             <div className="container">
             {
-              this.renderOrderList(this.state.orders, "Pending")
+              this.renderOrderList( "Pending")
                  }
                      {
-              this.renderOrderList(this.state.pastOrders, "Past")
+              this.renderOrderList( "Past")
                  }
             {/* <OrderList Orders={this.state.pastOrders} ordersType={"Past"}/> */}
             </div>
