@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AccountRepository } from "../repository/accountRepository";
 export default class RegisterUser extends Component {
     constructor() {

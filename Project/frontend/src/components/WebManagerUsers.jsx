@@ -1,6 +1,4 @@
 import React, {Component} from "react";
-
-import {User} from "../models/User";
 import {UsersTable} from "./usersTable";
 import WebManagerNav from "./WebManagerNav";
 import {AccountRepository} from "../repository/accountRepository";

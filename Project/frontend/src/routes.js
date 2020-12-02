@@ -8,6 +8,7 @@ import WebManagerLanding from "./components/webManagerLanding";
 import CustomerLanding from "./components/customerLanding";
 import CustomerProfile from "./components/CustomerProfile";
 import CustomerOrderHistory from './components/CustomerOrderHistory';
+import RestaurantOrderHistory from './components/RestaurantOrderHistory';
 import RestaurantView from "./components/RestaurantView";
 import RestaurantEmployeeLanding from "./components/RestaurantEmployeeLanding";
 import OrderConfirmed from './components/OrderConfirmed';
@@ -25,8 +26,11 @@ import CustomerReviewList from './components/CustomerReviewList.jsx';
 export const ROUTES = [
     // Employee 
     { path: `/employee/orders/:restaurantId`, component: EmployeeOrders},
-    { path: `/employee/menu/:restaurantId/`, component: MenuView},     // Misc.
+    { path: `/employee/menu/:restaurantId/`, component: MenuView},
+    
+    // Misc.
     { path: `/menu/:restaurantId`, component: RestaurantView },
+    { path: `/restaurant/:restaurantId/past-orders`, component: RestaurantOrderHistory },
 
     // Web Manager
     { path: `/web-manager/restaurants`, component: WebManagerRestaurants },

@@ -6,7 +6,7 @@ export const ProductCard = (props) => {
           <div className="card h-100">
             <div className="d-flex flex-column">
                 <span className="text-center text-black mt-3">{product.item_details}</span>
-                <span className="font-weight-light">${product.item_price}</span>
+                <span className="font-weight-light">${product.item_price.toFixed(2)}</span>
                 <div className="col-12 mt-3">
                     <button onClick={() => props.onDelete(product.item_id, i)} className="btn btn-sm btn-outline-secondary">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

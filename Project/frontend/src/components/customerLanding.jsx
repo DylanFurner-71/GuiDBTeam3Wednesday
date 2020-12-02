@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import CustomerNav from "./CustomerNav";
-import { Customer } from "../models/Customer";
 import { RestaurantList } from "./RestaurantList";
 import { RestaurantRepository } from '../repository/restaurantRepository';
 
