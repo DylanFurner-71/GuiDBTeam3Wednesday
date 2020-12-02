@@ -9,10 +9,11 @@ import { Link } from "react-router-dom";
 import DriverOrderService from "../services/DriverOrderService";
 import EmployeeNav from "./EmployeeNav";
 import OrderList from "./OrderList";
+import {RestaurantRepository} from "../repository/restaurantRepository"
 class EmployeeOrders extends React.Component {
     OrderRepository = new OrderRepository();
     DriverOrderService = new DriverOrderService();
-
+    RestaurantRepository = new RestaurantRepository();
     // Placeholder Data
     menuItem1 = new MenuItem("Steak", "12oz", 25.0, 0);
     menuItem2 = new MenuItem("Pizza", "Tomato Sauce", 12.0, 0);
@@ -27,6 +28,7 @@ class EmployeeOrders extends React.Component {
         Orders: this.orders,
         pastOrders: this.orders, //subject to change once we have a backend connection
         employee: {},
+        restaurant: {}
     }
     componentWillMount() {
         const employee = JSON.parse(localStorage.getItem('user'));
@@ -42,6 +44,12 @@ class EmployeeOrders extends React.Component {
             employee: employee[0]
           });
         }
+      }
+      componentDidMount() {
+        this.RestaurantRepository.getRestaurant(this.state.employee.org_id).then(_menu => {this.setState({restaurant: _menu})});
+        this.OrderRepository.getOrdersForRestaurant(this.state.employee.org_id).then(res => console.log("Resonse for emp", res))
+        console.log(this.state);
+
       }
 
     onSetOrder(order) {

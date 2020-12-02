@@ -10,7 +10,7 @@ import EmployeeNav from "./EmployeeNav";
 const ProductCard = (products) => {
     return products.map((product, i) =>
         <div className="col-md-4"                 key = {i}
-        >
+>
 
                 <div className="card h-100">
        <div className="d-flex flex-column">
@@ -39,17 +39,19 @@ class MenuView extends React.Component {
 addItem(element) {
 console.log(this.state.menu);
 console.log("ELEMENT", element);
-this.state.menu.push(element);
-this.setState({menu: this.state.menu})
-//put a new item on the menu - small route
 this.restaurantRepository.addMenuItem(element);
+
+let m = this.state.menu;
+m.push(element);
+this.setState({menu: m})
+//put a new item on the menu - small route
 console.log(this.state.menu);
 }
 
 render() {
 return(
 <div id = "restaurants_list">
-    <EmployeeNav/>
+<EmployeeNav restId={this.state.employee.org_id} id={this.state.employee.account_id}/>
 <h1 className="text-white">Welcome</h1>
 <p className="text-white">Someday you will see current orders displayed nicely below with a small navigation component to find the menu and edit it</p>
 <MenuItemsForm onItemAdded={element => this.addItem(element) } restaurantId= {this.state.employee.org_id} />

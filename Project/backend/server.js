@@ -237,7 +237,7 @@ app.get('/api/v1/restaurants', function (req, res) {
 
 //GET: Get restaurant
 app.get('/api/v1/restaurants/:restaurantId', function (req, res) {
-  var RestaurantID = req.params.rest;
+  var RestaurantID = req.params.restaurantId;
   connection.query("SELECT * FROM Restaurants WHERE restaurant_id = ?", [RestaurantID], function (err, result, fields) {
         if (err) throw err;
         res.end(JSON.stringify(result)); // Result in JSON format
@@ -353,7 +353,13 @@ app.get('/api/v1/orders/:status', function (req, res) {
         res.end(JSON.stringify(result)); // Result in JSON format
     });
 });
-
+app.get('/api/v1/orders/:restaurantId/queue', function (req, res) {
+  var Status = req.params.restaurantId;
+  connection.query("SELECT * FROM Orders WHERE restaurant_id = ?", [Status], function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
 //GET: Get orders by id
 app.get('/api/v1/order/:id', function (req, res) {
   var OrderID = req.params.id;
@@ -435,19 +441,23 @@ app.get('/api/v1/stats', function (req, res) {
 
 //get restaurant menu
 app.get('/api/v1/restaurants/:id/menu', function(req, res) {
-  var RestaurantID = req.params.id
-  connection.query("SELECT item_details,item_price FROM Items inner join Menus on Items.menu_id = Menus.menu_id where Menus.restaurant_id = ?", [RestaurantID], function (err, result, fields) {
+  let RestaurantID = req.params.id
+  var ItemDetails = req.body.item_details;
+  var ItemPrice = req.body.item_price;
+  connection.query("SELECT item_details,item_price FROM Items inner join Menus on Items.menu_id = Menus.menu_id where Menus.restaurant_id = ?", [RestaurantID, ItemDetails, ItemPrice], function (err, result, fields) {
     if (err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   });
 });
 
 // add menu item
-app.post('/api/v1/menu/item', function(req, res) {
+app.post('/api/v1/menu/item/', function(req, res) {
+  console.log("request.body ----------------------------?????>>>>>>.", req.body);
   var ItemDetails = req.body.item_details;
   var ItemPrice = req.body.item_price;
   connection.query("INSERT INTO Items (item_details, item_price) VALUES (?, ?)", [ItemDetails, ItemPrice], function (err, result, fields) {
     if (err) logger.error(err.stack);
+    console.log("RESULT ::::::: >>> ", result)
     res.end(JSON.stringify(result));
   });
 });
