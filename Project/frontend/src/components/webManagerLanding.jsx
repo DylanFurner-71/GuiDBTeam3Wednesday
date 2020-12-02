@@ -6,22 +6,20 @@ class WebManagerLanding extends Component{
     localStorage = {};
 
     state = {
-        // Placeholder data
-        firstName: "First",
-        lastName: "Last"
+        admin: {}
     };
 
     componentWillMount() {
-        const employee = JSON.parse(localStorage.getItem('user'));
+        const admin = JSON.parse(localStorage.getItem('user'));
         if (localStorage === null) {
           this.setState({
-            employee: {}
+            admin: {}
           });
           
         }
         else {
           this.setState({
-            employee: employee[0]
+            admin: admin[0]
           });
         }
       }
@@ -33,7 +31,7 @@ componentDidMount() {
         return <>
             <WebManagerNav/>
             <div className="container">
-                <h1 className="welcome mb-5">Welcome {this.state.firstName} {this.state.lastName}!</h1>
+                <h1 className="welcome mb-5">Hello, {this.state.admin.first_name}</h1>
                 <div className="row">
                     <div className="col-2"></div>
                     <div className="col-8">

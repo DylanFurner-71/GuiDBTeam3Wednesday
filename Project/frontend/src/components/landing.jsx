@@ -15,7 +15,7 @@ class Landing extends Component {
                         <img id="landingLogo" src={logo} alt="Logo" />
                         <h1 className="welcome mb-4">Welcome to Newber Eats!</h1>
                         <p className="message mb-5">
-                            The newest basic food delivery app
+                            The newest food delivery app
                         </p>
                 </div>
                 <div className="container">
