@@ -45,7 +45,7 @@ export class OrderRepository {
 
     getOrdersForRestaurant(id) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/orders/${id}`)
+            axios.get(`${this.url}/orders/${id}/queue`)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })

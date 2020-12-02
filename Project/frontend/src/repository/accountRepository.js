@@ -2,13 +2,13 @@ import axios from 'axios';
 
 export class AccountRepository {
 
-    url = 'http://localhost:8000';
+    url = 'http://localhost:8000/api/v1';
 
     config = {
     };
     register(accountData, account_type){
        return new Promise((resolve, reject) => {
-           axios.post(`${this.url}/register/${account_type}`, accountData)
+           axios.post(`http://localhost:8000/register/${account_type}`, accountData)
            .then(x=> resolve(x.data))
            .catch(e => {
                alert(e);
