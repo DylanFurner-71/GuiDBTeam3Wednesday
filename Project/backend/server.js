@@ -198,7 +198,7 @@ app.delete('/api/v1/restaurants/:restaurantId', function (req, res) {
 });
 
 //DELETE: Remove Account
-app.delete('/api/v1/accounts/:accountID', function (req, res) {
+app.delete('/api/v1/accounts/:accountId', function (req, res) {
   var AccountID = req.params.accountId
   connection.query("DELETE FROM Accounts WHERE account_id = ?", [AccountID],function (err, result, fields) {
         if (err)
@@ -217,10 +217,9 @@ app.delete('/api/v1/review/:reviewId', function (req, res) {
       });
 });
 
-//GET: See Restaurant Rating
+//GET: See Average Restaurant Rating
 app.get('/api/v1/stats', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
+  //TODO
   connection.query("SELECT avg(rating) FROM restaurant", function (err, result, fields) {
         if (err) throw err;
         res.end(JSON.stringify(result)); // Result in JSON format
@@ -284,6 +283,15 @@ app.get('/api/v1/account/:id/contact', function (req, res) {
 app.get('/api/v1/account/:id/history', function (req, res) {
   var AccountID = req.params.id;
   connection.query("SELECT * FROM Orders WHERE account_id = ? and status = ?", [AccountID, "Delivered"], function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
+//GET: Get restaurant's order history
+app.get('/api/v1/restaurant/:id/history', function (req, res) {
+  var RestaurantID = req.params.id;
+  connection.query("SELECT * FROM Orders WHERE restaurant_id = ? and status = ?", [RestaurantID, "Delivered"], function (err, result, fields) {
         if (err) throw err;
         res.end(JSON.stringify(result)); // Result in JSON format
     });
@@ -389,42 +397,23 @@ app.put('/api/v1/orders/:id/:status', async (req, res) => {
      });
 });
 
-// POST: Request delivery driver
-// app.post('/api/v1/orders', function (req, res) {
-//   TODO - DB query
-//   TODO - RES
-//   var OderID = req.body.OderID
-//   var CustomerID = req.body.CustomerID
-//   var ToOderDetails = req.body.ToOderDetails
-//   var OrderStatus = req.body.OrderStatus
-//
-//   connection.query("INSERT INTO restaurant (OderID, CustomerID, ToOderDetails, OrderStatus) VALUES (?, ?, ?, ?)",
-//   [OderID, CustomerID, ToOderDetails, OrderStatus], function (err, result, fields) {
-//   if (err) throw err;
-//   res.end(JSON.stringify(result));
-//   });
+// //GET: Get most popular item
+// app.get('/api/v1/stats/popular', function (req, res) {
+//   //TODO
+//   connection.query("SELECT", function (err, result, fields) {
+//         if (err) throw err;
+//         res.end(JSON.stringify(result)); // Result in JSON format
+//     });
 // });
 
-
-//GET: Get restaurant order history
-app.get('/api/v1/orders/history', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  connection.query("SELECT * FROM order", function (err, result, fields) {
-        if (err) throw err;
-        res.end(JSON.stringify(result)); // Result in JSON format
-    });
-});
-
-//GET: Get restaurant stats (3 most popular items)
-app.get('/api/v1/stats', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  connection.query("SELECT DishName, PopularCount INT FROM order", function (err, result, fields) {
-        if (err) throw err;
-        res.end(JSON.stringify(result)); // Result in JSON format
-    });
-});
+// //GET: Get least popular item
+// app.get('/api/v1/stats/unpopular', function (req, res) {
+//   //TODO
+//   connection.query("SELECT", function (err, result, fields) {
+//         if (err) throw err;
+//         res.end(JSON.stringify(result)); // Result in JSON format
+//     });
+// });
 
 //JohnZ
 
