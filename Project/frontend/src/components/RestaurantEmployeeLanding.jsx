@@ -15,6 +15,7 @@ that will pull up menu items
 
 */
 class RestaurantEmployeeLanding extends Component {
+    localStorage = {};
     restaurant = new Restaurant("McDonalds", "5647 Ellsworth Ave, Dallas, TX 75205");
     currentEmployee = new Employee(1, "Dylan", "Furner", "dfurner@smu.edu", "4793816662", "1234 Greenville Ave", 1);
     accountRepository = new AccountRepository();
@@ -23,9 +24,7 @@ class RestaurantEmployeeLanding extends Component {
 super();
 // Placeholder data
 this.state = {
-    employee: {},
-// userFullName: userFirstName + " " + userLastName,
-//the line below is nonesense right now. It would someday pull up the list of existing restaurants from the api
+    employee: [],
 };
 }
 render() {
@@ -39,10 +38,23 @@ render() {
   </>
     )
 }
+componentWillMount() {
+        const employee = JSON.parse(localStorage.getItem('user'));
+        if (localStorage === null) {
+          this.setState({
+            employee: {}
+          });
+          
+        }
+        else {
+            console.log(employee);
+          this.setState({
+            employee: employee[0]
+          });
+        }
+      }
+
 componentDidMount() {
-     this.accountRepository.getAccount(1)
-     .then(account => {
-         this.setState({employee: account})});
 }
 }
 export default RestaurantEmployeeLanding;

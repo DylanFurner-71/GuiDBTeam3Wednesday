@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 // import {loginUser} from "../repository/accountRepository";
@@ -11,7 +11,7 @@ export default class Login extends Component {
     accountsRepository = new AccountRepository();
     constructor() {
         super();
-
+        
         this.state = {
             email: "",
             password: "",
@@ -24,7 +24,7 @@ export default class Login extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-      
+      console.log("Next props", nextProps);
     }
 
     onChange = e => {
@@ -37,9 +37,13 @@ export default class Login extends Component {
             password: this.state.password,
             };
         //maybe pass the url parameters here to let the repository know which to call
-        this.accountsRepository.login(userData)
+        this.accountsRepository.login(userData, this.props.history)
         .then( 
-            res => console.log("Response: ", res)); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+            res => {if (res) {
+                console.log(
+                    'res123: :',res)
+                this.props.history.push(`${res.user[0].account_type}/home`)} 
+             } ) // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
     };
     render() {
         const error = this.state.error;
@@ -70,7 +74,7 @@ export default class Login extends Component {
                                     onChange={this.onChange}
                                     value={this.state.password}
                                     id="password"
-                                    type="text"
+                                    type="password"
                                 />
                                 <label htmlFor="password">Password</label>
                                 <span className="red-text">

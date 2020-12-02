@@ -38,9 +38,10 @@ export default class RegisterUser extends Component {
             lastName: this.state.lastName,
             email: this.state.email,
             password: this.state.password,
-            accountType: "user"
+            accountType: "0"
         };
-        this.accountRepository.register(newUser, this.state.accountType);
+        this.accountRepository.register(newUser, this.state.accountType).then(res => {if (res) {
+        this.props.history.push("/login")}});
     };
     render() {
         const { error } = this.state;

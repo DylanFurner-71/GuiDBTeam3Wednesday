@@ -87,10 +87,10 @@ app.post('/register/:account_type', function (req, res) {
   
   connection.query('SELECT * FROM Accounts JOIN Contact ON Accounts.account_id = Contact.account_id WHERE email = ? AND password = ?', [email, password],
       function(err, result) {
-        if (result.length == 0) {
+        if (!result) {
           switch(type) {
             case "0": 
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username) VALUES (?, ?, ?, ?, ?)', [first, last, password, "user", {username: email}],
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email) VALUES (?, ?, ?, ?, ?)', [first, last, password, "customer",  email],
               function (err, result) {
                 if (err)
                   throw err;
@@ -99,7 +99,7 @@ app.post('/register/:account_type', function (req, res) {
               });
               break;
             case "1":
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username) VALUES (?, ?, ?, ?, ?)', [first, last, password, "driver", {username: email}],
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email) VALUES (?, ?, ?, ?, ?)', [first, last, password, "driver", email],
               function (err, result) {
                 if (err)
                   throw err;
@@ -108,7 +108,7 @@ app.post('/register/:account_type', function (req, res) {
               });
               break;
             case "2":
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username, org_id) VALUES (?, ?, ?, ?, ?, ?)', [first, last, password, "employee", {username: email}, org_id],
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email, org_id) VALUES (?, ?, ?, ?, ?, ?)', [first, last, password, "employee", email, org_id],
               function (err, result) {
                 if (err)
                   throw err;
@@ -117,7 +117,7 @@ app.post('/register/:account_type', function (req, res) {
               });
               break;
             case "3":
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username, admin_code) VALUES (?, ?, ?, ?, ?, ?)', [first, last, password, "admin", {username: email}, admin_code],
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email, admin_code) VALUES (?, ?, ?, ?, ?, ?)', [first, last, password, "web-manager", email, admin_code],
               function (err, result) {
                 if (err)
                   throw err;
@@ -138,21 +138,19 @@ app.post('/register/:account_type', function (req, res) {
 //POST: Login Account
 app.post('/login', function (req, res) {
   //Authenticate user
-  let username = req.body.email;
+  let email = req.body.email;
   let password = req.body.password;
-  if (username && password) {
-    connection.query('SELECT * FROM Accounts WHERE username = ? AND password = ?', [username, password], 
+  if (email && password) {
+    connection.query('SELECT * FROM Accounts WHERE email = ? AND password = ?', [email, password], 
     function(err, result, fields) {
-      console.log("result: ", result);
       if(result) {
-        let user = {name: username};
-        let accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+        let user = result;
+        let accessToken = jwt.sign("user", process.env.ACCESS_TOKEN_SECRET);
         let response = {
           accessToken: accessToken,
-          user: result
+          user: user,
         }
-        console.log("Response:::: ", response);
-        res.send(JSON.parse(JSON.stringify(response)));
+        res.send((response));
       }
       else  {
         res.status(400).send('incorrect username/password')

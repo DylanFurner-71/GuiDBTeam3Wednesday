@@ -43,7 +43,10 @@ class RegisterEmployee extends Component {
             password: this.state.password,
             org: this.state.org,
         };
-        this.accountRepository.register(newUser, this.state.account_type);
+        this.accountRepository.register(newUser, this.state.account_type).then(res => {
+            this.setState({firstName: '', email: '', password: ''})
+            if (res) {
+            this.props.history.push("/login")}});;
     };
     handleChangeCategory = (e) => {
         this.setState({org: e.target.value});

@@ -28,7 +28,7 @@ export class AccountRepository {
             });
         });
     }
-        login(userData) {
+        login(userData, history) {
             const {email, password} = userData;
           return new Promise((resolve, reject) => {
               axios
@@ -40,7 +40,7 @@ export class AccountRepository {
             )
             .then(response => {
               if (response.data.accessToken) {
-                localStorage.setItem("user", JSON.stringify(response.data));
+                localStorage.setItem("user", JSON.stringify(response.data.user));
               }
       
               return resolve(response.data);

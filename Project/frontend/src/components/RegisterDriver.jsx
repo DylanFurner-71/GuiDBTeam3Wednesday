@@ -43,7 +43,8 @@ export default class RegisterDriver extends Component {
             password: this.state.password,
             password2: this.state.password2,
         };
-        this.accountRepository.register(newUser, this.state.account_type);
+        this.accountRepository.register(newUser, this.state.account_type).then(res => {if (res) {
+            this.props.history.push("/login")}});;
     };
     render() {
         const { error } = this.state;

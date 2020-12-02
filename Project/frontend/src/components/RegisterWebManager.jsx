@@ -43,7 +43,8 @@ export default class RegisterWebManager extends Component {
             address: this.state.address,
             adminCode: this.state.adminCode,
         };
-        this.accountRepository.register(newUser, this.state.accountType);
+        this.accountRepository.register(newUser, this.state.accountType).then(res => {if (res) {
+            this.props.history.push("/login")}});;
     };
     render() {
         const { error } = this.state;
