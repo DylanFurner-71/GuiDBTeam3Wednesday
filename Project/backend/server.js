@@ -14,24 +14,17 @@ const config = {
   host: '0.0.0.0',
 };
 
-let whitelist = ['http://ec2-3-14-79-223.us-east-2.compute.amazonaws.com:3000', 'http://localhost:8000', 'http//localhost:3000']
+const app = express();
 
-// logger
+// create a logger object.  Using logger is preferable to simply writing to the console.
 const logger = log({ console: true, file: false, label: config.name });
+
+// specify middleware to use
 app.use(bodyParser.json());
 app.use(cors({
-  origin: function(origin, callback) {
-    if (!origin) return callback(null, true);
-    if (whitelist.indexOf(origin) === -1){
-      var message = 'no access'
-      return callback(new Error(message), false);
-    }
-    return callback(null, true);
-  }
+  origin: '*'
 }));
-
-
-
+app.use(ExpressAPILogMiddleware(logger, { request: true }));
 
 //mysql connection
 var connection = mysql.createConnection({
