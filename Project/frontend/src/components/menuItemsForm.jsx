@@ -8,12 +8,18 @@ export class MenuItemsForm extends React.Component {
     // let {restaurantId} = useParams();
     super();
     this.state = {
-        item: {}
+        item: {},
+        employee: {},
+
     };
 
   }
     onAddClick() {
-        const t = new MenuItem(this.state.itemName, this.state.description, this.state.price, this.props.restaurantId, this.props.restaurantId);
+        const t = {
+            item_details: this.state.itemName, 
+            item_price: Number(this.state.price),
+            menu_id: this.state.employee.org_id, 
+            };
         this.props.onItemAdded(t);
 
         this.setState({
@@ -21,6 +27,21 @@ export class MenuItemsForm extends React.Component {
         });
     }
 
+    componentWillMount() {
+        const employee = JSON.parse(localStorage.getItem('user'));
+        if (localStorage === null) {
+          this.setState({
+            employee: {}
+          });
+          
+        }
+        else {
+            console.log(employee);
+          this.setState({
+            employee: employee[0]
+          });
+        }
+      }
     render() {
             return <>
             <form className="container">

@@ -27,11 +27,13 @@ export class RestaurantRepository {
         })
     }
 
-    getRestaurant(id) {
+    getRestaurant(restaurantId) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/restaurants/${id}`)
+            axios.get(`${this.url}/restaurants/${restaurantId}`)
                 .then(resp => resolve(resp.data))
-                .catch(err => console.log(err.response));
+                .catch(e =>   {alert(e);
+                    reject();
+                    });
         })
     }
 
@@ -79,11 +81,13 @@ export class RestaurantRepository {
         return new Promise((resolve, reject) => {
             console.log("AddMenuItem,",item);
             axios.post(`${this.url}/menu/item/`, item)
-                .then(resp => resolve(resp.data))
-                .catch(err => console.log(err.response));
+                .then(resp => resolve(resp))
+                .catch(e =>   {alert(e);
+                reject();
+                });
         })
     }
-
+  
     updateMenuItem(id, item) {
         return new Promise((resolve, reject) => {
             axios.put(`${this.url}/menu/item/${id}`, item)
