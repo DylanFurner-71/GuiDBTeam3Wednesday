@@ -77,7 +77,8 @@ export class RestaurantRepository {
 
     addMenuItem(item) {
         return new Promise((resolve, reject) => {
-            axios.post(`${this.url}/menu/item`, item)
+            console.log("AddMenuItem,",item);
+            axios.post(`${this.url}/menu/item/`, item)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })

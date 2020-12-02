@@ -68,7 +68,21 @@ class DriverDashboard extends React.Component {
             </div>
         </>;
     }
-
+    componentWillMount() {
+        const employee = JSON.parse(localStorage.getItem('user'));
+        if (localStorage === null) {
+          this.setState({
+            employee: {}
+          });
+          
+        }
+        else {
+            console.log(employee);
+          this.setState({
+            employee: employee[0]
+          });
+        }
+      }
     componentDidMount() {
         // TODO CHANGE TO WAITING AFTER TESTING DONE
         this.OrderRepository.getOrdersByStatus("Pending").then(elements => {

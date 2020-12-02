@@ -80,49 +80,49 @@ app.post('/register/:account_type', function (req, res) {
   let first = req.body.firstName;
   let last = req.body.lastName;
   let email = req.body.email;
-  let password = red.body.password;
+  let password = req.body.password;
   let type = req.params.account_type;
-  let org = req.params.org;
-  let admin = req.params.adminCode
+  let org_id = req.body.org;
+  let admin_code = req.body.adminCode
   
   connection.query('SELECT * FROM Accounts JOIN Contact ON Accounts.account_id = Contact.account_id WHERE email = ? AND password = ?', [email, password],
       function(err, result) {
-        if (result.length == 0) {
+        if (!result) {
           switch(type) {
-            case 0: 
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username) VALUES (?, ?, ?, ?, ?)', [first, last, password, "user", username],
+            case "0": 
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email) VALUES (?, ?, ?, ?, ?)', [first, last, password, "customer",  email],
               function (err, result) {
                 if (err)
                   throw err;
                 else 
-                  res.send('successfully created user')
+                  console.log("Successfully created user");
               });
               break;
-            case 1:
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username) VALUES (?, ?, ?, ?, ?)', [first, last, password, "driver", username],
+            case "1":
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email) VALUES (?, ?, ?, ?, ?)', [first, last, password, "driver", email],
               function (err, result) {
                 if (err)
                   throw err;
                 else 
-                  res.send('successfully created driver')
+                  console.log("We are here now - successfully createed driver");
               });
               break;
-            case 2:
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username, org) VALUES (?, ?, ?, ?, ?)', [first, last, password, "employee", username, org],
+            case "2":
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email, org_id) VALUES (?, ?, ?, ?, ?, ?)', [first, last, password, "employee", email, org_id],
               function (err, result) {
                 if (err)
                   throw err;
                 else 
-                  res.send('successfully created employee')
+                console.log("We are here now - successfully created employee");
               });
               break;
-            case 3:
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, username, org) VALUES (?, ?, ?, ?, ?)', [first, last, password, "admin", username, adminCode],
+            case "3":
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email, admin_code) VALUES (?, ?, ?, ?, ?, ?)', [first, last, password, "web-manager", email, admin_code],
               function (err, result) {
                 if (err)
                   throw err;
                 else 
-                  res.send('successfully created webmanager')
+                console.log("We are here now - web manager account creation success");
               });
               break;
           }
@@ -138,17 +138,19 @@ app.post('/register/:account_type', function (req, res) {
 //POST: Login Account
 app.post('/login', function (req, res) {
   //Authenticate user
-  let username = req.body.email;
-  let password = red.body.password;
-  if (username & password) {
-    connection.query('SELECT * FROM Accounts WHERE username = ? AND password = ?', [username, password], 
+  let email = req.body.email;
+  let password = req.body.password;
+  if (email && password) {
+    connection.query('SELECT * FROM Accounts WHERE email = ? AND password = ?', [email, password], 
     function(err, result, fields) {
-      if(result.length > 0) {
-        let user = {name: username}
-        let accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-        let response = JSON.parse(JSON.stringify(result))
-        response[0].token = accessToken;
-        res.send(response);
+      if(result) {
+        let user = result;
+        let accessToken = jwt.sign("user", process.env.ACCESS_TOKEN_SECRET);
+        let response = {
+          accessToken: accessToken,
+          user: user,
+        }
+        res.send((response));
       }
       else  {
         res.status(400).send('incorrect username/password')
@@ -160,32 +162,6 @@ app.post('/login', function (req, res) {
     res.send('please enter username and password');
     res.end();
   }
-});
-
-//SPRINT 2 REQUESTS
-
-//POST: Add Menu Item
-app.put('/:restaurant/menu/additem', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-});
-
-//DELETE: Delete Menu Item
-app.delete('/:restaurant/menu/rmitem', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-});
-
-//PUT: Update Menu Item
-app.put('/:restaurant/menu/updateitem', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-});
-
-//GET: Search Menu
-app.get('/:restaurant/menu/search', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
 });
 
 //POST: Add Restaurant
@@ -260,7 +236,7 @@ app.get('/api/v1/restaurants', function (req, res) {
 });
 
 //GET: Get restaurant
-app.get('/api/v1/restaurants/:rest', function (req, res) {
+app.get('/api/v1/restaurants/:restaurantId', function (req, res) {
   var RestaurantID = req.params.rest;
   connection.query("SELECT * FROM Restaurants WHERE restaurant_id = ?", [RestaurantID], function (err, result, fields) {
         if (err) throw err;

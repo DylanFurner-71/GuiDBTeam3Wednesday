@@ -1,34 +1,23 @@
 import React from 'react';
 import { MenuItem } from '../models/MenuItem';
+import {
+    useParams
+  } from "react-router-dom";
 export class MenuItemsForm extends React.Component {
   constructor() {
+    // let {restaurantId} = useParams();
     super();
     this.state = {
-        restaurantName: '',
-        restaurantAddress: '',
-        price: 0.0,
-        description: '',
-        itemName: '',
-        restaurantID: 1,
-        menuID: 1
-
+        item: {}
     };
 
   }
     onAddClick() {
-        const t = new MenuItem(this.state.itemName, this.state.description, this.state.price, this.props.restaurantID, this.props.menuID);
+        const t = new MenuItem(this.state.itemName, this.state.description, this.state.price, this.props.restaurantId, this.props.restaurantId);
         this.props.onItemAdded(t);
 
         this.setState({
-            restaurantName: '',
-           restaurantAddress: '',
-           restaurantName: '',
-           restaurantAddress: '',
-           price: 0.0,
-           description: '',
-           itemName: '',
-           restaurantID: 1,
-           menuID: 1
+           item: {}
         });
     }
 
@@ -54,6 +43,15 @@ export class MenuItemsForm extends React.Component {
                     className="form-control"
                     value={this.state.description}
                     onChange={ event => this.setState({ description: event.target.value }) } />
+            </div>
+            <div className="form-group">
+                <label htmlFor="imgURL">Item IMG URL this will change some day to an image upload**</label>
+                <input type="text"
+                    id="imgURl"
+                    name="imgURL"
+                    className="form-control"
+                    value={this.state.imgUrl}
+                    onChange={ event => this.setState({ imgUrl: event.target.value }) } />
             </div>
             <div className="form-group">
                 <label htmlFor="ItemPrice">Price</label>

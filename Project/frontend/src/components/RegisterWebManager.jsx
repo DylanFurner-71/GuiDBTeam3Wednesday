@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { register } from "../repository/accountRepository";
-class RegisterWebManager extends Component {
+import { AccountRepository } from "../repository/accountRepository";
+export default class RegisterWebManager extends Component {
     constructor() {
         super();
+        this.accountRepository = new AccountRepository();
         this.state = {
             firstName: "",
             lastName: "",
@@ -14,7 +15,8 @@ class RegisterWebManager extends Component {
             password2: "",
             address: "",
             error: "",
-            adminCode: ""
+            adminCode: "",
+            accountType: "3"
         };
     }
     componentDidMount() {
@@ -41,7 +43,8 @@ class RegisterWebManager extends Component {
             address: this.state.address,
             adminCode: this.state.adminCode,
         };
-        this.props.registerUser(newUser, this.props.history);
+        this.accountRepository.register(newUser, this.state.accountType).then(res => {if (res) {
+            this.props.history.push("/login")}});;
     };
     render() {
         const { error } = this.state;
@@ -146,16 +149,3 @@ class RegisterWebManager extends Component {
         );
     }
 }
-RegisterWebManager.propTypes = {
-    register: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    error: PropTypes.object.isRequired
-};
-const mapStateToProps = state => ({
-    auth: state.auth,
-    error: state.error
-});
-export default connect(
-    mapStateToProps,
-    { register }
-)(withRouter(RegisterWebManager));

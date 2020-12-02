@@ -22,7 +22,8 @@ class WebManagerRestaurants extends Component{
     onAddRestaurant(element) {
         // TODO add the address too when supported in backend
         const restaurant = {
-            restaurant_name: element.restaurant_name
+            restaurant_name: element.restaurant_name,
+            restaurant_address: element.restaurant_address,
         }
         this.RestaurantRepository.addRestaurant(restaurant);
         this.state.restaurants.push(element);
@@ -41,7 +42,7 @@ class WebManagerRestaurants extends Component{
     }
 
     componentDidMount() {
-        this.RestaurantRepository.getRestaurants().then(_restaurants => this.setState({restaurants: _restaurants}));
+        this.RestaurantRepository.getRestaurants().then(_restaurants => {console.log("restaurants", _restaurants)});
     }
 }
 

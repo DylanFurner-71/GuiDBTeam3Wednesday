@@ -2,24 +2,29 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { register } from "../repository/accountRepository";
-class RegisterDriver extends Component {
+import { AccountRepository } from "../repository/accountRepository";
+export default class RegisterDriver extends Component {
+
     constructor() {
+
         super();
+        this.accountRepository = new AccountRepository();
         this.state = {
+            username: "",
             firstName: "",
             lastName: "",
             email: "",
             password: "",
             password2: "",
-            address: "",
-            error: ""
+            error: "",
+            account_type: "1"
         };
     }
     componentDidMount() {
         // If logged in and user navigates to Register page, should redirect them to dashboard
     }
     componentWillReceiveProps(nextProps) {
+        console.log("We are here")
         if (nextProps.error) {
             this.setState({
                 error: nextProps.error
@@ -37,9 +42,9 @@ class RegisterDriver extends Component {
             email: this.state.email,
             password: this.state.password,
             password2: this.state.password2,
-            address: this.state.address,
         };
-        this.props.registerUser(newUser, this.props.history);
+        this.accountRepository.register(newUser, this.state.account_type).then(res => {if (res) {
+            this.props.history.push("/login")}});;
     };
     render() {
         const { error } = this.state;
@@ -93,16 +98,7 @@ class RegisterDriver extends Component {
                                 />
                                 <span className="red-text">{error.email}</span>
                             </div>
-                            <div className="input-field col s12">
-                                <label htmlFor="email"></label>
-                <input type="text"
-                    id="email"
-                    name="email"
-                    value={this.state.address}
-                    placeholder="Address"
-                    onChange={ e => this.setState({ address: e.target.value })}
-                    />
-                    </div>
+            
                             <div className="input-field col s12">
                                 <input
                                     onChange={this.onChange}
@@ -129,6 +125,19 @@ class RegisterDriver extends Component {
                                 <label htmlFor="password2"></label>
                                 <span className="red-text">{error.password2}</span>
                             </div>
+                            <div className="input-field col s12">
+                                <input
+                                    onChange={this.onChange}
+                                    value={this.state.username}
+                                    error={error.username}
+                                    id="username"
+                                    type="text"
+                                    placeholder="Username"
+
+                                />
+                                <label htmlFor="password2"></label>
+                                <span className="red-text">{error.username}</span>
+                            </div>
                             <div className="col s12">
                                 <button
                                     type="submit"
@@ -144,16 +153,3 @@ class RegisterDriver extends Component {
         );
     }
 }
-RegisterDriver.propTypes = {
-    register: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    error: PropTypes.object.isRequired
-};
-const mapStateToProps = state => ({
-    auth: state.auth,
-    error: state.error
-});
-export default connect(
-    mapStateToProps,
-    { register }
-)(withRouter(RegisterDriver));

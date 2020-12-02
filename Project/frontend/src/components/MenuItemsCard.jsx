@@ -12,6 +12,9 @@ export const MenuItemsCard = (props) => {
                             ${props.price}
                         </div>
                     </div>
+                    <div>
+                    <img src="Project/frontend/src/logo.png"/>
+                    </div>
                 </div>
             </div>
         </>

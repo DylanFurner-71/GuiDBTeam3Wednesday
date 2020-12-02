@@ -11,6 +11,8 @@ CREATE TABLE `Accounts` (
     `password` VARCHAR(20) NOT NULL,
     `account_type` VARCHAR(20) NOT NULL,
     `org_id` INT(10) DEFAULT NULL,
+    `admin_code` VARCHAR(20) DEFAULT NULL,
+    `email` VARCHAR(20) NOT NULL,
     PRIMARY KEY (`account_id`)
 );
 
@@ -63,7 +65,7 @@ CREATE TABLE `Payment` (
 -- Items
 DROP TABLE IF EXISTS `Items`;
 CREATE TABLE `Items` (
-    `item_id` INT(10),
+    `item_id` INT(10) AUTO_INCREMENT,
     `item_details` TEXT,
     `item_price` DOUBLE(5, 2),
     `menu_id` INT(10),
