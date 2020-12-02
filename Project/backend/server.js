@@ -14,18 +14,23 @@ const config = {
   host: '0.0.0.0',
 };
 
-// let whitelist = ['http://ec2-3-14-79-223.us-east-2.compute.amazonaws.com:3000']
+let whitelist = ['http://ec2-3-14-79-223.us-east-2.compute.amazonaws.com:3000', 'http://localhost:8000', 'http//localhost:3000']
 
 // logger
 const logger = log({ console: true, file: false, label: config.name });
 app.use(bodyParser.json());
-app.use(cors());
-// cors
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://ec2-3-14-79-223.us-east-2.compute.amazonaws.com:3000");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+app.use(cors({
+  origin: function(origin, callback) {
+    if (!origin) return callback(null, true);
+    if (whitelist.indexOf(origin) === -1){
+      var message = 'no access'
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
+
+
 
 
 //mysql connection
