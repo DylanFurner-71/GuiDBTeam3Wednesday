@@ -222,7 +222,7 @@ app.delete('/api/v1/restaurants/:restaurantId', function (req, res) {
 });
 
 //DELETE: Remove Account
-app.delete('/api/v1/accounts/:accountID', function (req, res) {
+app.delete('/api/v1/accounts/:accountId', function (req, res) {
   var AccountID = req.params.accountId
   connection.query("DELETE FROM Accounts WHERE account_id = ?", [AccountID],function (err, result, fields) {
         if (err)
