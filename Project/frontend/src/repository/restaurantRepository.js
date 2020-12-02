@@ -75,6 +75,22 @@ export class RestaurantRepository {
         })
     }
 
+    addMenuItem(item) {
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}/menu/item`, item)
+                .then(resp => resolve(resp.data))
+                .catch(err => console.log(err.response));
+        })
+    }
+
+    updateMenuItem(id, item) {
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}/menu/item/${id}`, item)
+                .then(resp => resolve(resp.data))
+                .catch(err => console.log(err.response));
+        })
+    }
+
     addReview(id, review) {
         return new Promise((resolve, reject) => {
             axios.post(`${this.url}/restaurants/${id}/reviews`, review)
