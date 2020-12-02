@@ -31,13 +31,13 @@ export const ROUTES = [
     { path: `/web-manager/users`, component: WebManagerUsers },
 
     // Driver
-    { path: `/driver/order`, component: DriverCurrentOrder },
+    { path: `/driver/order/:orderId`, component: DriverCurrentOrder },
     { path: '/driver/profile', component: DriverProfile },
 
     // Order
     { path: `/order/cart`, component: ViewCart },
     { path: `/order/checkout`, component: Checkout },
-    { path: `/order/confirmed/:restaurantId`, component: OrderConfirmed },
+    { path: `/order/confirmed/:restaurantId/:orderId`, component: OrderConfirmed },
 
     // Customer Page Routes
     { path: '/customer/profile', component: CustomerProfile },

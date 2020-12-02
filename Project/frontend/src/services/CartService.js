@@ -17,14 +17,6 @@ export class CartService {
         window.cart = cart;
     }
 
-    getOrderId() {
-        return window.orderId || -1;
-    }
-
-    setOrderId(id) {
-        window.orderId = id;
-    }
-
     addToCart(menuItem) {
         let cart = window.cart || new Cart();
         let existing = cart.items.find(x => x.menuItem.item_details == menuItem.item_details);

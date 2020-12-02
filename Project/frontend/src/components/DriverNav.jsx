@@ -12,7 +12,6 @@ class DriverNav extends Component {
                     <Nav className="mr-auto">
                         <Nav.Link as={Link} to="/driver/home" className="inactive">Home</Nav.Link>
                         <Nav.Link as={Link} to="/driver/profile" className="inactive">My Profile</Nav.Link>
-                        <Nav.Link as={Link} to="/driver/order" className="inactive">Current Order</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
