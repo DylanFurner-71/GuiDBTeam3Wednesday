@@ -1,5 +1,4 @@
 import React from 'react';
-import { Customer } from '../models/Customer';
 import { CartService } from '../services/CartService';
 import CustomerNav from "./CustomerNav";
 import { OrderRepository } from "../repository/orderRepository";
@@ -10,9 +9,9 @@ export class Checkout extends React.Component {
     AccountRepository = new AccountRepository();
     CartService = new CartService();
     cart = this.CartService.getCart();
+    localStorage = {};
 
     state = {
-        id: 1,
         firstName: "",
         lastName: "",
         phone: "",
@@ -20,7 +19,23 @@ export class Checkout extends React.Component {
         address2: "",
         city: "",
         state: "",
-        zip: ""
+        zip: "",
+        customer: {}
+    }
+
+    componentWillMount() {
+        const customer = JSON.parse(localStorage.getItem('user'));
+        if (localStorage === null) {
+            this.setState({
+            customer: {}
+          });
+          
+        }
+        else {
+            this.setState({
+                customer: customer[0]
+            });
+        }
     }
 
     onSubmit() {
@@ -35,7 +50,7 @@ export class Checkout extends React.Component {
             this.AccountRepository.addOrderAddress(address).then(element => {
                 let order = {
                     restaurant_id: restaurantId,
-                    account_id: this.state.id,
+                    account_id: this.state.customer.account_id,
                     address_id: element.insertId,
                     status: "Pending",
                     total_price: this.cart.total,

@@ -90,7 +90,7 @@ app.post('/register/:account_type', function (req, res) {
         if (!result) {
           switch(type) {
             case "0": 
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email) VALUES (?, ?, ?, ?, ?)', [first, last, password, "customer",  email],
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email, org_id) VALUES (?, ?, ?, ?, ?, ?)', [first, last, password, "customer",  email, org_id],
               function (err, result) {
                 if (err)
                   throw err;
@@ -99,12 +99,12 @@ app.post('/register/:account_type', function (req, res) {
               });
               break;
             case "1":
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email) VALUES (?, ?, ?, ?, ?)', [first, last, password, "driver", email],
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email, org_id) VALUES (?, ?, ?, ?, ?, ?)', [first, last, password, "driver", email, org_id],
               function (err, result) {
                 if (err)
                   throw err;
                 else 
-                  console.log("We are here now - successfully createed driver");
+                  console.log("Successfully createed driver");
               });
               break;
             case "2":
@@ -113,7 +113,7 @@ app.post('/register/:account_type', function (req, res) {
                 if (err)
                   throw err;
                 else 
-                console.log("We are here now - successfully created employee");
+                console.log("Successfully created employee");
               });
               break;
             case "3":
@@ -122,7 +122,7 @@ app.post('/register/:account_type', function (req, res) {
                 if (err)
                   throw err;
                 else 
-                console.log("We are here now - web manager account creation success");
+                console.log("Successfully created Web manager");
               });
               break;
           }
@@ -193,7 +193,6 @@ app.delete('/api/v1/restaurants/:restaurantId', function (req, res) {
         if (err)
           return console.error(error.message);
         res.end(JSON.stringify(result));
-        console.log(result);
       });
 });
 
@@ -217,14 +216,13 @@ app.delete('/api/v1/review/:reviewId', function (req, res) {
       });
 });
 
-//GET: See Average Restaurant Rating
-app.get('/api/v1/stats', function (req, res) {
-  //TODO
-  connection.query("SELECT avg(rating) FROM restaurant", function (err, result, fields) {
-        if (err) throw err;
-        res.end(JSON.stringify(result)); // Result in JSON format
-    });
-});
+// //GET: See Average Restaurant Rating
+// app.get('/api/v1/stats', function (req, res) {
+//   connection.query("SELECT avg(rating) FROM restaurant", function (err, result, fields) {
+//         if (err) throw err;
+//         res.end(JSON.stringify(result)); // Result in JSON format
+//     });
+// });
 
 //GET: Get all restaurants
 app.get('/api/v1/restaurants', function (req, res) {
@@ -283,8 +281,21 @@ app.get('/api/v1/account/:id/contact', function (req, res) {
 app.get('/api/v1/account/:id/history', function (req, res) {
   var AccountID = req.params.id;
   connection.query("SELECT * FROM Orders WHERE account_id = ? and status = ?", [AccountID, "Delivered"], function (err, result, fields) {
-        if (err) throw err;
-        res.end(JSON.stringify(result)); // Result in JSON format
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
+//PUT: Update account's info
+app.put('/api/v1/account/:id', function (req, res) {
+  var AccountID = req.params.id;
+  var FirstName = req.body.first_name;
+  var LastName = req.body.last_name;
+  var Email = req.body.email;
+
+  connection.query("UPDATE Accounts SET first_name = ?, last_name = ?, email = ? WHERE account_id = ?", [FirstName, LastName, Email, AccountID],function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
     });
 });
 
@@ -325,7 +336,6 @@ app.post('/api/v1/orders', function (req, res) {
   var LastName = req.body.last_name;
   var Phone = req.body.phone;
   var Items = req.body.items || [];
-  
   connection.query("INSERT INTO Orders (restaurant_id, account_id, address_id, status, total_price, first_name, last_name, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
     [RestaurantID, AccountID, AddressID, Status, TotalPrice, FirstName, LastName, Phone], function (err, result, fields) {
       if (err) throw err;
@@ -345,7 +355,6 @@ app.post('/api/v1/address', function (req, res) {
   var City = req.body.city;
   var State = req.body.state;
   var Zip = req.body.zip;
-  
   connection.query("INSERT INTO Addresses (address_body, city, state, zip, country, address_type) VALUES (?, ?, ?, ?, ?, ?)",
   [AddressBody, City, State, Zip, "US", "order"], function (err, result, fields) {
   if (err) throw err;
@@ -472,132 +481,87 @@ app.delete('/api/v1/menu/item/:id', function(req, res) {
   });
 });
 
-//create restaurant menu
-app.post('/api/v1/restaurants/menu', (req, res) => {
-  var RestaurantID = req.body.restaurantId;
+// //create restaurant menu
+// app.post('/api/v1/restaurants/menu', (req, res) => {
+//   var RestaurantID = req.body.restaurantId;
    
-  connection.query('INSERT INTO Menus (restaurant_id) VALUES (?)', [RestaurantID], (err, result, fields) => {
-    if (err) logger.error(err.stack);
-    res.end(JSON.stringify(result));
-  });
-});
+//   connection.query('INSERT INTO Menus (restaurant_id) VALUES (?)', [RestaurantID], (err, result, fields) => {
+//     if (err) logger.error(err.stack);
+//     res.end(JSON.stringify(result));
+//   });
+// });
 
-//delete restaurant menu
-app.delete('/api/v1/restaurants/:id/menu', (req, res) => {
-  var RestaurantID = req.params.id;
+// //delete restaurant menu
+// app.delete('/api/v1/restaurants/:id/menu', (req, res) => {
+//   var RestaurantID = req.params.id;
 
-  connection.query("DELETE FROM Menus WHERE restaurant_id = ?", [RestaurantID], (err, result, fields) => {
-    if (err) logger.error(err.stack);
-    res.end(JSON.stringify(result));
-  });
-});
+//   connection.query("DELETE FROM Menus WHERE restaurant_id = ?", [RestaurantID], (err, result, fields) => {
+//     if (err) logger.error(err.stack);
+//     res.end(JSON.stringify(result));
+//   });
+// });
 
-//update password
-app.put('/api/v1/accounts/:id/password', async(req,res) => {
-  var Newpassword = req.body.password
-  var Newid = req.params.id
-  connection.query("UPDATE Accounts SET password = ? WHERE account_id = ?", [Newpassword, Newid], function (err, result, fields){
-    if (err) logger.error(err.stack);
-    res.end(JSON.stringify(result));
-  });
-});
+// //update password
+// app.put('/api/v1/accounts/:id/password', async(req,res) => {
+//   var Newpassword = req.body.password
+//   var Newid = req.params.id
+//   connection.query("UPDATE Accounts SET password = ? WHERE account_id = ?", [Newpassword, Newid], function (err, result, fields){
+//     if (err) logger.error(err.stack);
+//     res.end(JSON.stringify(result));
+//   });
+// });
 
-//update payment method
-app.put('/api/v1/accounts/:id/payment', async(req,res) => {
-  var FisrtName = req.body.first_name
-  var LastName = req.body.last_name
-  var Billing = req.body.billing_address
-  var CardNumber = req.body.card_number
-  var CVC = req.body.cvc
-  var ID = req.params.id
+// //update payment method
+// app.put('/api/v1/accounts/:id/payment', async(req,res) => {
+//   var FisrtName = req.body.first_name
+//   var LastName = req.body.last_name
+//   var Billing = req.body.billing_address
+//   var CardNumber = req.body.card_number
+//   var CVC = req.body.cvc
+//   var ID = req.params.id
   
-  connection.query("UPDATE Payment SET first_name = ?, last_name = ?,billing_address = ?, card_number = ?, cvc = ? WHERE account_id = ?", [FisrtName,LastName,Billing,CardNumber,CVC, ID], function (err, result, fields){
-    if (err) logger.error(err.stack);
-    res.end(JSON.stringify(result));
-  });
-});
+//   connection.query("UPDATE Payment SET first_name = ?, last_name = ?,billing_address = ?, card_number = ?, cvc = ? WHERE account_id = ?", [FisrtName,LastName,Billing,CardNumber,CVC, ID], function (err, result, fields){
+//     if (err) logger.error(err.stack);
+//     res.end(JSON.stringify(result));
+//   });
+// });
 
-
-//create payment method
-app.post('/api/v1/accounts/:id/payment', (req, res) => {
-  var AccountID = req.params.id
-  var FisrtName = req.body.first_name
-  var LastName = req.body.last_name
-  var Billing = req.body.billing_address
-  var CardNumber = req.body.card_number
-  var CVC = req.body.cvc
+// //create payment method
+// app.post('/api/v1/accounts/:id/payment', (req, res) => {
+//   var AccountID = req.params.id
+//   var FisrtName = req.body.first_name
+//   var LastName = req.body.last_name
+//   var Billing = req.body.billing_address
+//   var CardNumber = req.body.card_number
+//   var CVC = req.body.cvc
   
-  connection.query('INSERT INTO Payment (account_id,first_name,last_name,billing_address,card_number,cvc) VALUES (?,?,?,?,?,?)', [AccountID,FisrtName,LastName,Billing,CardNumber,CVC], (err, result, fields) => {
-    if (err) logger.error(err.stack);
-    res.end(JSON.stringify(result));
-  });
-});
+//   connection.query('INSERT INTO Payment (account_id,first_name,last_name,billing_address,card_number,cvc) VALUES (?,?,?,?,?,?)', [AccountID,FisrtName,LastName,Billing,CardNumber,CVC], (err, result, fields) => {
+//     if (err) logger.error(err.stack);
+//     res.end(JSON.stringify(result));
+//   });
+// });
 
+// //delete payment method  ---???
+// app.delete('/api/v1/accounts/:id/payment', (req, res) => {
+//   var AccountId = req.body.account_id;
 
-//delete payment method  ---???
-app.delete('/api/v1/accounts/:id/payment', (req, res) => {
-  var AccountId = req.body.account_id;
+//   connection.query("DELETE FROM Payment WHERE account_id = ?", [AccountId], (err, result, fields) => {
+//     if (err) logger.error(err.stack);
+//     res.end(JSON.stringify(result));
+//   });
+// });
 
-  connection.query("DELETE FROM Payment WHERE account_id = ?", [AccountId], (err, result, fields) => {
-    if (err) logger.error(err.stack);
-    res.end(JSON.stringify(result));
-  });
-});
-
-
-//update contact information
-app.put('/api/v1/accounts/:id/contact', async(req,res) => {
-  var phone = req.body.phone
-  var email = req.body.email
-  var ID = req.params.id
+// //update contact information
+// app.put('/api/v1/accounts/:id/contact', async(req,res) => {
+//   var phone = req.body.phone
+//   var email = req.body.email
+//   var ID = req.params.id
   
-  connection.query("UPDATE Contact SET phone = ?, email = ? WHERE account_id = ?", [phone,email,ID], function (err, result, fields){
-    if (err) logger.error(err.stack);
-    res.end(JSON.stringify(result));
-  });
-});
-
-
-
-
-
-
-
-//creat meun item
-app.post('/api/v1/restaurants/:rest/menu/item', (req, res) => {
-  var ItemId = req.body.item_id
-  var MenuId = req.body.menu_id
-  var ItemDetails = req.body.item_details
-  var ItemPrice= req.body.item_price
-  
-  
-  connection.query('INSERT INTO Items (item_id,item_details,item_price,menu_id) VALUES (?,?,?,?)', [ItemId,ItemDetails,ItemPrice,MenuId], (err, result, fields) => {
-    if (err) logger.error(err.stack);
-    res.end(JSON.stringify(result));
-  });
-});
-
-//delete menu item by item_details ???
-app.delete('api/v1/restaurants/:rest/menu/item', (req, res) => {
-  var ItemDetails = req.body.item_details;
-  connection.query("DELETE FROM Items WHERE item_details = ?", [ItemDetails], (err, result, fields) => {
-    if (err) logger.error(err.stack);
-    res.end(JSON.stringify(result));
-  });
-});
-
-
-//update menu item
-app.put('/api/v1/restaurants/:rest/menu/item', async(req,res) => {
-  var ItemId = req.body.item_id
-  var ItemDetails = req.body.item_details
-  var ItemPrice= req.body.item_price
-  
-  connection.query("UPDATE Items SET item_details = ?, item_price = ? WHERE item_id = ?", [ItemDetails,ItemPrice,ItemId], function (err, result, fields){
-    if (err) logger.error(err.stack);
-    res.end(JSON.stringify(result));
-  });
-});
+//   connection.query("UPDATE Contact SET phone = ?, email = ? WHERE account_id = ?", [phone,email,ID], function (err, result, fields){
+//     if (err) logger.error(err.stack);
+//     res.end(JSON.stringify(result));
+//   });
+// });
 
 //create/add review
 app.post('/api/v1/restaurants/:rest/reviews', (req, res) => {
@@ -622,6 +586,3 @@ app.get('/api/v1/restaurants/:rest/reviews', function(req, res) {
       res.end(JSON.stringify(result));
   });
 }); 
-
-//order queue
-

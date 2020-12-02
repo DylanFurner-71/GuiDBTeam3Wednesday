@@ -10,7 +10,6 @@ export default class RegisterDriver extends Component {
         super();
         this.accountRepository = new AccountRepository();
         this.state = {
-            username: "",
             firstName: "",
             lastName: "",
             email: "",
@@ -24,7 +23,6 @@ export default class RegisterDriver extends Component {
         // If logged in and user navigates to Register page, should redirect them to dashboard
     }
     componentWillReceiveProps(nextProps) {
-        console.log("We are here")
         if (nextProps.error) {
             this.setState({
                 error: nextProps.error
@@ -124,19 +122,6 @@ export default class RegisterDriver extends Component {
                                 />
                                 <label htmlFor="password2"></label>
                                 <span className="red-text">{error.password2}</span>
-                            </div>
-                            <div className="input-field col s12">
-                                <input
-                                    onChange={this.onChange}
-                                    value={this.state.username}
-                                    error={error.username}
-                                    id="username"
-                                    type="text"
-                                    placeholder="Username"
-
-                                />
-                                <label htmlFor="password2"></label>
-                                <span className="red-text">{error.username}</span>
                             </div>
                             <div className="col s12">
                                 <button

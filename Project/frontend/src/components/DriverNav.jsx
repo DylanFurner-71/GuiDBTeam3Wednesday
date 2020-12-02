@@ -16,10 +16,9 @@ class DriverNav extends Component {
                 <Navbar.Collapse id="basic-navbar-nav" className="bg-green">
                     <Nav className="mr-auto">
                         <Nav.Link as={Link} to="/driver/home" className="inactive">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/driver/profile" className="inactive">My Profile</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
-                <Navbar.Brand href={`/`}> <Button onClick={this.acccountRep.logout}>Logout</Button></Navbar.Brand>
+                <Navbar.Brand href={`/`}> <Button className="bg-white text-black" onClick={this.acccountRep.logout}>Logout</Button></Navbar.Brand>
             </Navbar>
         )}
 }

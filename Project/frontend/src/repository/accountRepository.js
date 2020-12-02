@@ -16,9 +16,10 @@ export class AccountRepository {
            });
            });
     }
+
     getAccounts() {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}`, this.config)
+            axios.get(`${this.url}/api/v1/accounts`, this.config)
             .then(x => resolve(x.data))
             .catch(e => {
                 alert(e);
@@ -45,18 +46,19 @@ export class AccountRepository {
             }).catch(e=> {
             alert(e); 
         reject();
-    })
-    })
-}
+        })
+        })
+    }
       
-        logout() {
-          localStorage.removeItem("user");
-          localStorage.removeItem("jwtToken");
-          console.log(localStorage);
-        }
+    logout() {
+        localStorage.removeItem("user");
+        localStorage.removeItem("jwtToken");
+        console.log(localStorage);
+    }
+
     getAccount(id) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/accounts/${id}`, this.config)
+            axios.get(`${this.url}/api/v1/accounts/${id}`, this.config)
             .then(x => resolve(x.data))
             .catch(e => {
                 alert(e);
@@ -65,9 +67,9 @@ export class AccountRepository {
         });
     }
 
-    addAccount(account) {
+    deleteAccount(id) {
         return new Promise((resolve, reject) => {
-            axios.post(`${this.url}`, account, this.config)
+            axios.delete(`${this.url}/api/v1/accounts/${id}`, this.config)
             .then(x => resolve(x.data))
             .catch(e => {
                 alert(e);
@@ -78,7 +80,7 @@ export class AccountRepository {
 
     updateAccount(id, account) {
         return new Promise((resolve, reject) => {
-            axios.put(`${this.url}/${id}`, account, this.config)
+            axios.put(`${this.url}/api/v1/account/${id}`, account, this.config)
             .then(x => resolve(x.data))
             .catch(e => {
                 alert(e);
@@ -89,7 +91,7 @@ export class AccountRepository {
 
     getAccountContact(id) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/account/${id}/contact`)
+            axios.get(`${this.url}/api/v1/account/${id}/contact`)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })
@@ -97,7 +99,7 @@ export class AccountRepository {
 
     addOrderAddress(address) {
         return new Promise((resolve, reject) => {
-            axios.post(`${this.url}/address`, address)
+            axios.post(`${this.url}/api/v1/address`, address)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })
@@ -105,7 +107,7 @@ export class AccountRepository {
 
     getOrderHistory(id) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/account/${id}/history`)
+            axios.get(`${this.url}/api/v1/account/${id}/history`)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })

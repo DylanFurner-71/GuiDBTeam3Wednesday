@@ -55,8 +55,8 @@ return(
 <h1 className="text-white">Welcome</h1>
 <p className="text-white">Someday you will see current orders displayed nicely below with a small navigation component to find the menu and edit it</p>
 <MenuItemsForm onItemAdded={element => this.addItem(element) } restaurantId= {this.state.employee.org_id} />
-<div class="container">
-  <div class="row h-100" style={{minHeight: "100%"}}>
+<div className="container">
+  <div className="row h-100" style={{minHeight: "100%"}}>
   {ProductCard(this.state.menu)}
     </div>
   </div>

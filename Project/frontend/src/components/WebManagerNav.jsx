@@ -20,7 +20,7 @@ class WebManagerNav extends Component {
                         <Nav.Link as={Link} to="/web-manager/users" className="inactive">Manage Users</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
-                <Navbar.Brand href={`/`}> <Button onClick={this.acccountRep.logout}>Logout</Button></Navbar.Brand>
+                <Navbar.Brand href={`/`}> <Button className="bg-white text-black" onClick={this.acccountRep.logout}>Logout</Button></Navbar.Brand>
 
             </Navbar>
         )}

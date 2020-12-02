@@ -41,7 +41,6 @@ class EmployeeOrders extends React.Component {
           
         }
         else {
-            console.log(employee);
           this.setState({
             employee: employee[0]
           });

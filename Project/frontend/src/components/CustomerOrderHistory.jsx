@@ -6,11 +6,28 @@ import { RestaurantRepository } from "../repository/restaurantRepository";
 export class CustomerOrderHistory extends React.Component {
     AccountRepository = new AccountRepository();
     RestaurantRepository = new RestaurantRepository();
+    localStorage = {};
 
     state = {
+        customer: {},
         orders: [],
         restaurant_names: [],
         items: []
+    }
+
+    componentWillMount() {
+        const customer = JSON.parse(localStorage.getItem('user'));
+        if (localStorage === null) {
+            this.setState({
+            customer: {}
+          });
+          
+        }
+        else {
+            this.setState({
+                customer: customer[0]
+            });
+        }
     }
 
     getRestaurantName(id) {
@@ -50,10 +67,8 @@ export class CustomerOrderHistory extends React.Component {
     )}
 
     componentDidMount() {
-        // TODO change 1 to account id
-        this.AccountRepository.getOrderHistory(1).then(elements => {
+        this.AccountRepository.getOrderHistory(+this.state.customer.account_id).then(elements => {
             this.setState({orders: elements});
-            console.log(elements);
             for (var i = 0; i < elements.length; i++) {
                 this.getRestaurantName(elements[i].restaurant_id);
             }

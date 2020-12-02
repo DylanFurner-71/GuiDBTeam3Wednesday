@@ -9,7 +9,7 @@ class RestaurantView extends Component {
     cart = new CartService();
 
     state = {
-        restaurant: [{restaurant_name: ""}],
+        restaurant: {},
         menu: []
     }
 
@@ -17,7 +17,7 @@ class RestaurantView extends Component {
         return <>
             <CustomerNav myOrderFlag={true}/>
             <div className="container">
-                <h1 className="welcome">{this.state.restaurant[0].restaurant_name} Menu</h1>
+                <h1 className="welcome">{this.state.restaurant.restaurant_name} Menu</h1>
                 <MenuItemList menu={this.state.menu}/>
             </div>
         </>;
@@ -26,8 +26,8 @@ class RestaurantView extends Component {
     componentDidMount() {
         const restaurantId = +this.props.match.params.restaurantId;
         if (restaurantId >= 0) {
-            this.RestaurantRepository.getRestaurant(restaurantId).then(_restaurant => this.setState({restaurant: _restaurant}));
-            this.RestaurantRepository.getMenu(restaurantId).then(_menu => this.setState({menu: _menu}));
+            this.RestaurantRepository.getRestaurant(restaurantId).then(element => this.setState({restaurant: element[0]}));
+            this.RestaurantRepository.getMenu(restaurantId).then(element => this.setState({menu: element}));
         }
         this.cart.setRestaurantId(restaurantId);
     }

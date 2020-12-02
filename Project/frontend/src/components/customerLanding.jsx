@@ -9,27 +9,6 @@ class CustomerLanding extends Component {
     localStorage = {};
 
     state = {
-        // TODO, remove placeholder, get account elsewhere
-        customer: new Customer(
-            // id
-            1,
-            // firstName
-            "John",
-            // lastName
-            "Smith",
-            // email: 
-            "johnsmith@gmail.com",
-            // address1
-            "",
-            // address2
-            "",
-            // city
-            "",
-            // state
-            "",
-            // zip
-            0
-        ),
         restaurants: []
     }
 
@@ -42,21 +21,6 @@ class CustomerLanding extends Component {
         ) 
     }
 
-    componentWillMount() {
-        const employee = JSON.parse(localStorage.getItem('user'));
-        if (localStorage === null) {
-          this.setState({
-            employee: {}
-          });
-          
-        }
-        else {
-            console.log(employee);
-          this.setState({
-            employee: employee[0]
-          });
-        }
-      }
     componentDidMount() {
         this.RestaurantRepository.getRestaurants().then(_restaurants => this.setState({restaurants: _restaurants}));
     }

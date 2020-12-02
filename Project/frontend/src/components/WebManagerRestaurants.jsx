@@ -42,7 +42,7 @@ class WebManagerRestaurants extends Component{
     }
 
     componentDidMount() {
-        this.RestaurantRepository.getRestaurants().then(_restaurants => {console.log("restaurants", _restaurants)});
+        this.RestaurantRepository.getRestaurants().then(_restaurants => {this.setState({restaurants: _restaurants})});
     }
 }
 

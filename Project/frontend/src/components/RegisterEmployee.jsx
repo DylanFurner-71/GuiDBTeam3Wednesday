@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { AccountRepository } from "../repository/accountRepository";
 import { RestaurantRepository } from "../repository/restaurantRepository";
 class RegisterEmployee extends Component {
-
-
     constructor() {
         super();
         this.accountRepository = new AccountRepository();
@@ -131,10 +127,10 @@ class RegisterEmployee extends Component {
                             <label htmlFor="password2"></label>
                             <span className="red-text">{error.password2}</span>
                         </div>
-                        <div class="form-group row">
-          <div class="form-group col s12">
+                        <div className="form-group row">
+          <div className="form-group col s12">
       <label for="inputState">Category</label>
-      <select id="inputState" class="form-control"
+      <select id="inputState" className="form-control"
       onChange={this.handleChangeCategory}>
         <option selected>Select the restaurant you work at</option>
         {this.state.restaurants.map((items, i) => (

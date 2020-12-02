@@ -20,7 +20,6 @@ class WebManagerLanding extends Component{
           
         }
         else {
-            console.log(employee);
           this.setState({
             employee: employee[0]
           });
