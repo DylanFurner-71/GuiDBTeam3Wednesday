@@ -37,11 +37,26 @@ class EmployeeProfile extends Component {
     onSave() {
         console.log("Temporary Save");
     }
+    componentWillMount() {
+        const employee = JSON.parse(localStorage.getItem('user'));
+        if (localStorage === null) {
+          this.setState({
+            employee: {}
+          });
+          
+        }
+        else {
+            console.log(employee);
+          this.setState({
+            employee: employee[0]
+          });
+        }
+      }
 
     render() {
     return (
         <>
-        <EmployeeNav restId={this.state.employee.restaurantId} id={this.state.employee.id}/>
+        <EmployeeNav restId={this.state.employee.org_id} id={this.state.employee.account_id}/>
             <h1 className="welcome">Edit Profile</h1>
             <form name="driverInfo" className="user-info-form">
                 <label htmlFor="firstName">First Name:</label>
@@ -60,7 +75,7 @@ class EmployeeProfile extends Component {
                 <input type="text" name="city" value={this.state.city} onChange={event => this.setState({city: event.target.value })}></input>
                 <label htmlFor="zip">Zip Code:</label>
                 <input type="number" name="zip" value={this.state.zip} onChange={event => this.setState({zip: event.target.value })}></input>
-                <input type="button" value="Save" onClick={() => this.onSave()}></input>
+                <button type="submit" value="Save" onClick={() => this.onSave()}></button>
             </form>
         </>
     )}
