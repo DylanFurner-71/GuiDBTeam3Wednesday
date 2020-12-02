@@ -92,5 +92,4 @@ class DriverDashboard extends React.Component {
         });
     }
 }
-
 export default DriverDashboard;

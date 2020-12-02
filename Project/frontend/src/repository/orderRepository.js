@@ -36,6 +36,7 @@ export class OrderRepository {
     }
 
     updateOrderStatus(id, status) {
+        console.log("STATATUUS", status);
         return new Promise((resolve, reject) => {
             axios.put(`${this.url}/orders/${id}/${status}`, status)
                 .then(resp => resolve(resp.data))
