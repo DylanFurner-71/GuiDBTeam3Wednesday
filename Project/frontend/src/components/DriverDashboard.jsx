@@ -11,22 +11,12 @@ class DriverDashboard extends React.Component {
     OrderRepository = new OrderRepository();
     DriverOrderService = new DriverOrderService();
 
-    // Placeholder Data
-    menuItem1 = new MenuItem("Steak", "12oz", 25.0, 0);
-    menuItem2 = new MenuItem("Pizza", "Tomato Sauce", 12.0, 0);
-    cartItem1 = new CartItem(this.menuItem1, 2, 50);
-    cartItem2 = new CartItem(this.menuItem2, 1, 12);
-    orders = [
-        new Order([this.cartItem1], "1234", "Molly", "Yu", "Dpt.123 Dallas street", "4771487321", "Pending", 0),
-        new Order([this.cartItem2], "2789", "Bill", "Wang", "Dpt.234 Dallas street", "4375987397", "Pending", 0)
-    ];
-
     state = {
-        Orders: this.orders,
+        orders: [],
     }
 
-    onSetOrder(order) {
-        this.DriverOrderService.setOrder(order);
+    onSetOrder(orderId) {
+        this.DriverOrderService.setOrderId(orderId);
     }
 
     render() {
@@ -34,16 +24,16 @@ class DriverDashboard extends React.Component {
             <DriverNav />
             <div className="container">
                 <h1 className="welcome">Pending Orders:</h1>
-                {this.state.Orders.map((x) =>
-                    <div className="row" key={x.orderId}>
+                {this.state.orders.map((x) =>
+                    <div className="row" key={x.order_id}>
                         <div className="col-3"></div>
                         <div className="card col-6">
                             <div className="card-body">
-                                <h5 className="text-secondary card-header mb-4">Order #{x.orderId}</h5>
-                                <h3 className="card-title">Customer Name: {x.firstName} {x.lastName}</h3>
-                                <h4 className="card-text">Restaurant: {/*x.restaurant.name*/"McDonalds"}</h4>
-                                <h4 className="card-text">Number of Items: {x.items.length}</h4>
-                                <Link className="btn bg-green mt-3 pt-2 pb-2" onClick={() => this.onSetOrder(x)} to={"/driver/order"}>Begin</Link>
+                                <h5 className="text-secondary card-header mb-4">Order #{x.order_id}</h5>
+                                <h3 className="card-title">Customer Name: {this.getCustomerName(x.account_id)}</h3>
+                                <h4 className="card-text">Restaurant: {this.getRestaurantName(x.restaurant_id)}</h4>
+                                <h4 className="card-text">Total Price: {x.total_price}</h4>
+                                <Link className="btn bg-green mt-3 pt-2 pb-2" onClick={() => this.onSetOrder(x.order_id)} to={"/driver/order"}>Begin</Link>
                             </div>
                         </div>
                         <div className="col-3"></div>
@@ -54,7 +44,7 @@ class DriverDashboard extends React.Component {
     }
 
     componentDidMount() {
-        // TODO, get the current orders in "Pending" status
+        this.OrderRepository.getOrdersByStatus("Waiting").then(elements => this.setState({orders: elements}));
     }
 }
 

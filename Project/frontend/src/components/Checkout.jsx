@@ -3,37 +3,48 @@ import { Customer } from '../models/Customer';
 import { CartService } from '../services/CartService';
 import CustomerNav from "./CustomerNav";
 import { OrderRepository } from "../repository/orderRepository";
+import { AccountRepository } from "../repository/accountRepository";
 
 export class Checkout extends React.Component {
     OrderRepository = new OrderRepository();
+    AccountRepository = new AccountRepository();
     CartService = new CartService();
     cart = this.CartService.getCart();
 
-    state = new Customer(
-        // id
-        0,
-        // firstName
-        "",
-        // lastName
-        "",
-        // email: 
-        "",
-        // address1
-        "",
-        // address2
-        "",
-        // city
-        "",
-        // state
-        "",
-        // zip
-        0
-    );
+    state = {
+        id: 0,
+        firstName: "",
+        lastName: "",
+        email: "",
+        address1: "",
+        address2: "",
+        city: "",
+        state: "",
+        zip: 0
+    }
 
-    // Submit order to backend
     onSubmit() {
         if (this.cart.total != 0) {
             let id = this.CartService.getRestaurantId();
+            let address = {
+                address_body: this.state.address1 + " " + this.state.address2,
+                city: this.state.city,
+                state: this.state.state,
+                zip: this.state.zip
+            }
+            this.AccountRepository.addOrderAddress(address).then(element => {
+                let order = {
+                    restaurant_id: id,
+                    account_id: this.state.id,
+                    address_id: element.insertId,
+                    status: "Pending",
+                    total_price: this.cart.total,
+                    items: this.cart.items
+                }
+                this.OrderRepository.addOrder(order).then(element => {
+                    this.CartService.setOrderId(element.insertId);
+                });
+            });
             window.location.href = "/order/confirmed/" + id;
         }
         else
