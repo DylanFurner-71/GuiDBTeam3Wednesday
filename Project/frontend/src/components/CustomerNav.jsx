@@ -1,9 +1,13 @@
 import React, {Component} from "react";
-import {Navbar, Nav, NavDropdown} from "react-bootstrap";
+import {Navbar, Nav, NavDropdown, Button} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {AccountRepository} from "../repository/accountRepository";
 
 class CustomerNav extends Component {
-
+    constructor(){
+        super();
+        this.acccountRep = new AccountRepository();
+    }
     render() {
         return (
             <Navbar sticky="top" className="bg-green" expand="lg">
@@ -23,6 +27,7 @@ class CustomerNav extends Component {
                         )}
                     </Nav>
                 </Navbar.Collapse>
+                <Navbar.Brand href={`/`}> <Button onClick={this.acccountRep.logout}>Logout</Button></Navbar.Brand>
             </Navbar>
         )}
 }
