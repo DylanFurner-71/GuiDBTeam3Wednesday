@@ -54,13 +54,10 @@ class EmployeeOrders extends React.Component {
       }
       }
 
-    onSetOrder(order) {
-        // this.DriverOrderService.setOrder(order);
-        //i need to send an order to the driver through here
-    }
     onClickPastOrder(order){
         //this will someday be a way to leave a complaint about a customer
     }
+
     renderOrderList(orders, status) {
       if (this.state.Orders.length > 0){
         return (<div><OrderList Orders={orders} ordersType={status}/> </div>) 
@@ -69,6 +66,7 @@ class EmployeeOrders extends React.Component {
      }
 
     }
+    
     render() {
         return <>
         <EmployeeNav restId={this.state.employee.org_id} id={this.state.employee.account_id}/>

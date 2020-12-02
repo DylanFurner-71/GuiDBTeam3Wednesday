@@ -440,9 +440,7 @@ app.put('/api/v1/orders/:id/:status', async (req, res) => {
 //get restaurant menu
 app.get('/api/v1/restaurants/:id/menu', function(req, res) {
   let RestaurantID = req.params.id
-  var ItemDetails = req.body.item_details;
-  var ItemPrice = req.body.item_price;
-  connection.query("SELECT item_details,item_price FROM Items inner join Menus on Items.menu_id = Menus.menu_id where Menus.restaurant_id = ?", [RestaurantID, ItemDetails, ItemPrice], function (err, result, fields) {
+  connection.query("SELECT item_id, item_details, item_price FROM Items inner join Menus on Items.menu_id = Menus.menu_id where Menus.restaurant_id = ?", [RestaurantID], function (err, result, fields) {
     if (err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   });
@@ -453,7 +451,8 @@ app.post('/api/v1/menu/item/', function(req, res) {
   console.log("request.body ----------------------------?????>>>>>>.", req.body);
   var ItemDetails = req.body.item_details;
   var ItemPrice = req.body.item_price;
-  connection.query("INSERT INTO Items (item_details, item_price) VALUES (?, ?)", [ItemDetails, ItemPrice], function (err, result, fields) {
+  var MenuID = req.body.menu_id;
+  connection.query("INSERT INTO Items (item_details, item_price, menu_id) VALUES (?, ?, ?)", [ItemDetails, ItemPrice, MenuID], function (err, result, fields) {
     if (err) logger.error(err.stack);
     console.log("RESULT ::::::: >>> ", result)
     res.end(JSON.stringify(result));

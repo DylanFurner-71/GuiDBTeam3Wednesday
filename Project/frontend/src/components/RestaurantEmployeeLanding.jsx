@@ -1,8 +1,5 @@
 import React, {Component} from "react";
-import { Restaurant } from "../models/Restaurant";
-import { MenuItemsForm } from "./menuItemsForm";
 import MenuView from "./MenuView";
-import { Employee } from "../models/Employee";
 import { AccountRepository } from "../repository/accountRepository";
 import { RestaurantRepository } from "../repository/restaurantRepository";
 import EmployeeNav from "./EmployeeNav";
@@ -15,44 +12,44 @@ that will pull up menu items
 
 */
 class RestaurantEmployeeLanding extends Component {
-    localStorage = {};
-    accountRepository = new AccountRepository();
-    restaurantRepository = new RestaurantRepository();
-    constructor() { //this will likely require an employeeId parameter
-super();
-// Placeholder data
-this.state = {
-    employee: [],
-};
-}
-render() {
-    return(
-        <>
-        <div className="text-white">       
-        <EmployeeNav restId={this.state.employee.org_id} id={this.state.employee.account_id}/>
-<h2> Hello {this.state.employee.first_name} </h2>
-    <p> Welcome, to get started, please make sure your restaurant has a menu. Click the orders tab to view pending and past orders at your restaurant. {`${this.state.employee.firstName}`}</p>      
-    </div>
-  </>
-    )
-}
-componentWillMount() {
-        const employee = JSON.parse(localStorage.getItem('user'));
-        if (localStorage === null) {
-          this.setState({
-            employee: {}
-          });
-          
-        }
-        else {
-          this.setState({
-            employee: employee[0]
-          });
-        }
-      }
+  localStorage = {};
+  accountRepository = new AccountRepository();
+  restaurantRepository = new RestaurantRepository();
+  constructor() { //this will likely require an employeeId parameter
+    super();
+    // Placeholder data
+    this.state = {
+        employee: [],
+    };
+  }
 
-componentDidMount() {
-}
+  render() {
+    return <>
+        <EmployeeNav restId={this.state.employee.org_id} id={this.state.employee.account_id}/>
+        <div className="container">       
+          <h1 className="welcome"> Hello, {this.state.employee.first_name}</h1>
+          <h3 className="text-white">Welcome, to get started, please make sure your restaurant has a menu. Click the orders tab to view pending and past orders at your restaurant.</h3>      
+        </div>
+    </>;
+  }
+
+  componentWillMount() {
+    const employee = JSON.parse(localStorage.getItem('user'));
+    if (localStorage === null) {
+      this.setState({
+        employee: {}
+      });
+      
+    }
+    else {
+      this.setState({
+        employee: employee[0]
+      });
+    }
+  }
+
+  componentDidMount() {
+  }
 }
 export default RestaurantEmployeeLanding;
 

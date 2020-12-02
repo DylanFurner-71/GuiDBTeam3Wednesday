@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export class AccountRepository {
 
-    url = 'http://localhost:8000/api/v1';
+    url = 'http://localhost:8000';
 
     config = {
     };
@@ -27,26 +27,27 @@ export class AccountRepository {
             });
         });
     }
-        login(userData, history) {
-            const {email, password} = userData;
-          return new Promise((resolve, reject) => {
-              axios
-            .post("http://localhost:8000/login", 
-            {
-             email,
-              password
+
+    login(userData, history) {
+        const {email, password} = userData;
+        return new Promise((resolve, reject) => {
+            axios
+        .post("http://localhost:8000/login", 
+        {
+            email,
+            password
+        }
+        )
+        .then(response => {
+            if (response.data.accessToken) {
+            localStorage.setItem("user", JSON.stringify(response.data.user));
             }
-            )
-            .then(response => {
-              if (response.data.accessToken) {
-                localStorage.setItem("user", JSON.stringify(response.data.user));
-              }
-      
-              return resolve(response.data);
-            }).catch(e=> {
+    
+            return resolve(response.data);
+        }).catch(e=> {
             alert(e); 
-        reject();
-        })
+            reject();
+            })
         })
     }
       

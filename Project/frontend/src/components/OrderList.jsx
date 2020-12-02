@@ -49,7 +49,7 @@ class OrderList extends React.Component {
     return (
         <>
          <h3 className="welcome">{this.state.Orders[0].status} Orders:</h3>
-                {Orders.map((x) =>
+                {this.state.Orders.map((x) =>
                     <div className="row" key={x.orderId}>
                         <div className="col-3"></div>
                         <div className="card col-6">
@@ -59,7 +59,7 @@ class OrderList extends React.Component {
                                 <h4 className="card-text">Phone Number: {x.phone}</h4>
                                 <h4 className="card-text">Address: {x.address}</h4>
                                 <h4 className="card-text">Number of Items: {x.items.length}</h4>
-                                <Link className="btn bg-green btn-lg mt-3" onClick={() => props.onClickOrder(x)} to={"/driver/order"}>Begin Order</Link>
+                                <Link className="btn bg-green btn-lg mt-3" onClick={() => this.props.onClickOrder(x)} to={"/driver/order"}>Begin Order</Link>
                             </div>
                         </div>
                         <div className="col-3"></div>

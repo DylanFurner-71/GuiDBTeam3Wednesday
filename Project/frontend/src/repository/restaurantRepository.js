@@ -69,17 +69,8 @@ export class RestaurantRepository {
         })
     }
 
-    deleteMenu(id) {
-        return new Promise((resolve, reject) => {
-            axios.delete(`${this.url}/restaurants/${id}/menu`)
-                .then(resp => resolve(resp.data))
-                .catch(err => console.log(err.response));
-        })
-    }
-
     addMenuItem(item) {
         return new Promise((resolve, reject) => {
-            console.log("AddMenuItem,",item);
             axios.post(`${this.url}/menu/item/`, item)
                 .then(resp => resolve(resp))
                 .catch(e =>   {alert(e);
@@ -91,6 +82,14 @@ export class RestaurantRepository {
     updateMenuItem(id, item) {
         return new Promise((resolve, reject) => {
             axios.put(`${this.url}/menu/item/${id}`, item)
+                .then(resp => resolve(resp.data))
+                .catch(err => console.log(err.response));
+        })
+    }
+
+    deleteMenuItem(id) {
+        return new Promise((resolve, reject) => {
+            axios.delete(`${this.url}/menu/item/${id}`)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })
