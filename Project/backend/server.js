@@ -212,20 +212,21 @@ app.post('/api/v1/restaurants', function (req, res) {
 
 //DELETE: Remove Restaurant
 app.delete('/api/v1/restaurants/:restaurantId', function (req, res) {
-  var RestaurantID = req.params.restaurantID
+  var RestaurantID = req.params.restaurantId
   connection.query("DELETE FROM Restaurants WHERE restaurant_id = ?", [RestaurantID],function (err, result, fields) {
         if (err)
-            return console.error(error.message);
+          return console.error(error.message);
         res.end(JSON.stringify(result));
+        console.log(result);
       });
 });
 
 //DELETE: Remove Account
 app.delete('/api/v1/accounts/:accountID', function (req, res) {
-  var AccountID = req.params.accountID
+  var AccountID = req.params.accountId
   connection.query("DELETE FROM Accounts WHERE account_id = ?", [AccountID],function (err, result, fields) {
         if (err)
-            return console.error(error.message);
+          return console.error(error.message);
         res.end(JSON.stringify(result));
       });
 });
