@@ -345,7 +345,7 @@ app.post('/api/v1/address', function (req, res) {
   var State = req.body.state;
   var Zip = req.body.zip;
   
-  connection.query("INSERT INTO Addresses (address_body, city, state, zip, country, address_type) VALUES (?, ?, ?, ?, ?)",
+  connection.query("INSERT INTO Addresses (address_body, city, state, zip, country, address_type) VALUES (?, ?, ?, ?, ?, ?)",
   [AddressBody, City, State, Zip, "US", "order"], function (err, result, fields) {
   if (err) throw err;
   res.end(JSON.stringify(result));

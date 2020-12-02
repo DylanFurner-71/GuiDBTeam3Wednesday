@@ -75,7 +75,11 @@ export class OrderConfirmed extends React.Component {
     }
 
     componentDidMount() {
-      this.OrderRepository.getOrderStatus(this.CartService.getOrderId()).then(element => this.setState({order: element}));
+      console.log(this.CartService.getOrderId());
+      this.OrderRepository.getOrder(this.CartService.getOrderId()).then(element => {
+        this.setState({order: element});
+        console.log(element);
+      });
     }
 }
 
