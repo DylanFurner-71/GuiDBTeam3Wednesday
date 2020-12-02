@@ -72,6 +72,7 @@ export default class RegisterUser extends Component {
                                     id="firstName"
                                     type="text"
                                     placeholder="First Name"
+                                    maxLength="18"
                                 />
                                 <label htmlFor="firstName"></label>
                                 <span className="red-text">{error.firstName}</span>
@@ -84,6 +85,7 @@ export default class RegisterUser extends Component {
                                     id="lastName"
                                     type="text"
                                     placeholder="Last Name"
+                                    maxLength="18"
                                 />
                                 <label htmlFor="lastName"></label>
                                 <span className="red-text">{error.lastName}</span>
@@ -96,7 +98,7 @@ export default class RegisterUser extends Component {
                                     id="email"
                                     type="email"
                                     placeholder="Email"
-
+                                    maxLength="18"
                                 />
                                 <span className="red-text">{error.email}</span>
                             </div>
