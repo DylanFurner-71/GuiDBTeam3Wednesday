@@ -12,20 +12,20 @@ export class Checkout extends React.Component {
     cart = this.CartService.getCart();
 
     state = {
-        id: 0,
+        id: 1,
         firstName: "",
         lastName: "",
-        email: "",
+        phone: "",
         address1: "",
         address2: "",
         city: "",
         state: "",
-        zip: 0
+        zip: ""
     }
 
     onSubmit() {
         if (this.cart.total != 0) {
-            let id = this.CartService.getRestaurantId();
+            let restaurantId = this.CartService.getRestaurantId();
             let address = {
                 address_body: this.state.address1 + " " + this.state.address2,
                 city: this.state.city,
@@ -34,20 +34,20 @@ export class Checkout extends React.Component {
             }
             this.AccountRepository.addOrderAddress(address).then(element => {
                 let order = {
-                    restaurant_id: id,
+                    restaurant_id: restaurantId,
                     account_id: this.state.id,
                     address_id: element.insertId,
                     status: "Pending",
                     total_price: this.cart.total,
+                    first_name: this.state.firstName,
+                    last_name: this.state.lastName,
+                    phone: this.state.phone,
                     items: this.cart.items
                 }
-                console.log(element.insertId);
                 this.OrderRepository.addOrder(order).then(element => {
-                    console.log(element);
-                    this.CartService.setOrderId(element.insertId);
+                    window.location.href = "/order/confirmed/" + restaurantId + "/" + element.insertId;
                 });
             });
-            window.location.href = "/order/confirmed/" + id;
         }
         else
             alert("Cannot submit an empty order!");
@@ -112,10 +112,10 @@ export class Checkout extends React.Component {
                                 </div>
 
                                 <div className="md-form md-outline">
-                                    <input type="email" id="form18" placeholder="Email" className="form-control"
-                                    value={this.state.email} 
-                                    onChange={event => this.setState({email: event.target.value})}/>
-                                    <label htmlFor="form18">Email address</label>
+                                    <input type="phone" id="form18" placeholder="Phone" className="form-control"
+                                    value={this.state.phone} 
+                                    onChange={event => this.setState({phone: event.target.value})}/>
+                                    <label htmlFor="form18">Phone Number</label>
                                 </div>
                             </div>
                         </div>

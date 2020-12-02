@@ -50,6 +50,14 @@ export class AccountRepository {
                 .catch(err => console.log(err.response));
         })
     }
+
+    getOrderHistory(id) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/account/${id}/history`)
+                .then(resp => resolve(resp.data))
+                .catch(err => console.log(err.response));
+        })
+    }
 }
 
 export const register = (userData, history) => dispatch => {

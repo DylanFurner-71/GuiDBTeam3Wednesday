@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {Restaurant} from "../models/Restaurant";
 import {RestaurantsForm} from "./RestaurantsForm";
 import {RestaurantsTable} from "./restaurantsTable";
 import {RestaurantRepository} from "../repository/restaurantRepository";
@@ -34,7 +33,7 @@ class WebManagerRestaurants extends Component{
         return <>
             <WebManagerNav/>
             <div className="container">
-                <RestaurantsForm onRestaurantAdded={element => this.onAddRestaurant(element)} />
+                {/* <RestaurantsForm onRestaurantAdded={element => this.onAddRestaurant(element)} /> */}
                 <RestaurantsTable onDelete={(element, index) => this.deleteRestaurant(element, index)} restaurants={this.state.restaurants}/>
             </div>
                
