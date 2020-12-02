@@ -23,8 +23,7 @@ class DriverDashboard extends React.Component {
     }
 
     getCustomerName(id) {
-        // TODO CHANGE 1 to id after testing
-        this.AccountRepository.getAccount(1).then(element => {
+        this.AccountRepository.getAccount(id).then(element => {
             let cnames = this.state.customer_names;
             cnames.push(element[0].first_name + " " + element[0].last_name);
             this.setState({customer_names: cnames});

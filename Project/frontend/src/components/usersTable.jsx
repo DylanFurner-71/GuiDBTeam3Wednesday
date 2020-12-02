@@ -11,7 +11,7 @@ export const UsersTable = props => {
                         <li className="list-group-item">
                             <div className="row mb-0">
                                 <div className="col d-flex align-items-center text-dark text-left">
-                                    <span className="font-weight-bold mr-2">{props.getAccountType(x.account_type)}:</span>{x.first_name} {x.last_name} 
+                                    <span className="font-weight-bold mr-2">{props.getAccountType(x.account_type)}:</span>{x.first_name} {x.last_name} - {x.email}
                                 </div>
                                 <div className="col-2 text-right">             
                                     <button onClick={() => props.onDelete(x, i)} className="btn btn-outline-secondary">

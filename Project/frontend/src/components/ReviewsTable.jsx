@@ -6,7 +6,7 @@ export class ReviewsTable extends React.Component {
     RestaurantRepository = new RestaurantRepository();
 
     state = {
-        restaurant: [{restaurant_name: ""}],
+        restaurant: {restaurant_name: ""},
         reviews: []
     }
 
@@ -21,11 +21,11 @@ export class ReviewsTable extends React.Component {
     render() {
         return <>
             {this.state.reviews.length === 0 && (
-                <p className="welcome">No reviews currently for {this.state.restaurant[0].restaurant_name}</p>
+                <p className="welcome">No reviews currently for {this.state.restaurant.restaurant_name}</p>
             )}
             {this.state.reviews.length > 0 && (
             <>
-                <h1 className="welcome">Reviews for {this.state.restaurant[0].restaurant_name}</h1>
+                <h1 className="welcome">Reviews for {this.state.restaurant.restaurant_name}</h1>
                 <ul className="list-group">
                     {this.state.reviews.map((x, i) =>
                         <li className="list-group-item" key={i}>
@@ -59,7 +59,7 @@ export class ReviewsTable extends React.Component {
 
     componentDidMount() {
         const restaurantId = +this.props.restaurantId;
-        this.RestaurantRepository.getRestaurant(restaurantId).then(_restaurant => this.setState({restaurant: _restaurant}));
+        this.RestaurantRepository.getRestaurant(restaurantId).then(_restaurant => this.setState({restaurant: _restaurant[0]}));
         this.RestaurantRepository.getReviews(restaurantId).then(_reviews => this.setState({reviews: _reviews}));
     }
 }

@@ -1,18 +1,29 @@
 import React, {Component} from "react";
-import {Navbar, Nav, NavDropdown, Button} from "react-bootstrap"
+import {Navbar, Nav, Button} from "react-bootstrap"
 import {AccountRepository} from "../repository/accountRepository";
-const EmployeeNav = (props) => {
-    let acccountRep = new AccountRepository();
-        return (
-            <Navbar bg="green" variant="light">
-                <Navbar.Brand href={`/employee/home`}>Newber Eats</Navbar.Brand>
-                <Nav.Link href={`/employee/orders/${props.restId}`}>Orders</Nav.Link>
-                <Nav.Link href={`/employee/menu/${props.restId}`} >My Restaurant Menu</Nav.Link>
-                <Nav.Link href={`/employee/profile/${props.id}`} >My Profile</Nav.Link>
-                <Navbar.Brand href={`/`}> <Button onClick={acccountRep.logout}>Logout</Button></Navbar.Brand>
+import {Link} from "react-router-dom";
 
+class EmployeeNav extends Component {
+    constructor(){
+        super();
+        this.acccountRep = new AccountRepository();
+    }
+
+    render() {
+        return (
+            <Navbar sticky="top" className="bg-green" expand="lg">
+                <Navbar.Brand as={Link} to={`/employee/home`}>Newber Eats</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" className="bg-white mb-4"/>
+                <Navbar.Collapse id="basic-navbar-nav" className="bg-green">
+                    <Nav className="mr-auto">
+                        <Nav.Link as={Link} className="inactive" to={`/employee/orders/${this.props.restId}`}>Orders</Nav.Link>
+                        <Nav.Link as={Link} className="inactive" to={`/employee/menu/${this.props.restId}`} >My Restaurant Menu</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+                <Navbar.Brand to={`/`}> <Button className="bg-white text-black" onClick={this.acccountRep.logout}>Logout</Button></Navbar.Brand>
             </Navbar>
         )
+    }
 }
 
 export default EmployeeNav;

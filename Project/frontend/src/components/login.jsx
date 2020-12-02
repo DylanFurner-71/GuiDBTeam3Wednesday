@@ -3,7 +3,6 @@ import {Link, Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 // import {loginUser} from "../repository/accountRepository";
-import {userTypes} from "../types/userTypes";
 import {loginUser} from "../repository/accountRepository";
 import "react-bootstrap";
 import {AccountRepository} from "../repository/accountRepository";
@@ -34,7 +33,7 @@ export default class Login extends Component {
         e.preventDefault();
             const userData ={
                 email: this.state.email,
-            password: this.state.password,
+                password: this.state.password
             };
         //maybe pass the url parameters here to let the repository know which to call
         this.accountsRepository.login(userData, this.props.history)
@@ -63,7 +62,7 @@ export default class Login extends Component {
                                     id="email"
                                     type="text"
                                 />
-                                <label htmlFor="email">Email</label>
+                                <label htmlFor="email" className="mt-5">Email</label>
                                 <span className="red-text">
                                     {error.email}
                                     {error.emailnotfound}
@@ -76,7 +75,7 @@ export default class Login extends Component {
                                     id="password"
                                     type="password"
                                 />
-                                <label htmlFor="password">Password</label>
+                                <label htmlFor="password" className="mt-5">Password</label>
                                 <span className="red-text">
                                     {error.password}
                                     {error.passwordincorrect}

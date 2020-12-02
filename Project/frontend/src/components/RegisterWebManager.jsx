@@ -13,10 +13,9 @@ export default class RegisterWebManager extends Component {
             email: "",
             password: "",
             password2: "",
-            address: "",
             error: "",
             adminCode: "",
-            accountType: "3"
+            account_type: "3"
         };
     }
     componentDidMount() {
@@ -40,10 +39,9 @@ export default class RegisterWebManager extends Component {
             email: this.state.email,
             password: this.state.password,
             password2: this.state.password2,
-            address: this.state.address,
             adminCode: this.state.adminCode,
         };
-        this.accountRepository.register(newUser, this.state.accountType).then(res => {if (res) {
+        this.accountRepository.register(newUser, this.state.account_type).then(res => {if (res) {
             this.props.history.push("/login")}});;
     };
     render() {

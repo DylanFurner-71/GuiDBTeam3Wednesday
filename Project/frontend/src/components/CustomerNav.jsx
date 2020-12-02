@@ -27,7 +27,7 @@ class CustomerNav extends Component {
                         )}
                     </Nav>
                 </Navbar.Collapse>
-                <Navbar.Brand href={`/`}> <Button onClick={this.acccountRep.logout}>Logout</Button></Navbar.Brand>
+                <Navbar.Brand href={`/`}> <Button className="bg-white text-black" onClick={this.acccountRep.logout}>Logout</Button></Navbar.Brand>
             </Navbar>
         )}
 }

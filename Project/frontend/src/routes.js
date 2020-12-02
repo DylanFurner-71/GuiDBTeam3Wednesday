@@ -15,18 +15,15 @@ import ViewCart from './components/ViewCart';
 import Checkout from './components/Checkout';
 import DriverDashboard from './components/DriverDashboard';
 import DriverCurrentOrder from './components/DriverCurrentOrder';
-import DriverProfile from './components/DriverProfile';
 import WebManagerRestaurants from "./components/WebManagerRestaurants";
 import WebManagerUsers from "./components/WebManagerUsers";
 import MenuView from './components/MenuView.jsx';
 import EmployeeOrders from "./components/EmployeeOrders";
-import EmployeeProfile from "./components/EmployeeProfile";
 import WebManagerReviewList from './components/WebManagerReviewList.jsx';
 import CustomerReviewList from './components/CustomerReviewList.jsx';
 
 export const ROUTES = [
-    //employee 
-    { path: `/employee/profile/:id`, component: EmployeeProfile},
+    // Employee 
     { path: `/employee/orders/:restaurantId`, component: EmployeeOrders},
     { path: `/employee/menu/:restaurantId/`, component: MenuView},     // Misc.
     { path: `/menu/:restaurantId`, component: RestaurantView },
@@ -38,7 +35,6 @@ export const ROUTES = [
 
     // Driver
     { path: `/driver/order/:orderId`, component: DriverCurrentOrder },
-    { path: '/driver/profile', component: DriverProfile },
 
     // Order
     { path: `/order/cart`, component: ViewCart },

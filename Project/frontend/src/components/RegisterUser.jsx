@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { AccountRepository } from "../repository/accountRepository";
 export default class RegisterUser extends Component {
     constructor() {
@@ -13,8 +11,8 @@ export default class RegisterUser extends Component {
             email: "",
             password: "",
             password2: "",
-            address: "",
-            accountType: "0",
+            account_type: "0",
+            org: "0",
             error: ""
         };
     }
@@ -38,11 +36,18 @@ export default class RegisterUser extends Component {
             lastName: this.state.lastName,
             email: this.state.email,
             password: this.state.password,
-            accountType: "0"
+            org: this.state.org
         };
-        this.accountRepository.register(newUser, this.state.accountType).then(res => {if (res) {
-        this.props.history.push("/login")}});
+        this.accountRepository.register(newUser, this.state.account_type).then(res => {
+            this.setState({firstName: '', email: '', password: ''})
+            if (res) {
+                this.props.history.push("/login")
+            }
+        });
     };
+    handleChangeCategory = (e) => {
+        this.setState({org: e.target.value});
+        }
     render() {
         const { error } = this.state;
         return (
