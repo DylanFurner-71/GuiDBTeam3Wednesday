@@ -42,6 +42,7 @@ export class Checkout extends React.Component {
                     items: this.cart.items
                 }
                 this.OrderRepository.addOrder(order).then(element => {
+                    console.log(element);
                     this.CartService.setOrderId(element.insertId);
                 });
             });
