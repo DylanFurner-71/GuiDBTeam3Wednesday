@@ -2,13 +2,13 @@ import axios from 'axios';
 
 export class AccountRepository {
 
-    url = 'http://ec2-3-14-79-223.us-east-2.computer.amazonaws.com:8000';
+    url = 'http://ec2-3-14-79-223.us-east-2.compute.amazonaws.com:8000';
 
     config = {
     };
     register(accountData, account_type){
        return new Promise((resolve, reject) => {
-           axios.post(`http://ec2-3-14-79-223.us-east-2.computer.amazonaws.com:8000/register/${account_type}`, accountData)
+           axios.post(`http://ec2-3-14-79-223.us-east-2.compute.amazonaws.com:8000/register/${account_type}`, accountData)
            .then(x=> resolve(x.data))
            .catch(e => {
                alert(e);
@@ -32,7 +32,7 @@ export class AccountRepository {
         const {email, password} = userData;
         return new Promise((resolve, reject) => {
             axios
-        .post("http://ec2-3-14-79-223.us-east-2.computer.amazonaws.com:8000/login", 
+        .post("http://ec2-3-14-79-223.us-east-2.compute.amazonaws.com:8000/login", 
         {
             email,
             password
