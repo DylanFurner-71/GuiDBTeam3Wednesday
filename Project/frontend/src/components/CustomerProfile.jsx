@@ -1,56 +1,54 @@
 import React, {Component} from "react";
 import CustomerNav from "./CustomerNav";
-import { Customer } from "../models/Customer";
+import { AccountRepository } from "../repository/accountRepository";
 
 class CustomerProfile extends Component {
-    state = new Customer(
-        // id
-        1,
-        // firstName
-        "John",
-        // lastName
-        "Smith",
-        // email
-        "johnsmith@gmail.com",
-        // phone
-        "",
-        // address1
-        "",
-        // address2
-        "",
-        // city
-        "",
-        // zip
-        ""
-    );
+    AccountRepository = new AccountRepository();
+
+    state = {
+        customer: {},
+        first_name: "",
+        last_name: "",
+        email: "",
+    }
     
-    // note: convert phone and zip to int before sending to DB
     onSave() {
-        console.log("Temporary Save");
+        let a = {
+            first_name: this.state.first_name,
+            last_name: this.state.last_name,
+            email: this.state.email
+        }
+        this.AccountRepository.updateAccount(this.state.customer.account_id, a);
+        window.location.href = "/customer/home";
+    }
+
+    componentWillMount() {
+        const customer = JSON.parse(localStorage.getItem('user'));
+        if (localStorage === null) {
+            this.setState({
+            customer: {}
+            });
+        }
+        else {
+            this.setState({
+            customer: customer[0]
+            });
+        }
+        console.log(customer);
     }
 
     render() {
     return (
         <>
-            <CustomerNav customer= {this.state} />
+            <CustomerNav/>
             <h1 className="welcome">Edit Profile</h1>
             <form name="customerInfo" className="user-info-form">
                 <label htmlFor="firstName">First Name:</label>
-                <input type="text" name="firstName" value={this.state.firstName} readOnly></input>
+                <input type="text" name="firstName" value={this.state.first_name} onChange={event => this.setState({first_name: event.target.value})}></input>
                 <label htmlFor="lastName">Last Name:</label>
-                <input type="text" name="lastName" value={this.state.lastName} readOnly></input>
+                <input type="text" name="lastName" value={this.state.last_name} onChange={event => this.setState({last_name: event.target.value})}></input>
                 <label htmlFor="email">Email:</label>
-                <input type="email" name="email" value={this.state.email} readOnly></input>
-                <label htmlFor="phone">Phone Number:</label>
-                <input type="number" name="phone" value={this.state.phone} onChange={event => this.setState({phone: event.target.value })}></input>
-                <label htmlFor="address1">Address Line 1:</label>
-                <input type="text" name="address1" value={this.state.address1} onChange={event => this.setState({address1: event.target.value })}></input>
-                <label htmlFor="address2">Address Line 2:</label>
-                <input type="text" name="address2" value={this.state.address2} onChange={event => this.setState({address2: event.target.value })}></input>
-                <label htmlFor="city">City:</label>
-                <input type="text" name="city" value={this.state.city} onChange={event => this.setState({city: event.target.value })}></input>
-                <label htmlFor="zip">Zip Code:</label>
-                <input type="number" name="zip" value={this.state.zip} onChange={event => this.setState({zip: event.target.value })}></input>
+                <input type="email" name="email" value={this.state.email} onChange={event => this.setState({email: event.target.value})}></input>
                 <input type="button" value="Save" onClick={() => this.onSave()}></input>
             </form>
         </>

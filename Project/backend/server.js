@@ -90,7 +90,7 @@ app.post('/register/:account_type', function (req, res) {
         if (!result) {
           switch(type) {
             case "0": 
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email) VALUES (?, ?, ?, ?, ?)', [first, last, password, "customer",  email],
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email, org_id) VALUES (?, ?, ?, ?, ?, ?)', [first, last, password, "customer",  email, org_id],
               function (err, result) {
                 if (err)
                   throw err;
@@ -99,7 +99,7 @@ app.post('/register/:account_type', function (req, res) {
               });
               break;
             case "1":
-              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email) VALUES (?, ?, ?, ?, ?)', [first, last, password, "driver", email],
+              connection.query('INSERT INTO Accounts (first_name, last_name, password, account_type, email, org_id) VALUES (?, ?, ?, ?, ?, ?)', [first, last, password, "driver", email, org_id],
               function (err, result) {
                 if (err)
                   throw err;
@@ -193,7 +193,6 @@ app.delete('/api/v1/restaurants/:restaurantId', function (req, res) {
         if (err)
           return console.error(error.message);
         res.end(JSON.stringify(result));
-        console.log(result);
       });
 });
 
@@ -236,7 +235,7 @@ app.get('/api/v1/restaurants', function (req, res) {
 
 //GET: Get restaurant
 app.get('/api/v1/restaurants/:restaurantId', function (req, res) {
-  var RestaurantID = req.params.rest;
+  var RestaurantID = req.params.restaurantId;
   connection.query("SELECT * FROM Restaurants WHERE restaurant_id = ?", [RestaurantID], function (err, result, fields) {
         if (err) throw err;
         res.end(JSON.stringify(result)); // Result in JSON format
@@ -283,8 +282,21 @@ app.get('/api/v1/account/:id/contact', function (req, res) {
 app.get('/api/v1/account/:id/history', function (req, res) {
   var AccountID = req.params.id;
   connection.query("SELECT * FROM Orders WHERE account_id = ? and status = ?", [AccountID, "Delivered"], function (err, result, fields) {
-        if (err) throw err;
-        res.end(JSON.stringify(result)); // Result in JSON format
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
+//PUT: Update account's info
+app.put('/api/v1/account/:id', function (req, res) {
+  var AccountID = req.params.id;
+  var FirstName = req.body.first_name;
+  var LastName = req.body.last_name;
+  var Email = req.body.email;
+
+  connection.query("UPDATE Accounts SET first_name = ?, last_name = ?, email = ? WHERE account_id = ?", [FirstName, LastName, Email, AccountID],function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result)); // Result in JSON format
     });
 });
 
@@ -325,7 +337,7 @@ app.post('/api/v1/orders', function (req, res) {
   var LastName = req.body.last_name;
   var Phone = req.body.phone;
   var Items = req.body.items || [];
-  
+  console.log("123a!");
   connection.query("INSERT INTO Orders (restaurant_id, account_id, address_id, status, total_price, first_name, last_name, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
     [RestaurantID, AccountID, AddressID, Status, TotalPrice, FirstName, LastName, Phone], function (err, result, fields) {
       if (err) throw err;
@@ -345,7 +357,7 @@ app.post('/api/v1/address', function (req, res) {
   var City = req.body.city;
   var State = req.body.state;
   var Zip = req.body.zip;
-  
+  console.log("test123");
   connection.query("INSERT INTO Addresses (address_body, city, state, zip, country, address_type) VALUES (?, ?, ?, ?, ?, ?)",
   [AddressBody, City, State, Zip, "US", "order"], function (err, result, fields) {
   if (err) throw err;
