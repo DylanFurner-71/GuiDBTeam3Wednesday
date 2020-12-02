@@ -14,8 +14,6 @@ const config = {
   host: '0.0.0.0',
 };
 
-const app = express();
-
 // create a logger object.  Using logger is preferable to simply writing to the console.
 const logger = log({ console: true, file: false, label: config.name });
 
