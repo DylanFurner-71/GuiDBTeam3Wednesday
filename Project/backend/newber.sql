@@ -101,6 +101,9 @@ CREATE TABLE `Orders` (
     `address_id` INT(10),
     `status` VARCHAR(30),
     `total_price` DOUBLE(10),
+    `first_name` VARCHAR(30),
+    `last_name` VARCHAR(30),
+    `phone` INT(10),
     PRIMARY KEY (`order_id`)
 );
 

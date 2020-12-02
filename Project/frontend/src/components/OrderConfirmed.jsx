@@ -13,7 +13,7 @@ export class OrderConfirmed extends React.Component {
     cart = this.CartService.getCart();
 
     state = {
-      order: [{status: ""}],
+      order: {status: ""},
       isReviewed: false
     }
 
@@ -57,14 +57,13 @@ export class OrderConfirmed extends React.Component {
 
     render() {
         return <>
-        {console.log(this.state.order)}
           <CustomerNav />
           <div className="container">
             <h1 className="welcome">Order confirmed, thank you!</h1>
-            {/* <h2 className="text-white">Order Status: {this.state.order[0].status}</h2> */}
+            <h2 className="text-white">Order Status: {this.state.order.status}</h2>
             <h3 className="text-white bg-white"><hr></hr></h3>
             <h4 className="text-white mb-4">Estimated time of delivery: {this.getDeliveryTime()}</h4>
-            {(!this.state.isReviewed && this.state.status == "Delivered") && (
+            {(!this.state.isReviewed && this.state.order.status == "Delivered") && (
               <ReviewForm onReviewAdded={ review => this.addReview(review) } />
             )}
             {(this.state.isReviewed) && (
@@ -75,10 +74,9 @@ export class OrderConfirmed extends React.Component {
     }
 
     componentDidMount() {
-      console.log(this.CartService.getOrderId());
-      this.OrderRepository.getOrder(this.CartService.getOrderId()).then(element => {
-        this.setState({order: element});
-        console.log(element);
+      const orderId = +this.props.match.params.orderId;
+      this.OrderRepository.getOrder(orderId).then(element => {
+        this.setState({order: element[0]});
       });
     }
 }

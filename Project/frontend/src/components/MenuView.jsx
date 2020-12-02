@@ -9,8 +9,9 @@ import EmployeeNav from "./EmployeeNav";
 
 const ProductCard = (products) => {
     return products.map((product, i) =>
-    
-        <div class="col-md-4">
+        <div className="col-md-4"                 key = {i}
+        >
+
                 <div className="card h-100">
        <div className="d-flex flex-column">
                                     <span className="font-weight-light">${product.item_price}</span>

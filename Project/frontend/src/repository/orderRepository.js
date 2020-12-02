@@ -19,6 +19,14 @@ export class OrderRepository {
         })
     }
 
+    getOrderItems(id) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/order/${id}/items`)
+                .then(resp => resolve(resp.data))
+                .catch(err => console.log(err.response));
+        })
+    }
+
     getOrdersByStatus(status) {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/orders/${status}`)
