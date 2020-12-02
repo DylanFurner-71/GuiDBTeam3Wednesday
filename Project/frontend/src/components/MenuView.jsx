@@ -30,6 +30,7 @@ class MenuView extends React.Component {
     restaurantRepository = new RestaurantRepository();
     state = {
         menu: [],
+        employee: {},
     }
     deleteItems(element){
 }
@@ -39,6 +40,8 @@ console.log(this.state.menu);
 console.log("ELEMENT", element);
 this.state.menu.push(element);
 this.setState({menu: this.state.menu})
+//put a new item on the menu - small route
+this.restaurantRepository.addMenuItem(element);
 console.log(this.state.menu);
 }
 
@@ -48,7 +51,7 @@ return(
     <EmployeeNav/>
 <h1 className="text-white">Welcome</h1>
 <p className="text-white">Someday you will see current orders displayed nicely below with a small navigation component to find the menu and edit it</p>
-<MenuItemsForm onItemAdded={element => this.addItem(element) } restaurantId= {this.state.restaurantId} />
+<MenuItemsForm onItemAdded={element => this.addItem(element) } restaurantId= {this.state.employee.org_id} />
 <div class="container">
   <div class="row h-100" style={{minHeight: "100%"}}>
   {ProductCard(this.state.menu)}
@@ -57,8 +60,26 @@ return(
 </div>
 ) 
 }
+
+
+componentWillMount() {
+    const employee = JSON.parse(localStorage.getItem('user'));
+    if (localStorage === null) {
+      this.setState({
+        employee: {}
+      });
+      
+    }
+    else {
+        console.log(employee);
+      this.setState({
+        employee: employee[0]
+      });
+    }
+  }
+
 componentDidMount() {
-    this.restaurantRepository.getMenu(1).then(_menu => this.setState({menu: _menu}));
+    this.restaurantRepository.getMenu(this.state.employee.org_id).then(_menu => this.setState({menu: _menu}));
 }
 };
 

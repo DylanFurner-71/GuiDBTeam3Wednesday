@@ -16,8 +16,6 @@ that will pull up menu items
 */
 class RestaurantEmployeeLanding extends Component {
     localStorage = {};
-    restaurant = new Restaurant("McDonalds", "5647 Ellsworth Ave, Dallas, TX 75205");
-    currentEmployee = new Employee(1, "Dylan", "Furner", "dfurner@smu.edu", "4793816662", "1234 Greenville Ave", 1);
     accountRepository = new AccountRepository();
     restaurantRepository = new RestaurantRepository();
     constructor() { //this will likely require an employeeId parameter

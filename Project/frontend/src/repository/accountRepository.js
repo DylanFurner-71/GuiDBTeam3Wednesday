@@ -5,8 +5,6 @@ export class AccountRepository {
     url = 'http://localhost:8000';
 
     config = {
-        // headers: {
-        // }
     };
     register(accountData, account_type){
        return new Promise((resolve, reject) => {
