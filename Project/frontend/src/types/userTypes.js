@@ -1,6 +1,7 @@
 export const userTypes = {
     RestaurantEmployee: "Restaurant Employee", 
     Customer: "Customer", 
-    Delivery: "Delivery", 
+    Delivery: "Driver", 
     WebManager: "Web Manager"
 };
+

@@ -1,19 +1,20 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { register } from "../repository/accountRepository";
-class RegisterDriver extends Component {
+import { Link } from "react-router-dom";
+import { AccountRepository } from "../repository/accountRepository";
+export default class RegisterDriver extends Component {
+
     constructor() {
+
         super();
+        this.accountRepository = new AccountRepository();
         this.state = {
             firstName: "",
             lastName: "",
             email: "",
             password: "",
             password2: "",
-            address: "",
-            error: ""
+            error: "",
+            account_type: "1"
         };
     }
     componentDidMount() {
@@ -37,9 +38,9 @@ class RegisterDriver extends Component {
             email: this.state.email,
             password: this.state.password,
             password2: this.state.password2,
-            address: this.state.address,
         };
-        this.props.registerUser(newUser, this.props.history);
+        this.accountRepository.register(newUser, this.state.account_type).then(res => {if (res) {
+            this.props.history.push("/login")}});;
     };
     render() {
         const { error } = this.state;
@@ -65,6 +66,7 @@ class RegisterDriver extends Component {
                                     id="firstName"
                                     type="text"
                                     placeholder="First Name"
+                                    maxLength="18"
                                 />
                                 <label htmlFor="firstName"></label>
                                 <span className="red-text">{error.firstName}</span>
@@ -77,6 +79,7 @@ class RegisterDriver extends Component {
                                     id="lastName"
                                     type="text"
                                     placeholder="Last Name"
+                                    maxLength="18"
                                 />
                                 <label htmlFor="lastName"></label>
                                 <span className="red-text">{error.lastName}</span>
@@ -89,20 +92,11 @@ class RegisterDriver extends Component {
                                     id="email"
                                     type="email"
                                     placeholder="Email"
-
+                                    maxLength="18"
                                 />
                                 <span className="red-text">{error.email}</span>
                             </div>
-                            <div className="input-field col s12">
-                                <label htmlFor="email"></label>
-                <input type="text"
-                    id="email"
-                    name="email"
-                    value={this.state.address}
-                    placeholder="Address"
-                    onChange={ e => this.setState({ address: e.target.value })}
-                    />
-                    </div>
+            
                             <div className="input-field col s12">
                                 <input
                                     onChange={this.onChange}
@@ -144,16 +138,3 @@ class RegisterDriver extends Component {
         );
     }
 }
-RegisterDriver.propTypes = {
-    register: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    error: PropTypes.object.isRequired
-};
-const mapStateToProps = state => ({
-    auth: state.auth,
-    error: state.error
-});
-export default connect(
-    mapStateToProps,
-    { register }
-)(withRouter(RegisterDriver));

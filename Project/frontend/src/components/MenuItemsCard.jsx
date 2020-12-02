@@ -9,8 +9,11 @@ export const MenuItemsCard = (props) => {
                     <div className="p-2 font-dark">
                         <div className="d-flex flex-row text-white">
                             {props.description}
-                            ${props.price}
+                            ${props.price.toFixed(2)}
                         </div>
+                    </div>
+                    <div>
+                    <img src="Project/frontend/src/logo.png"/>
                     </div>
                 </div>
             </div>

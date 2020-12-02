@@ -1,31 +1,31 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { register } from "../repository/accountRepository";
+import { Link } from "react-router-dom";
+import { AccountRepository } from "../repository/accountRepository";
+import { RestaurantRepository } from "../repository/restaurantRepository";
 class RegisterEmployee extends Component {
     constructor() {
         super();
+        this.accountRepository = new AccountRepository();
+        this.restaurantRepository = new RestaurantRepository();
         this.state = {
             firstName: "",
             lastName: "",
             email: "",
             password: "",
             password2: "",
-            error: "",
-            restaurantAddress: "",
-            restaurantName: "",
+            org: "",
+            adminCode: '',
+            account_type: "2",
+            restaurants: [],
+            error: '',
         };
     }
     componentDidMount() {
+        this.restaurantRepository.getRestaurants().then(restaurants => this.setState({restaurants}))
         // If logged in and user navigates to Register page, should redirect them to dashboard
     }
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.error) {
-            this.setState({
-                error: nextProps.error
-            });
-        }
+    componentWillReceiveProps() {
+  
     }
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
@@ -37,12 +37,16 @@ class RegisterEmployee extends Component {
             lastName: this.state.lastName,
             email: this.state.email,
             password: this.state.password,
-            password2: this.state.password2,
-            restaurantName: this.state.restaurantName,
-            restaurantAddress: this.state.restaurantAddress
+            org: this.state.org,
         };
-        this.props.registerUser(newUser, this.props.history);
+        this.accountRepository.register(newUser, this.state.account_type).then(res => {
+            this.setState({firstName: '', email: '', password: ''})
+            if (res) {
+            this.props.history.push("/login")}});;
     };
+    handleChangeCategory = (e) => {
+        this.setState({org: e.target.value});
+        }
     render() {
         const { error } = this.state;
         return (
@@ -67,7 +71,8 @@ class RegisterEmployee extends Component {
                                 id="firstName"
                                 type="text"
                                 placeholder="First Name"
-                            />
+                                maxLength="18"
+                                />
                             <label htmlFor="firstName"></label>
                             <span className="red-text">{error.firstName}</span>
                         </div>
@@ -79,7 +84,8 @@ class RegisterEmployee extends Component {
                                 id="lastName"
                                 type="text"
                                 placeholder="Last Name"
-                            />
+                                maxLength="18"
+                                />
                             <label htmlFor="lastName"></label>
                             <span className="red-text">{error.lastName}</span>
                         </div>
@@ -91,30 +97,12 @@ class RegisterEmployee extends Component {
                                 id="email"
                                 type="email"
                                 placeholder="Email"
-
+                                maxLength="18"
                             />
                             <span className="red-text">{error.email}</span>
                         </div>
-                        <div className="input-field col s12">
-                            <label htmlFor="email"></label>
-            <input type="text"
-                id="restaurantName"
-                name="restaurantName"
-                value={this.state.restaurantName}
-                placeholder="Restaurant Name"
-                onChange={ e => this.setState({ restaurantName: e.target.value })}
-                />
-                </div>
-                <div className="input-field col s12">
-                            <label htmlFor="email"></label>
-            <input type="text"
-                id="email"
-                name="email"
-                value={this.state.restaurantAddress}
-                placeholder="Restaurant Address"
-                onChange={ e => this.setState({ restaurantAddress: e.target.value })}
-                />
-                </div>
+                        
+               
                         <div className="input-field col s12">
                             <input
                                 onChange={this.onChange}
@@ -141,6 +129,23 @@ class RegisterEmployee extends Component {
                             <label htmlFor="password2"></label>
                             <span className="red-text">{error.password2}</span>
                         </div>
+                        <div className="form-group row">
+          <div className="form-group col s12">
+      <label for="inputState">Category</label>
+      <select id="inputState" className="form-control"
+      onChange={this.handleChangeCategory}>
+        <option selected>Select the restaurant you work at</option>
+        {this.state.restaurants.map((items, i) => (
+        <option
+          key={i}
+          value={items.restaurant_id}
+        >
+                    {items.restaurant_name}
+        </option>
+      ))}      
+      </select>
+      </div>
+      </div>
                         <div className="col s12">
                             <button
                                 type="submit"
@@ -156,16 +161,5 @@ class RegisterEmployee extends Component {
         );
     }
 }
-RegisterEmployee.propTypes = {
-    register: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    error: PropTypes.object.isRequired
-};
-const mapStateToProps = state => ({
-    auth: state.auth,
-    error: state.error
-});
-export default connect(
-    mapStateToProps,
-    { register }
-)(withRouter(RegisterEmployee));
+
+export default RegisterEmployee;

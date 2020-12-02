@@ -1,12 +1,41 @@
 import React from 'react';
 import CustomerNav from "./CustomerNav";
-import { OrderRepository } from "../repository/orderRepository";
+import { AccountRepository } from "../repository/accountRepository";
+import { RestaurantRepository } from "../repository/restaurantRepository";
 
 export class CustomerOrderHistory extends React.Component {
-    OrderRepository = new OrderRepository();
+    AccountRepository = new AccountRepository();
+    RestaurantRepository = new RestaurantRepository();
+    localStorage = {};
 
     state = {
-        orders: []
+        customer: {},
+        orders: [],
+        restaurant_names: [],
+        items: []
+    }
+
+    componentWillMount() {
+        const customer = JSON.parse(localStorage.getItem('user'));
+        if (localStorage === null) {
+            this.setState({
+            customer: {}
+          });
+          
+        }
+        else {
+            this.setState({
+                customer: customer[0]
+            });
+        }
+    }
+
+    getRestaurantName(id) {
+        this.RestaurantRepository.getRestaurant(id).then(element => {
+            let rnames = this.state.restaurant_names;
+            rnames.push(element[0].restaurant_name);
+            this.setState({restaurant_names: rnames});
+        });
     }
 
     render() {
@@ -21,14 +50,12 @@ export class CustomerOrderHistory extends React.Component {
                     {this.state.orders.length > 0 && (
                     <ul className="list-group">
                         {
-                            this.state.orders.map((order, i) =>
+                            this.state.orders.map((x, i) =>
                                 <li key={i}>
-                                    <div className="container">
-                                        <div className="card bg-white">
-                                            <a className="card-block stretched-link text-decoration-none" href={"/order/" + order.id}>
-                                                <div className="card-body">
-                                                </div>
-                                            </a>
+                                    <div className="card bg-white">
+                                        <div className="card-body">
+                                            <h4 className="card-text">Restaurant: {this.state.restaurant_names[i]}</h4>
+                                            <h4 className="card-text">Total Price: ${x.total_price.toFixed(2)}</h4>
                                         </div>
                                     </div>
                                 </li>)
@@ -38,6 +65,15 @@ export class CustomerOrderHistory extends React.Component {
                 </div>
             </>
     )}
+
+    componentDidMount() {
+        this.AccountRepository.getOrderHistory(+this.state.customer.account_id).then(elements => {
+            this.setState({orders: elements});
+            for (var i = 0; i < elements.length; i++) {
+                this.getRestaurantName(elements[i].restaurant_id);
+            }
+        })
+    }
 }
 
 export default CustomerOrderHistory;

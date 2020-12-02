@@ -13,10 +13,10 @@ class Landing extends Component {
                 <div className="row">
                     <div className="col center-align">
                         <img id="landingLogo" src={logo} alt="Logo" />
-                        <h1 className="welcome mb-4">Welcome to Newber Eats!</h1>
-                        <p className="message mb-5">
-                            The newest basic food delivery app
-                        </p>
+                        <h1 className="welcome mb-4">Welcome to Newber Eats</h1>
+                        <h3 className="message mb-5">
+                            The newest food delivery app!
+                        </h3>
                 </div>
                 <div className="container">
                     <Row>

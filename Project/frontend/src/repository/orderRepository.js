@@ -19,6 +19,14 @@ export class OrderRepository {
         })
     }
 
+    getOrderItems(id) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/order/${id}/items`)
+                .then(resp => resolve(resp.data))
+                .catch(err => console.log(err.response));
+        })
+    }
+
     getOrdersByStatus(status) {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/orders/${status}`)
@@ -29,7 +37,7 @@ export class OrderRepository {
 
     updateOrderStatus(id, status) {
         return new Promise((resolve, reject) => {
-            axios.update(`${this.url}/orders/${id}/${status}`, status)
+            axios.put(`${this.url}/orders/${id}/${status}`, status)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })

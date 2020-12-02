@@ -1,20 +1,19 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { register } from "../repository/accountRepository";
-class RegisterWebManager extends Component {
+import { Link } from "react-router-dom";
+import { AccountRepository } from "../repository/accountRepository";
+export default class RegisterWebManager extends Component {
     constructor() {
         super();
+        this.accountRepository = new AccountRepository();
         this.state = {
             firstName: "",
             lastName: "",
             email: "",
             password: "",
             password2: "",
-            address: "",
             error: "",
-            adminCode: ""
+            adminCode: "",
+            account_type: "3"
         };
     }
     componentDidMount() {
@@ -38,10 +37,10 @@ class RegisterWebManager extends Component {
             email: this.state.email,
             password: this.state.password,
             password2: this.state.password2,
-            address: this.state.address,
             adminCode: this.state.adminCode,
         };
-        this.props.registerUser(newUser, this.props.history);
+        this.accountRepository.register(newUser, this.state.account_type).then(res => {if (res) {
+            this.props.history.push("/login")}});;
     };
     render() {
         const { error } = this.state;
@@ -67,6 +66,7 @@ class RegisterWebManager extends Component {
                                     id="firstName"
                                     type="text"
                                     placeholder="First Name"
+                                    maxLength="18"
                                 />
                                 <label htmlFor="firstName"></label>
                                 <span className="red-text">{error.firstName}</span>
@@ -79,6 +79,7 @@ class RegisterWebManager extends Component {
                                     id="lastName"
                                     type="text"
                                     placeholder="Last Name"
+                                    maxLength="18"
                                 />
                                 <label htmlFor="lastName"></label>
                                 <span className="red-text">{error.lastName}</span>
@@ -91,7 +92,7 @@ class RegisterWebManager extends Component {
                                     id="email"
                                     type="email"
                                     placeholder="Email"
-
+                                    maxLength="18"
                                 />
                                 <span className="red-text">{error.email}</span>
                             </div>
@@ -146,16 +147,3 @@ class RegisterWebManager extends Component {
         );
     }
 }
-RegisterWebManager.propTypes = {
-    register: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    error: PropTypes.object.isRequired
-};
-const mapStateToProps = state => ({
-    auth: state.auth,
-    error: state.error
-});
-export default connect(
-    mapStateToProps,
-    { register }
-)(withRouter(RegisterWebManager));

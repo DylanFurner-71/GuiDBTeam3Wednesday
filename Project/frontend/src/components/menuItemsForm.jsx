@@ -1,72 +1,71 @@
 import React from 'react';
-import { MenuItem } from '../models/MenuItem';
+
 export class MenuItemsForm extends React.Component {
   constructor() {
     super();
     this.state = {
-        restaurantName: '',
-        restaurantAddress: '',
-        price: 0.0,
-        description: '',
-        itemName: '',
-        restaurantID: 1,
-        menuID: 1
+        itemName: "",
+        itemPrice: "",
+        employee: {},
 
     };
-
   }
-    onAddClick() {
-        const t = new MenuItem(this.state.itemName, this.state.description, this.state.price, this.props.restaurantID, this.props.menuID);
-        this.props.onItemAdded(t);
 
-        this.setState({
-            restaurantName: '',
-           restaurantAddress: '',
-           restaurantName: '',
-           restaurantAddress: '',
-           price: 0.0,
-           description: '',
-           itemName: '',
-           restaurantID: 1,
-           menuID: 1
-        });
+  onSubmit() {
+    const t = {
+      item_details: this.state.itemName, 
+      item_price: Number(this.state.itemPrice),
+      menu_id: this.state.employee.org_id, 
+    };
+
+    this.props.onItemAdded(t);
+    this.setState({
+      itemName: "",
+      itemPrice: ""
+    });
+  }
+
+  componentWillMount() {
+    const employee = JSON.parse(localStorage.getItem('user'));
+    if (localStorage === null) {
+      this.setState({
+        employee: {}
+      });
+      
     }
-
-    render() {
-            return <>
-            <form className="container">
-            <h3 className="action">Add Menu Item</h3>
-            <div className="form-group">
-                <label htmlFor="name">Item Name</label>
-                <input type="text"
-                    id="name"
-                    name="name"
-                    className="form-control"
-                    value={this.state.itemName}
-                    onChange={ event => this.setState({ itemName: event.target.value }) } 
-                    />
-            </div>
-            <div className="form-group">
-                <label htmlFor="description">Item Description</label>
-                <input type="text"
-                    id="description"
-                    name="description"
-                    className="form-control"
-                    value={this.state.description}
-                    onChange={ event => this.setState({ description: event.target.value }) } />
-            </div>
-            <div className="form-group">
-                <label htmlFor="ItemPrice">Price</label>
-                <input type="number"
-                    id="ItemPrice"
-                    name="ItemPrice"
-                    className="form-control"
-                    value={this.state.price}
-                    onChange={ event => this.setState({ price: event.target.value }) } />
-            </div>
-            <input className="bg-primary" type="button" value="Submit"
-            onClick={ () => this.onAddClick()}                                    />
+    else {
+      this.setState({
+        employee: employee[0]
+      });
+    }
+  }
+  
+  render() {
+    return <>
+      <form className="container">
+        <h3 className="action mt-3">Add Menu Item</h3>
+        <div className="form-group">
+            <label htmlFor="name">Item Name</label>
+            <input type="text"
+                id="name"
+                name="name"
+                className="form-control text-white"
+                value={this.state.itemName}
+                onChange={ event => this.setState({ itemName: event.target.value }) } 
+            />
+        </div>
+        <div className="form-group">
+            <label htmlFor="ItemPrice">Item Price</label>
+            <input type="number"
+                id="ItemPrice"
+                name="ItemPrice"
+                className="form-control text-white"
+                value={this.state.itemPrice}
+                onChange={ event => this.setState({ itemPrice: event.target.value }) } />
+        </div>
+        <input className="bg-green rounded-lg mb-3" type="button" value="Submit"
+        onClick={() => this.onSubmit()}/>
       </form>
-   </>
-    }
+    </>
+  }
 }

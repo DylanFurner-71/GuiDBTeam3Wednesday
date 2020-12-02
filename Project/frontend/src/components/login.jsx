@@ -1,13 +1,12 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {loginUser} from "../repository/accountRepository";
 import "react-bootstrap";
-
-class Login extends Component {
+import {AccountRepository} from "../repository/accountRepository";
+export default class Login extends Component {
+    accountsRepository = new AccountRepository();
     constructor() {
         super();
+        
         this.state = {
             email: "",
             password: "",
@@ -16,21 +15,11 @@ class Login extends Component {
     }
 //i think we will get a prop from the api response that allows us to determine account type
     componentDidMount() {
-        // If logged in and user navigates to Login page, should redirect them to dashboard
-        if (this.props.auth.isAuthenticated) {
-            this.props.history.push("/home");
-        }
+    
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.auth.isAuthenticated) {
-            this.props.history.push("/home"); // push user to dashboard when they login
-        }
-        if (nextProps.error) {
-            this.setState({
-                error: nextProps.error
-            });
-        }
+      console.log("Next props", nextProps);
     }
 
     onChange = e => {
@@ -38,11 +27,16 @@ class Login extends Component {
     };
     onSubmit = e => {
         e.preventDefault();
-        const userData = {
-            email: this.state.email,
-            password: this.state.password,
-        };
-        this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+            const userData ={
+                email: this.state.email,
+                password: this.state.password
+            };
+        //maybe pass the url parameters here to let the repository know which to call
+        this.accountsRepository.login(userData, this.props.history)
+        .then( 
+            res => {if (res) {
+                this.props.history.push(`${res.user[0].account_type}/home`)} 
+             } ) // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
     };
     render() {
         const error = this.state.error;
@@ -60,9 +54,9 @@ class Login extends Component {
                                     onChange={this.onChange}
                                     value={this.state.email}
                                     id="email"
-                                    type="email"
+                                    type="text"
                                 />
-                                <label htmlFor="email">Email</label>
+                                <label htmlFor="email" className="mt-5">Email</label>
                                 <span className="red-text">
                                     {error.email}
                                     {error.emailnotfound}
@@ -75,7 +69,7 @@ class Login extends Component {
                                     id="password"
                                     type="password"
                                 />
-                                <label htmlFor="password">Password</label>
+                                <label htmlFor="password" className="mt-5">Password</label>
                                 <span className="red-text">
                                     {error.password}
                                     {error.passwordincorrect}
@@ -95,16 +89,3 @@ class Login extends Component {
         );
     }
 }
-
-Login.propTypes = {
-    loginUser: PropTypes.func.isRequired,
-};
-const mapStateToProps = state => ({
-    auth: state.auth,
-    error: state.error,
-
-});
-export default connect(
-    mapStateToProps,
-    {loginUser}
-)(Login);

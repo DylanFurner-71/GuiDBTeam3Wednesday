@@ -1,19 +1,18 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { register } from "../repository/accountRepository";
-
-class RegisterUser extends Component {
+import { Link } from "react-router-dom";
+import { AccountRepository } from "../repository/accountRepository";
+export default class RegisterUser extends Component {
     constructor() {
         super();
+        this.accountRepository = new AccountRepository();
         this.state = {
             firstName: "",
             lastName: "",
             email: "",
             password: "",
             password2: "",
-            address: "",
+            account_type: "0",
+            org: "0",
             error: ""
         };
     }
@@ -37,10 +36,18 @@ class RegisterUser extends Component {
             lastName: this.state.lastName,
             email: this.state.email,
             password: this.state.password,
-            accountType: "user"
+            org: this.state.org
         };
-        register(newUser, this.props.history);
+        this.accountRepository.register(newUser, this.state.account_type).then(res => {
+            this.setState({firstName: '', email: '', password: ''})
+            if (res) {
+                this.props.history.push("/login")
+            }
+        });
     };
+    handleChangeCategory = (e) => {
+        this.setState({org: e.target.value});
+        }
     render() {
         const { error } = this.state;
         return (
@@ -65,6 +72,7 @@ class RegisterUser extends Component {
                                     id="firstName"
                                     type="text"
                                     placeholder="First Name"
+                                    maxLength="18"
                                 />
                                 <label htmlFor="firstName"></label>
                                 <span className="red-text">{error.firstName}</span>
@@ -77,6 +85,7 @@ class RegisterUser extends Component {
                                     id="lastName"
                                     type="text"
                                     placeholder="Last Name"
+                                    maxLength="18"
                                 />
                                 <label htmlFor="lastName"></label>
                                 <span className="red-text">{error.lastName}</span>
@@ -89,7 +98,7 @@ class RegisterUser extends Component {
                                     id="email"
                                     type="email"
                                     placeholder="Email"
-
+                                    maxLength="18"
                                 />
                                 <span className="red-text">{error.email}</span>
                             </div>
@@ -134,17 +143,3 @@ class RegisterUser extends Component {
         );
     }
 }
-
-RegisterUser.propTypes = {
-    register: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    error: PropTypes.object.isRequired
-};
-const mapStateToProps = state => ({
-    auth: state.auth,
-    error: state.error
-});
-export default connect(
-    mapStateToProps,
-    { register }
-)(withRouter(RegisterUser));

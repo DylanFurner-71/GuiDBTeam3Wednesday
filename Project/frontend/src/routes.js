@@ -8,6 +8,7 @@ import WebManagerLanding from "./components/webManagerLanding";
 import CustomerLanding from "./components/customerLanding";
 import CustomerProfile from "./components/CustomerProfile";
 import CustomerOrderHistory from './components/CustomerOrderHistory';
+import RestaurantOrderHistory from './components/RestaurantOrderHistory';
 import RestaurantView from "./components/RestaurantView";
 import RestaurantEmployeeLanding from "./components/RestaurantEmployeeLanding";
 import OrderConfirmed from './components/OrderConfirmed';
@@ -15,15 +16,21 @@ import ViewCart from './components/ViewCart';
 import Checkout from './components/Checkout';
 import DriverDashboard from './components/DriverDashboard';
 import DriverCurrentOrder from './components/DriverCurrentOrder';
-import DriverProfile from './components/DriverProfile';
 import WebManagerRestaurants from "./components/WebManagerRestaurants";
 import WebManagerUsers from "./components/WebManagerUsers";
+import MenuView from './components/MenuView.jsx';
+import EmployeeOrders from "./components/EmployeeOrders";
 import WebManagerReviewList from './components/WebManagerReviewList.jsx';
 import CustomerReviewList from './components/CustomerReviewList.jsx';
 
 export const ROUTES = [
+    // Employee 
+    { path: `/employee/orders/:restaurantId`, component: EmployeeOrders},
+    { path: `/employee/menu/:restaurantId/`, component: MenuView},
+    
     // Misc.
     { path: `/menu/:restaurantId`, component: RestaurantView },
+    { path: `/restaurant/:restaurantId/past-orders`, component: RestaurantOrderHistory },
 
     // Web Manager
     { path: `/web-manager/restaurants`, component: WebManagerRestaurants },
@@ -31,13 +38,12 @@ export const ROUTES = [
     { path: `/web-manager/users`, component: WebManagerUsers },
 
     // Driver
-    { path: `/driver/order`, component: DriverCurrentOrder },
-    { path: '/driver/profile', component: DriverProfile },
+    { path: `/driver/order/:orderId`, component: DriverCurrentOrder },
 
     // Order
     { path: `/order/cart`, component: ViewCart },
     { path: `/order/checkout`, component: Checkout },
-    { path: `/order/confirmed/:restaurantId`, component: OrderConfirmed },
+    { path: `/order/confirmed/:restaurantId/:orderId`, component: OrderConfirmed },
 
     // Customer Page Routes
     { path: '/customer/profile', component: CustomerProfile },

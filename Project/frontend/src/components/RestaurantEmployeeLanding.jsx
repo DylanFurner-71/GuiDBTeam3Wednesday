@@ -1,59 +1,66 @@
 import React, {Component} from "react";
-import { Restaurant } from "../models/Restaurant";
-import { MenuItemsForm } from "./menuItemsForm";
-import MenuView from "./MenuView";
+import { AccountRepository } from "../repository/accountRepository";
+import { RestaurantRepository } from "../repository/restaurantRepository";
+import EmployeeNav from "./EmployeeNav";
+import { Link } from 'react-router-dom';
 
 class RestaurantEmployeeLanding extends Component {
-// Placeholder data
-    restaurant = [new Restaurant("McDonalds", "5647 Ellsworth Ave, Dallas, TX 75205"), 
-    new Restaurant("Raising Cane's", "2916 Dyer Street, University Park, TX, 75206"),
-    new Restaurant("Barley House", "5612 SMU Boulevard, Dallas, TX, 75206")];
+  localStorage = {};
+  accountRepository = new AccountRepository();
+  restaurantRepository = new RestaurantRepository();
+  constructor() { 
+    super();
+    this.state = {
+        employee: [],
+    };
+  }
 
-constructor(userFirstName, userLastName) { //sets the users full name and restaurants array
-super();
-// Placeholder data
-this.state = {
-    userFirstName: "Dylan",
-    userLastName: "Furner",
-    RestaurantName: "Sushi King",
-    RestaurantAddress: "9 S Newhaven Ct, Rogers, AR 72758",
-    RestaurantID: 1,
-    MenuID: 1,
-    menu: [],
-};
-}
+  render() {
+    return <>
+        <EmployeeNav restId={this.state.employee.org_id} id={this.state.employee.account_id}/>
+        <div className="container">       
+          <h3 className="welcome">Welcome, please select an option.</h3>
+          <div className="row">
+              <div className="col-2"></div>
+              <div className="col-8">
+                  <Link className="btn-block bg-green text-black h2 rounded-lg p-3 text-decoration-none" to={"orders/" + this.state.employee.org_id}>Current Orders</Link>
+              </div>
+              <div className="col-2"></div>
+          </div>
+          <div className="row">
+              <div className="col-2"></div>
+              <div className="col-8">
+                  <Link className="btn-block bg-green text-black h2 rounded-lg p-3 text-decoration-none" to={"restaurant/" + this.state.employee.org_id + "/past-orders"}>Past Orders</Link>
+              </div>
+              <div className="col-2"></div>
+          </div>
+          <div className="row">
+              <div className="col-2"></div>
+              <div className="col-8">
+                  <Link className="btn-block bg-green text-black h2 rounded-lg p-3 text-decoration-none" to={"menu/" + this.state.employee.org_id}>My Menu</Link>
+              </div>
+              <div className="col-2"></div>
+          </div>
+        </div>
+    </>;
+  }
 
-deleteItems(element){
-this.state.restaurants.splice(element, 1);
-this.setState({restaurants: this.state.restaurants});
-}
+  componentWillMount() {
+    const employee = JSON.parse(localStorage.getItem('user'));
+    if (localStorage === null) {
+      this.setState({
+        employee: {}
+      });
+      
+    }
+    else {
+      this.setState({
+        employee: employee[0]
+      });
+    }
+  }
 
-addItem(element) {
-console.log(this.state.menu);
-console.log("ELEMENT", element);
-this.state.menu.push(element);
-console.log(this.state.menu);
-this.setState({restaurants: this.state.menu });
-}
-
-render() {
-return(
-<div id = "restaurants_list">
-<h1 className="welcome">Welcome, {this.state.userFirstName} {this.state.userLastName}</h1>
-Someday you will see current orders displayed nicely below with a small navigation component to find the menu and edit it
-<MenuItemsForm onItemAdded={element => this.addItem(element) }restaurantID= {this.state.restaurantID} menuID = {this.state.menuID} />
-<MenuView menu={this.state.menu}/>
-</div>
-) 
-}
+  componentDidMount() {
+  }
 }
 export default RestaurantEmployeeLanding;
-
-
-
-/*
-Restaurant		First Name
-restaurant address		Last Name
-		Email
-		Password
-*/
