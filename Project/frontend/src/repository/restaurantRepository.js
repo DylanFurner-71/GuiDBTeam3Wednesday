@@ -115,4 +115,12 @@ export class RestaurantRepository {
                 .catch(err => console.log(err.response));
         })
     }
+
+    getOrderHistory(id) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/restaurant/${id}/history`)
+                .then(resp => resolve(resp.data))
+                .catch(err => console.log(err.response));
+        })
+    }
 }

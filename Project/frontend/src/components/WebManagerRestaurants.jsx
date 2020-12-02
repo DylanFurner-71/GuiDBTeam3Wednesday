@@ -34,7 +34,7 @@ class WebManagerRestaurants extends Component{
         return <>
             <WebManagerNav/>
             <div className="container">
-                {/* <RestaurantsForm onRestaurantAdded={element => this.onAddRestaurant(element)} /> */}
+                <RestaurantsForm onRestaurantAdded={element => this.onAddRestaurant(element)} />
                 <RestaurantsTable onDelete={(element, index) => this.deleteRestaurant(element, index)} restaurants={this.state.restaurants}/>
             </div>
                
