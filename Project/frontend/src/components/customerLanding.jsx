@@ -6,6 +6,7 @@ import { RestaurantRepository } from '../repository/restaurantRepository';
 
 class CustomerLanding extends Component {
     RestaurantRepository = new RestaurantRepository();
+    localStorage = {};
 
     state = {
         // TODO, remove placeholder, get account elsewhere
@@ -41,6 +42,21 @@ class CustomerLanding extends Component {
         ) 
     }
 
+    componentWillMount() {
+        const employee = JSON.parse(localStorage.getItem('user'));
+        if (localStorage === null) {
+          this.setState({
+            employee: {}
+          });
+          
+        }
+        else {
+            console.log(employee);
+          this.setState({
+            employee: employee[0]
+          });
+        }
+      }
     componentDidMount() {
         this.RestaurantRepository.getRestaurants().then(_restaurants => this.setState({restaurants: _restaurants}));
     }

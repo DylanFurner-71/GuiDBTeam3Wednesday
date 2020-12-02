@@ -31,7 +31,7 @@ render() {
     return(
         <>
         <div className="text-white">       
-        <EmployeeNav restId={this.state.employee.restaurantId} id={this.state.employee.id}/>
+        <EmployeeNav restId={this.state.employee.org_id} id={this.state.employee.account_id}/>
 <h2> Hello {this.state.employee.first_name} </h2>
     <p> Welcome, to get started, please make sure your restaurant has a menu. Click the orders tab to view pending and past orders at your restaurant. {`${this.state.employee.firstName}`}</p>      
     </div>

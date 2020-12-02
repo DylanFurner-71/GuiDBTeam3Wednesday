@@ -26,7 +26,23 @@ class EmployeeOrders extends React.Component {
     state = {
         Orders: this.orders,
         pastOrders: this.orders, //subject to change once we have a backend connection
+        employee: {},
     }
+    componentWillMount() {
+        const employee = JSON.parse(localStorage.getItem('user'));
+        if (localStorage === null) {
+          this.setState({
+            employee: {}
+          });
+          
+        }
+        else {
+            console.log(employee);
+          this.setState({
+            employee: employee[0]
+          });
+        }
+      }
 
     onSetOrder(order) {
         this.DriverOrderService.setOrder(order);
@@ -38,7 +54,7 @@ class EmployeeOrders extends React.Component {
 
     render() {
         return <>
-        <EmployeeNav restId={this.state.employee.restaurantId} id={this.state.employee.id}/>
+        <EmployeeNav restId={this.state.employee.org_id} id={this.state.employee.account_id}/>
             <div className="container">
             <OrderList Orders={this.state.Orders} ordersType={"Pending"}/>
             <OrderList Orders={this.state.pastOrders} ordersType={"Past"}/>

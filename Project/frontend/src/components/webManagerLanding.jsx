@@ -3,12 +3,32 @@ import { Link } from 'react-router-dom';
 import WebManagerNav from "./WebManagerNav";
 
 class WebManagerLanding extends Component{
+    localStorage = {};
 
     state = {
         // Placeholder data
         firstName: "First",
         lastName: "Last"
     };
+
+    componentWillMount() {
+        const employee = JSON.parse(localStorage.getItem('user'));
+        if (localStorage === null) {
+          this.setState({
+            employee: {}
+          });
+          
+        }
+        else {
+            console.log(employee);
+          this.setState({
+            employee: employee[0]
+          });
+        }
+      }
+
+componentDidMount() {
+}
 
     render() {
         return <>
