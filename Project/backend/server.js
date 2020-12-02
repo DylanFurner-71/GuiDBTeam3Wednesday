@@ -164,38 +164,7 @@ app.post('/login', function (req, res) {
   }
 });
 
-//PUT: Change Account Password
-app.put('/changepassword', function (req, res) {
-  //TODO - DB query
-  console.log('password changed')
-  res.send({ 'request': 'valid' });
-});
-
-//PUT: Change Account Address
-app.put('/changeaddress', function (req, res) {
-  //TODO - DB query
-  console.log('address changed')
-  res.send({ 'request': 'valid' });
-});
-
-//PUT: Change Account Contact
-app.put('/changecontact', function (req, res) {
-  //TODO - DB query
-  console.log('contact changed')
-  res.send({ 'request': 'valid' });
-});
-
-
-
-
 //SPRINT 2 REQUESTS
-
-//*EPIC 5*
-//GET: Get Restaurant Menu
-app.get('/:restaurant/menu', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-});
 
 //POST: Add Menu Item
 app.put('/:restaurant/menu/additem', function (req, res) {
@@ -307,6 +276,24 @@ app.get('/api/v1/restaurant/:rest/contact', function (req, res) {
     });
 });
 
+//GET: Get order's address
+app.get('/api/v1/order/:id/address', function (req, res) {
+  var AddressID = req.params.id;
+  connection.query("SELECT address_body, city, state, zip FROM Addresses WHERE address_id = ?", [AddressID], function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
+//GET: Get account's contact
+app.get('/api/v1/account/:acc/contact', function (req, res) {
+  var AccountID = req.params.acc;
+  connection.query("SELECT * FROM Contact WHERE account_id = ?", [AccountID], function (err, result, fields) {
+        if (err) throw err;
+        res.end(JSON.stringify(result)); // Result in JSON format
+    });
+});
+
 //GET: Get all accounts
 app.get('/api/v1/accounts', function (req, res) {
   connection.query("SELECT * FROM Accounts", function (err, result, fields) {
@@ -324,50 +311,71 @@ app.get('/api/v1/accounts/:id', function (req, res) {
     });
 });
 
-//POST: Create order
+//POST: Add/create order
 app.post('/api/v1/orders', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  var OderID = req.body.OderID
-  var CustomerID = req.body.CustomerID
-  var ToOderDetails = req.body.ToOderDetails
-  var OrderStatus = req.body.OrderStatus
+  var RestaurantID = req.body.restaurant_id;
+  var AccountID = req.body.account_id;
+  var AddressID = req.body.address_id;
+  var Status = req.body.status;
+  var TotalPrice = req.body.total_price;
+  var Items = req.body.items || [];
+  var OrderID = 0;
   
-  connection.query("INSERT INTO restaurant (OderID, CustomerID, ToOderDetails, OrderStatus) VALUES (?, ?, ?, ?)",
-  [OderID, CustomerID, ToOderDetails, OrderStatus], function (err, result, fields) {
+  connection.query("INSERT INTO Orders (restaurant_id, account_id, address_id, status, total_price) VALUES (?, ?, ?, ?, ?)",
+  [RestaurantID, AccountID, AddressID, Status, TotalPrice], function (err, result, fields) {
+  if (err) throw err;
+  res.end(JSON.stringify(result));
+  OrderID = result.insertId;
+  });
+
+  for (var i = 0; i < Items.length; i++) {
+    console.log(Item[i]);
+    connection.query("INSERT INTO OrderItems (order_id, name, price, quantity) VALUES (?, ?, ?, ?)",
+      [OrderID, Item[i].menuItem.name, Item[i].menuItem.price, Item[i].quantity], function (err, result, fields) {
+      if (err) throw err;
+      res.end(JSON.stringify(result));
+  });
+  }
+});
+
+//POST: Add/create address
+app.post('/api/v1/address', function (req, res) {
+  var AddressBody = req.body.address_body;
+  var City = req.body.city;
+  var State = req.body.state;
+  var Zip = req.body.zip;
+  
+  connection.query("INSERT INTO Addresses (address_body, city, state, zip, country, address_type) VALUES (?, ?, ?, ?, ?, ?)",
+  [AddressBody, City, State, Zip, "US", "order"], function (err, result, fields) {
   if (err) throw err;
   res.end(JSON.stringify(result));
   });
 });
 
-//Spring05
-//GET: Get outstanding orders
-app.get('/api/v1/orders/:restaurant/queue', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  connection.query("SELECT * FROM order", function (err, result, fields) {
+//GET: Get orders by status
+app.get('/api/v1/orders/:status', function (req, res) {
+  var Status = req.params.status;
+  connection.query("SELECT * FROM Orders WHERE status = ?", [Status], function (err, result, fields) {
         if (err) throw err;
         res.end(JSON.stringify(result)); // Result in JSON format
     });
 });
 
-//PUT: Update order status to 'being prepared'
-app.put('/api/v1/orders/:order/status', async (req, res) => {
-    var OrderStatusNew = req.body.OrderStatusNew
-    var OrderStatusOld = req.body.OrderStatusOld
-
-     connection.query("UPDATE order SET OrderStatus = ? WHERE OrderStatus = ?", [OrderStatusNew,OrderStatusOld],function (err, result, fields) {
+//GET: Get orders by id
+app.get('/api/v1/order/:id', function (req, res) {
+  var OrderID = req.params.id;
+  connection.query("SELECT * FROM Orders WHERE order_id = ?", [OrderID], function (err, result, fields) {
         if (err) throw err;
         res.end(JSON.stringify(result)); // Result in JSON format
-     });
+    });
 });
 
-//PUT: Update order status to 'finding driver'
-app.put('/api/v1/orders/:order/status', async (req, res) => {
-    var OrderStatusNew = req.body.OrderStatusNew
-    var OrderStatusOld = req.body.OrderStatusOld
+//PUT: Update/change order status
+app.put('/api/v1/orders/:id/:status', async (req, res) => {
+    var OrderID = req.params.id
+    var Status = req.params.status
 
-     connection.query("UPDATE order SET OrderStatus = ? WHERE OrderStatus = ?", [OrderStatusNew,OrderStatusOld],function (err, result, fields) {
+     connection.query("UPDATE Orders SET status = ? WHERE order_id = ?", [Status, OrderID],function (err, result, fields) {
         if (err) throw err;
         res.end(JSON.stringify(result)); // Result in JSON format
      });
@@ -389,15 +397,6 @@ app.put('/api/v1/orders/:order/status', async (req, res) => {
 //   });
 // });
 
-//GET: Get order details
-app.get('/api/v1/orders/:order/details', function (req, res) {
-  //TODO - DB query
-  //TODO - RES
-  connection.query("SELECT * FROM OrderDetails", function (err, result, fields) {
-        if (err) throw err;
-        res.end(JSON.stringify(result)); // Result in JSON format
-    });
-});
 
 //GET: Get restaurant order history
 app.get('/api/v1/orders/history', function (req, res) {
@@ -441,30 +440,56 @@ app.get('/api/v1/restaurants/:id/menu', function(req, res) {
   });
 });
 
-//creat restaurant menu
-app.post('/api/v1/restaurants/:id/menu', (req, res) => {
-  var RestaurantID = req.params.id
-  var MenuName = req.body.menu_name
-   
-  connection.query('INSERT INTO Menus (restaurant_id,menu_name) VALUES (?,?)', [RestaurantID,MenuName], (err, result, fields) => {
+// add menu item
+app.post('/api/v1/menu/item', function(req, res) {
+  var ItemDetails = req.body.item_details;
+  var ItemPrice = req.body.item_price;
+  connection.query("INSERT INTO Items (item_details, item_price) VALUES (?, ?)", [ItemDetails, ItemPrice], function (err, result, fields) {
     if (err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   });
 });
 
-//delete restaurant meun
+// update menu item
+app.put('/api/v1/menu/item/:id', function(req, res) {
+  var ItemID = req.params.id
+  var ItemDetails = req.body.item_details;
+  var ItemPrice = req.body.item_price;
+  connection.query("UPDATE Items SET item_details = ?, item_price = ? WHERE item_id = ?", [ItemDetails, ItemPrice, ItemID], function (err, result, fields) {
+    if (err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  });
+});
+
+// delete menu item
+app.delete('/api/v1/menu/item/:id', function(req, res) {
+  var ItemID = req.params.id;
+
+  connection.query("DELETE FROM Items WHERE item_id = ?", [ItemID], function (err, result, fields) {
+    if (err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  });
+});
+
+//create restaurant menu
+app.post('/api/v1/restaurants/menu', (req, res) => {
+  var RestaurantID = req.body.restaurantId;
+   
+  connection.query('INSERT INTO Menus (restaurant_id) VALUES (?)', [RestaurantID], (err, result, fields) => {
+    if (err) logger.error(err.stack);
+    res.end(JSON.stringify(result));
+  });
+});
+
+//delete restaurant menu
 app.delete('/api/v1/restaurants/:id/menu', (req, res) => {
   var RestaurantID = req.params.id;
-  var MenuID = req.body.menu_id;
-  connection.query("DELETE FROM Menus WHERE restaurant_id = ? and menu_id = ?", [RestaurantID,MenuID], (err, result, fields) => {
+
+  connection.query("DELETE FROM Menus WHERE restaurant_id = ?", [RestaurantID], (err, result, fields) => {
     if (err) logger.error(err.stack);
     res.end(JSON.stringify(result));
   });
 });
-
-
-
-  
 
 //update password
 app.put('/api/v1/accounts/:id/password', async(req,res) => {
@@ -475,7 +500,6 @@ app.put('/api/v1/accounts/:id/password', async(req,res) => {
     res.end(JSON.stringify(result));
   });
 });
-
 
 //update payment method
 app.put('/api/v1/accounts/:id/payment', async(req,res) => {
@@ -574,7 +598,7 @@ app.put('/api/v1/restaurants/:rest/menu/item', async(req,res) => {
   });
 });
 
-//creat review
+//create/add review
 app.post('/api/v1/restaurants/:rest/reviews', (req, res) => {
   var RestaurantId = req.params.rest
   var AccountId = req.body.account_id
@@ -598,6 +622,5 @@ app.get('/api/v1/restaurants/:rest/reviews', function(req, res) {
   });
 }); 
 
-//order status
- 
 //order queue
+

@@ -53,6 +53,8 @@ export class AccountRepository {
       
         logout() {
           localStorage.removeItem("user");
+          localStorage.removeItem("jwtToken");
+          console.log(localStorage);
         }
     getAccount(id) {
         return new Promise((resolve, reject) => {
@@ -86,15 +88,20 @@ export class AccountRepository {
             });
         });
     }
-    
-    deleteAccount(id) {
+
+    getAccountContact(id) {
         return new Promise((resolve, reject) => {
-            axios.delete(`${this.url}/${id}`, this.config)
-            .then(() => resolve())
-            .catch(e => {
-                alert(e);
-                reject();
-            });
-        });
+            axios.get(`${this.url}/account/${id}/contact`)
+                .then(resp => resolve(resp.data))
+                .catch(err => console.log(err.response));
+        })
+    }
+
+    addOrderAddress(address) {
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}/address`, address)
+                .then(resp => resolve(resp.data))
+                .catch(err => console.log(err.response));
+        })
     }
 }

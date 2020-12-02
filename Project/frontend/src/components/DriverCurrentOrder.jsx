@@ -11,42 +11,41 @@ class DriverCurrentOrder extends React.Component {
     DriverOrderService = new DriverOrderService();
 
     state = {
-        order: this.DriverOrderService.getOrder(),
+        orderId: this.DriverOrderService.getOrderId(),
+        order: this.OrderRepository.getOrder(this.DriverOrderService.getOrderId()),
+        status: "Started",
         restaurantContact: [{phone: ""}],
         restaurantAddress: [{address_body: "", city: "", state: "", zip: ""}],
         restaurant: [{restaurant_name: ""}]
     }
     
     onPickedUp() {
-        this.DriverOrderService.setStatus("Picked Up");
-        this.setState(this.DriverOrderService.getOrder());
-        // Send status to backend
+        this.OrderRepository.updateOrderStatus(1, "Picked Up");
+        this.setState({status: "Picked Up"});
     }
 
     onDelivered() {
-        this.DriverOrderService.setStatus("Delivered");
-        this.setState(this.DriverOrderService.getOrder());
-        // Send status to backend before changing state again
-        this.setState(this.DriverOrderService.clearOrder());
+        this.OrderRepository.updateOrderStatus(1, "Delivered");
+        this.setState({orderId: this.DriverOrderService.clearOrder()});
+        this.setState({status: "Delivered"});
     }
 
     onCanceled() {
-        this.DriverOrderService.setStatus("Pending");
-        this.setState(this.DriverOrderService.getOrder());
-        // Send status to backend
-        this.setState(this.DriverOrderService.clearOrder());
+        this.OrderRepository.updateOrderStatus(1, "Pending");
+        this.setState({orderId: this.DriverOrderService.clearOrder()});
+        this.setState({status: "Pending"});
     }
 
     render() {
         return <>
             <DriverNav />
-            {(this.state.order.orderId === -1 &&
+            {(this.state.orderId === -1 &&
                 <div className="container">
                     <h1 className="welcome">No current orders.</h1>
                     <Link className="btn bg-green pt-2" to="/driver/home">Return home</Link>
                 </div>
             )}
-            {(this.state.order.orderId !== -1 &&
+            {(this.state.orderId !== -1 &&
                 <div className="container">
                     <h1 className="welcome">Current Order</h1>
                     <div className="row">
@@ -105,8 +104,7 @@ class DriverCurrentOrder extends React.Component {
     }
 
     componentDidMount() {
-        const restaurantId = 1;
-        // const restaurantId = +this.state.order.restaurantId;
+        const restaurantId = +this.state.order.restaurantId;
         if (restaurantId >= 0) {
             this.RestaurantRepository.getRestaurantContact(restaurantId).then(_restaurantContact => this.setState({restaurantContact: _restaurantContact}));
             this.RestaurantRepository.getRestaurantAddress(restaurantId).then(_restaurantAddress => this.setState({restaurantAddress: _restaurantAddress}));

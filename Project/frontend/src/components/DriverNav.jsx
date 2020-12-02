@@ -15,6 +15,7 @@ class DriverNav extends Component {
                         <Nav.Link as={Link} to="/driver/order" className="inactive">Current Order</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
+                <Navbar.Brand className="float-right"as={Link} to="/driver/home">Logout</Navbar.Brand>
             </Navbar>
         )}
 }

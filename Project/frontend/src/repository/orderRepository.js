@@ -13,23 +13,15 @@ export class OrderRepository {
     
     getOrder(id) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/orders/${id}/details`)
+            axios.get(`${this.url}/order/${id}`)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })
     }
 
-    getOrderStatus(id) {
+    getOrdersByStatus(status) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/orders/${id}/status`)
-                .then(resp => resolve(resp.data))
-                .catch(err => console.log(err.response));
-        })
-    }
-
-    getOrdersForQueue() {
-        return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/orders/queue`)
+            axios.get(`${this.url}/orders/${status}`)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })
@@ -37,7 +29,7 @@ export class OrderRepository {
 
     updateOrderStatus(id, status) {
         return new Promise((resolve, reject) => {
-            axios.update(`${this.url}/orders/${id}/status`, status)
+            axios.update(`${this.url}/orders/${id}/${status}`, status)
                 .then(resp => resolve(resp.data))
                 .catch(err => console.log(err.response));
         })
@@ -59,4 +51,11 @@ export class OrderRepository {
         })
     }
 
+    getOrderAddress(id) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/order/${id}/address`)
+                .then(resp => resolve(resp.data))
+                .catch(err => console.log(err.response));
+        })
+    }
 }
