@@ -18,7 +18,7 @@ const config = {
 const logger = log({ console: true, file: false, label: config.name });
 app.use(bodyParser.json());
 app.use(cors());
-app.options('*', cores())
+app.options('*', cors())
 app.use(ExpressAPILogMiddleware(logger, { request: true }));
 
 // cors
