@@ -25,6 +25,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(bodyParser.json());
 app.use(cors()); // <---- use cors middleware
 app.use(ExpressAPILogMiddleware(logger, { request: true }));
 
